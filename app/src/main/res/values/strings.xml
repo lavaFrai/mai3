@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MAI 3.0</string>
+    <string name="schedule_file">schedule.json</string>
+    <string name="settings_file">settings.json</string>
+</resources>
