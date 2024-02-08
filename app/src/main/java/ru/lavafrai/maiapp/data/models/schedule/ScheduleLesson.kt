@@ -9,4 +9,17 @@ data class ScheduleLesson(
     val type: ScheduleLessonType,
     val teacher: String,
     val location: String,
-)
+
+) {
+    fun getPairNumber(): Int {
+        return when (timeRange) {
+            "09:00 – 10:30" -> 1
+            "10:45 – 12:15" -> 2
+            "13:00 – 14:30" -> 3
+            "14:45 – 16:15" -> 4
+            "16:30 – 18:00" -> 5
+            "18:15 – 19:45" -> 6
+            else -> 0
+        }
+    }
+}

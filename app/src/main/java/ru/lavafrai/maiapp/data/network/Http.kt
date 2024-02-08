@@ -6,18 +6,15 @@ import java.io.InputStream
 import java.io.StringWriter
 import java.net.HttpURLConnection
 import java.net.URL
-import java.util.Scanner
-
-
-
 
 
 /**
  * Trying to download url
  * @return downloaded content or null if error occurred
  */
-fun httpGet(url: URL) : String? {
+fun httpGet(url: URL, attemptsLeft: Int = 5) : String? {
     val urlConnection = url.openConnection() as HttpURLConnection
+    if (attemptsLeft <= 0) return null;
 
     return try {
         val inputStream: InputStream = BufferedInputStream(urlConnection.inputStream)
@@ -27,8 +24,7 @@ fun httpGet(url: URL) : String? {
 
         outputStringWriter.toString()
     } catch (e: Exception) {
-
-        null
+        httpGet(url, attemptsLeft - 1)
     } finally {
         urlConnection.disconnect()
     }

@@ -39,6 +39,7 @@ import ru.lavafrai.maiapp.data.getSampleLessonSchedule
 import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
+import ru.lavafrai.maiapp.data.models.schedule.localized
 import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.localized
@@ -49,6 +50,7 @@ import ru.lavafrai.maiapp.utils.localized
 fun SchedulePageView(schedule: Schedule) {
     val (currentSubSchedule, setCurrentSubSchedule) = remember { mutableStateOf(schedule.subSchedules.firstOrNull()) }
     if (currentSubSchedule == null) {
+        Text(text = "EMPTY WEEK")
         return
     }
 
@@ -139,7 +141,7 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule()) {
         .padding(8.dp)
     ) {
         Row (Modifier.clickable {  }) {
-            PairName(modifier = Modifier.padding(8.dp))
+            PairName(modifier = Modifier.padding(8.dp), text = lesson.getPairNumber().toString())
             Column(
                 modifier = Modifier
                     .padding(8.dp)
@@ -164,6 +166,7 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule()) {
                 Row {
                     Text(text = lesson.teacher, style = MaterialTheme.typography.bodySmall)
                 }
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -172,9 +175,10 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule()) {
                     Text(
                         text = lesson.location,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.weight(1f)
                     )
-                    SuggestionChip(onClick = {}, label = { Text(text = lesson.type.toString()) })
+                    SuggestionChip(onClick = {}, label = { Text(text = lesson.type.localized().uppercase()) })
                 }
             }
         }

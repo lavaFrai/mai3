@@ -22,8 +22,8 @@
     <string name="saturday">saturday</string>
     <string name="sunday">sunday</string>
 
-    <string name="lecture">lect.</string>
-    <string name="laboratory">lab.</string>
-    <string name="seminar">sem.</string>
+    <string name="lecture">lecture</string>
+    <string name="laboratory">laboratory</string>
+    <string name="seminar">seminar</string>
     <string name="select_week">Select week</string>
 </resources>
