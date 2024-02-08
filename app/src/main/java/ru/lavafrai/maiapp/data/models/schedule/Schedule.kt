@@ -7,7 +7,7 @@ import ru.lavafrai.maiapp.data.models.group.GroupId
 @Serializable
 data class Schedule (
     val groupId: GroupId,
-    private val subSchedules: List<OneWeekSchedule>,
+    val subSchedules: List<OneWeekSchedule>,
 ) {
     fun getWeeks(): List<ScheduleWeekId> {
         return subSchedules.map { it.weekId }

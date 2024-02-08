@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
-import ru.lavafrai.maiapp.data.models.schedule.getEmptyOneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.getEmptySchedule
 import ru.lavafrai.maiapp.ui.fragments.schedule.LoadingPageView
 import ru.lavafrai.maiapp.ui.fragments.schedule.SchedulePageView
@@ -39,7 +38,7 @@ fun SchedulePage() {
     }
 
     when {
-        scheduleLoaded -> SchedulePageView(schedule.getWeek(2) ?: getEmptyOneWeekSchedule())
+        scheduleLoaded -> SchedulePageView(schedule)
         else -> LoadingPageView()
     }
 }
