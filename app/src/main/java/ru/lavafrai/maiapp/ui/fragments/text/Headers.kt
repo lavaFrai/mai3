@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 fun TextH1(
     text: String,
     modifier: Modifier = Modifier,
-    textAlign: TextAlign
+    textAlign: TextAlign = TextAlign.Left
 ) {
     Text(
         text = text,
@@ -25,7 +25,7 @@ fun TextH1(
 fun TextH2(
     text: String,
     modifier: Modifier = Modifier,
-    textAlign: TextAlign
+    textAlign: TextAlign = TextAlign.Left
 ) {
     Text(
         text = text,
@@ -39,7 +39,7 @@ fun TextH2(
 fun TextH3(
     text: String,
     modifier: Modifier = Modifier,
-    textAlign: TextAlign
+    textAlign: TextAlign = TextAlign.Left
 ) {
     Text(
         text = text,

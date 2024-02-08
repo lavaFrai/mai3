@@ -39,7 +39,6 @@ import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.parser.parseGroupsList
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
-import ru.lavafrai.maiapp.utils.safeSubList
 import kotlin.concurrent.thread
 
 class GroupSelectActivity : ComponentActivity() {
@@ -125,7 +124,7 @@ class GroupSelectActivity : ComponentActivity() {
                                     it.name.contains(searchBarText, ignoreCase = true)
                                 }
 
-                                foundGroups = foundGroups.sortedBy { it.name }.safeSubList(0, 4)
+                                foundGroups = foundGroups.sortedBy { it.name }
 
                                 if (foundGroups.isNotEmpty()) {
                                     foundGroups.forEach {

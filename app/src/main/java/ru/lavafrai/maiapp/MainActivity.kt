@@ -1,7 +1,5 @@
 package ru.lavafrai.maiapp
 
-import android.app.Activity
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,17 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import ru.lavafrai.maiapp.data.ScheduleManager
-import ru.lavafrai.maiapp.data.getSettings
+import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
+import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
+import ru.lavafrai.maiapp.ui.fragments.pages.SchedulePage
+import ru.lavafrai.maiapp.ui.fragments.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
-import kotlin.concurrent.thread
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,48 +36,28 @@ class MainActivity : ComponentActivity() {
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
     @Composable
     fun MainView() {
+        var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
+
         MAI30Theme {
             Scaffold(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background),
                 topBar = {},
-                bottomBar = {},
+                bottomBar = { MainNavigationBar { selectedPage = it }
+                },
                 floatingActionButton = {},
             ) { innerPadding ->
                 Column(
                     modifier = Modifier
                         .padding(innerPadding),
 
-                    ) {
-                    val scheduleManager = ScheduleManager(LocalContext.current)
-                    val (loadedText, setLoadedText) = rememberSaveable { mutableStateOf("loading...") }
-
-                    if (!scheduleManager.hasActualSchedule()) {
-                        val activity = LocalContext.current as Activity
-                        activity.startActivity(Intent(
-                            this@MainActivity,
-                            GroupSelectActivity::class.java
-                        ))
-                        finish()
-
-                        return@Scaffold
+                ) {
+                    when (selectedPage) {
+                        MainNavigationVariants.SCHEDULE -> SchedulePage()
+                        MainNavigationVariants.SETTINGS -> SettingsPage()
+                        else -> {}
                     }
-
-                    val (hasScheduleDownloaded, setHasActualScheduleDownloaded) = rememberSaveable { mutableStateOf(scheduleManager.hasActualScheduleDownloaded()) }
-
-                    thread {
-                        setLoadedText(
-                            scheduleManager.getActualSchedule().toString()
-                        )
-                        setHasActualScheduleDownloaded(
-                            scheduleManager.hasActualScheduleDownloaded()
-                        )
-                    }
-
-                    Text("Has schedule: $hasScheduleDownloaded")
-                    Text("Group: ${getSettings(LocalContext.current).currentGroup}")
-                    Text("Loaded schedule: $loadedText")
                 }
             }
         }

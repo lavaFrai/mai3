@@ -4,9 +4,13 @@
     <string name="settings_file">settings.json</string>
 
     <string name="lets_chose_group_title">Lets select a group</string>
-    <string name="groups_loading">Loading groups list…</string>
+    <string name="groups_loading">Loading groups list…\nIt may take up to some minutes</string>
     <string name="group_hint">Start typing group</string>
     <string name="group_not_found">No one group found, type group name like in example</string>
     <string name="group_eg">(e.g. М4О-100Б-07)</string>
     <string name="next">Continue</string>
+    <string name="settings">Settings</string>
+    <string name="schedule">Schedule</string>
+    <string name="schedule_loading_title">Schedule is loading</string>
+    <string name="schedule_loading">Schedule is loading</string>
 </resources>

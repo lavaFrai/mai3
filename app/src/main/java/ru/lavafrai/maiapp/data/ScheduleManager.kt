@@ -48,9 +48,10 @@ class ScheduleManager(private val context: Context) {
         return hasScheduleDownloaded(settings.currentGroup!!);
     }
 
-    fun downloadSchedule(groupId: GroupId) {
+    private fun downloadSchedule(groupId: GroupId) {
         val schedule = parseSchedule(groupId)
         val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
         Json.encodeToFile(schedule, scheduleFile)
+        Thread.sleep(100)
     }
 }
