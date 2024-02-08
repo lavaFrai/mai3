@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MAI 3.0</string>
+
+    <string name="lets_chose_group_title">Выберете свою группу</string>
+    <string name="groups_loading">Загружаем список групп…\nЭто может занять несколько минут</string>
+    <string name="group_hint">Начните вводить группу</string>
+    <string name="group_not_found">Не найдено ни одной группы. Пожалуйста, при вводе группы, сверяйтесь с примером</string>
+    <string name="group_eg">(например, М4О-100Б-07)</string>
+    <string name="next">Дальше</string>
+    <string name="settings">Настройки</string>
+    <string name="schedule">Расписание</string>
+    <string name="schedule_loading_title">Загружаем расписание</string>
+    <string name="schedule_loading">Это может занять несколько минут, особенно если вы открываете расписание первый раз</string>
+</resources>
