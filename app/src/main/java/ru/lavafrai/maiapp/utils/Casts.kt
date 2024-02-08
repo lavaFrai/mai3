@@ -1,5 +1,7 @@
 package ru.lavafrai.maiapp.utils
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -7,8 +9,10 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
+import ru.lavafrai.maiapp.R
 import java.io.File
 import java.net.URL
+import java.time.DayOfWeek
 
 fun String.toURL() : URL {
     return URL(this)
@@ -48,3 +52,17 @@ public fun String.contains(value: String, ignoreCase: Boolean): Boolean {
 
 fun <T> List<T>.safeSubList(fromIndex: Int, toIndex: Int): List<T> =
     this.subList(fromIndex, toIndex.coerceAtMost(this.size))
+
+
+@Composable
+fun DayOfWeek.localized(): String {
+    return when (this) {
+        DayOfWeek.MONDAY -> stringResource(id = R.string.monday)
+        DayOfWeek.TUESDAY -> stringResource(id = R.string.tuesday)
+        DayOfWeek.WEDNESDAY -> stringResource(id = R.string.wednesday)
+        DayOfWeek.THURSDAY -> stringResource(id = R.string.thursday)
+        DayOfWeek.FRIDAY -> stringResource(id = R.string.friday)
+        DayOfWeek.SATURDAY -> stringResource(id = R.string.saturday)
+        DayOfWeek.SUNDAY -> stringResource(id = R.string.sunday)
+    }
+}

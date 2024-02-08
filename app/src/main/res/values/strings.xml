@@ -12,5 +12,18 @@
     <string name="settings">Settings</string>
     <string name="schedule">Schedule</string>
     <string name="schedule_loading_title">Schedule is loading</string>
-    <string name="schedule_loading">Schedule is loading</string>
+    <string name="schedule_loading">This can take up to several minutes, especially if you are opening the schedule for the first time</string>
+
+    <string name="monday">monday</string>
+    <string name="tuesday">tuesday</string>
+    <string name="wednesday">wednesday</string>
+    <string name="thursday">thursday</string>
+    <string name="friday">friday</string>
+    <string name="saturday">saturday</string>
+    <string name="sunday">sunday</string>
+
+    <string name="lecture">lect.</string>
+    <string name="laboratory">lab.</string>
+    <string name="seminar">sem.</string>
+    <string name="select_week">Select week</string>
 </resources>

@@ -44,10 +44,10 @@ fun subParseOneDaySchedule(page: Element): OneDaySchedule {
         day.startsWith("Вс") -> DayOfWeek.SATURDAY
         else -> DayOfWeek.SATURDAY
     }
-    val data = day.removePrefix(day.split(" ").first())
+    val date = day.subSequence(4, day.length) as String
     val lessons = page.select(".step-content > div").map { subParseLesson(it) }
 
-    return OneDaySchedule(lessons, dayOfWeek, data)
+    return OneDaySchedule(lessons, dayOfWeek, date)
 }
 
 fun subParseLesson(page: Element): ScheduleLesson {

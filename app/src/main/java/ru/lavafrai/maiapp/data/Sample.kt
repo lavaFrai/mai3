@@ -32,6 +32,16 @@ fun getSampleDaySchedule(): OneDaySchedule {
             )
         ),
         DayOfWeek.SATURDAY,
-        "testDate"
+        "12 февраля"
+    )
+}
+
+fun getSampleLessonSchedule(): ScheduleLesson {
+    return ScheduleLesson(
+                "Иностранный язык",
+                "14:45 – 16:15",
+                ScheduleLessonType.SEMINAR,
+                "Христофорова Наталья Игоревна",
+                "Орш. В-301"
     )
 }

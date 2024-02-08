@@ -39,7 +39,7 @@ fun SchedulePage() {
     }
 
     when {
-        scheduleLoaded -> SchedulePageView(schedule.getWeek(0) ?: getEmptyOneWeekSchedule())
+        scheduleLoaded -> SchedulePageView(schedule.getWeek(2) ?: getEmptyOneWeekSchedule())
         else -> LoadingPageView()
     }
 }
