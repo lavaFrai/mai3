@@ -52,7 +52,6 @@ class MainActivity : ComponentActivity() {
 
                     ) {
                     val scheduleManager = ScheduleManager(LocalContext.current)
-                    val (hasScheduleDownloaded, setHasActualScheduleDownloaded) = rememberSaveable { mutableStateOf(scheduleManager.hasActualScheduleDownloaded()) }
                     val (loadedText, setLoadedText) = rememberSaveable { mutableStateOf("loading...") }
 
                     if (!scheduleManager.hasActualSchedule()) {
@@ -62,7 +61,11 @@ class MainActivity : ComponentActivity() {
                             GroupSelectActivity::class.java
                         ))
                         finish()
+
+                        return@Scaffold
                     }
+
+                    val (hasScheduleDownloaded, setHasActualScheduleDownloaded) = rememberSaveable { mutableStateOf(scheduleManager.hasActualScheduleDownloaded()) }
 
                     thread {
                         setLoadedText(
