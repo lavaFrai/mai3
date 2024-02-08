@@ -25,5 +25,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".GroupSelectActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MAI30">
+        </activity>
+
     </application>
 </manifest>

@@ -39,3 +39,12 @@ public inline fun <reified T> Json.encodeToFile(value: T, file: File) {
     Json.encodeToStream(value, stream)
     stream.close()
 }
+
+
+public fun String.contains(value: String, ignoreCase: Boolean): Boolean {
+    return uppercase().contains(value.uppercase())
+}
+
+
+fun <T> List<T>.safeSubList(fromIndex: Int, toIndex: Int): List<T> =
+    this.subList(fromIndex, toIndex.coerceAtMost(this.size))

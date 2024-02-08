@@ -1,7 +1,7 @@
 package ru.lavafrai.maiapp.data.parser
 
 import org.jsoup.nodes.Element
-import ru.lavafrai.maiapp.data.models.schedule.GroupId
+import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule

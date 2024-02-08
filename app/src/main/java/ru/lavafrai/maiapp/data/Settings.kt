@@ -4,7 +4,7 @@ import android.content.Context
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.data.models.schedule.GroupId
+import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.utils.decodeFromFile
 import ru.lavafrai.maiapp.utils.encodeToFile
 import java.io.File

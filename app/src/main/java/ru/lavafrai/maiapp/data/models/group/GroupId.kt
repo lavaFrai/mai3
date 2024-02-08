@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.data.models.schedule
+package ru.lavafrai.maiapp.data.models.group
 
 import kotlinx.serialization.Serializable
 

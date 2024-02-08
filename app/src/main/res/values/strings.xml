@@ -2,4 +2,11 @@
     <string name="app_name">MAI 3.0</string>
     <string name="schedule_file">schedule.json</string>
     <string name="settings_file">settings.json</string>
+
+    <string name="lets_chose_group_title">Lets select a group</string>
+    <string name="groups_loading">Loading groups list…</string>
+    <string name="group_hint">Start typing group</string>
+    <string name="group_not_found">No one group found, type group name like in example</string>
+    <string name="group_eg">(e.g. М4О-100Б-07)</string>
+    <string name="next">Continue</string>
 </resources>
