@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.data
 
+import ru.lavafrai.maiapp.data.models.DateRange
 import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
@@ -11,7 +12,7 @@ fun getSampleWeekSchedule(): OneWeekSchedule {
     return OneWeekSchedule(
         ScheduleWeekId(
             0,
-            rangeLabel = "testWeek - testWeekEnd"
+            range = DateRange.parse("09.02.2024 - 11.02.2024")
         ),
         listOf(
             getSampleDaySchedule(),

@@ -1,13 +1,12 @@
 package ru.lavafrai.maiapp.ui.fragments.schedule
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -33,22 +32,22 @@ fun WeekSelector(
 ) {
     ModalBottomSheet(
         onDismissRequest = onClose,
-        sheetState = selectorShowed
+        //sheetState = selectorShowed
     ) {
-        Column (
-            Modifier.verticalScroll(rememberScrollState())
-        ) {
-            TextH3(
-                text = stringResource(id = R.string.select_week),
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
+        LazyColumn () {
+            item {
+                TextH3(
+                    text = stringResource(id = R.string.select_week),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+            }
 
-            weeks.forEach { week ->
+            items(weeks, key = {week -> week.number}) { week ->
                 androidx.compose.material3.ListItem(headlineContent = {
-                    Text(text = week.rangeLabel)
+                    Text(text = week.range.toString())
                 }, modifier = Modifier.clickable {
                     onSelect(week)
                     onClose()
@@ -56,8 +55,10 @@ fun WeekSelector(
                     PairName(text = week.number.toString())
                 })
             }
-            
-            Spacer(modifier = Modifier.height(32.dp))
+
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
+            }
         }
     }
 }

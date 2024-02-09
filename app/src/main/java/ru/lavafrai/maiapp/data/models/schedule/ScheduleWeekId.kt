@@ -1,12 +1,13 @@
 package ru.lavafrai.maiapp.data.models.schedule
 
 import kotlinx.serialization.Serializable
+import ru.lavafrai.maiapp.data.models.DateRange
 
 
 @Serializable
 data class ScheduleWeekId(
     val number: Int,
-    val rangeLabel: String = ""
+    val range: DateRange
 )
 
 fun parseScheduleWeek(text: String): ScheduleWeekId {
@@ -14,6 +15,6 @@ fun parseScheduleWeek(text: String): ScheduleWeekId {
 
     return ScheduleWeekId(
         number,
-        text.removePrefix("$number ")
+        DateRange.parse(text.removePrefix("$number "))
     )
 }
