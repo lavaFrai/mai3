@@ -1,3 +1,7 @@
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,13 +9,25 @@ plugins {
     kotlin("plugin.serialization") version "1.9.22"
 }
 
+var secretPropertiesFile: File = rootProject.file("app/secrets.properties")!!
+val secretProperties = Properties()
+try {
+    secretProperties.load(FileInputStream(secretPropertiesFile))
+    Logging.getLogger("SECRETS_LOAGER").info("Using secrets.properties")
+} catch (e: FileNotFoundException) {
+    secretPropertiesFile = rootProject.file("app/secrets.properties.example")!!
+    secretProperties.load(FileInputStream(secretPropertiesFile))
+    Logging.getLogger("SECRETS_LOAGER").warn("Compiling with example secrets.properties")
+}
+
 android {
     namespace = "ru.lavafrai.maiapp"
     compileSdk = 34
+    android.buildFeatures.buildConfig = true
 
     defaultConfig {
         applicationId = "ru.lavafrai.maiapp"
-        minSdk = 28
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -20,6 +36,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "APP_METRIKA_API_KEY", secretProperties.getProperty("appMetrikaApiKey") ?: "null")
     }
 
     buildTypes {
@@ -72,4 +90,5 @@ dependencies {
 
     implementation("org.jsoup:jsoup:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("io.appmetrica.analytics:analytics:6.1.0")
 }
