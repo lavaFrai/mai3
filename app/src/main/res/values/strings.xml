@@ -2,7 +2,7 @@
     <string name="app_name">MAI 3.0</string>
     <string name="schedule_file" translatable="false">schedule.json</string>
     <string name="settings_file" translatable="false">settings.json</string>
-    <string name="version" translatable="false">0.1.0a</string>
+    <string name="version" translatable="false">0.2.0a</string>
 
     <string name="lets_chose_group_title">Lets select a group</string>
     <string name="groups_loading">Loading groups list…\nIt may take up to some minutes</string>
