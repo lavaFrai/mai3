@@ -2,10 +2,11 @@ package ru.lavafrai.maiapp.ui.fragments.schedule
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,7 +14,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,9 +27,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -89,6 +96,16 @@ fun SchedulePageView(schedule: Schedule) {
             ScheduleHeader {
                 setChangeWeekDialogOpened(true)
             }
+
+            Column (
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(Icons.Outlined.DateRange, null)
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(text = stringResource(id = R.string.empty_week), modifier = Modifier.fillMaxWidth(0.5f), textAlign = TextAlign.Center)
+            }
         }
     }
     else {
@@ -96,14 +113,6 @@ fun SchedulePageView(schedule: Schedule) {
             ScheduleHeader {
                 setChangeWeekDialogOpened(true)
             }
-
-            Box(
-                modifier = Modifier
-                    .height(0.5.dp)
-                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
-                    .fillMaxWidth(0.8f)
-                    .align(Alignment.CenterHorizontally)
-            )
 
             LazyColumn(state = scheduleListState) {
                 currentSubSchedule.days.forEach { day ->

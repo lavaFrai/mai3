@@ -3,15 +3,15 @@
     <string name="app_name">МАИ 3.0</string>
 
     <string name="lets_chose_group_title">Выберите свою группу</string>
-    <string name="groups_loading">Загружаем список групп…\nЭто может занять несколько минут</string>
+    <string name="groups_loading">Загружаем список групп…\nЭто может занять несколько минут.</string>
     <string name="group_hint">Начните вводить группу</string>
-    <string name="group_not_found">Не удалось найти группы с таким назаванием. Пожалуйста введите его в соответствии с примером</string>
+    <string name="group_not_found">Не удалось найти группы с таким назаванием. Пожалуйста введите его в соответствии с примером.</string>
     <string name="group_eg">(например, М4О-100Б-07)</string>
     <string name="next">Дальше</string>
     <string name="settings">Настройки</string>
     <string name="schedule">Расписание</string>
     <string name="schedule_loading_title">Загружаем расписание</string>
-    <string name="schedule_loading">Не удалось найти расписание на устройстве, поэтому сейчас мы скачаем его с сайта. Это может занять до нескольких минут времени, зато, потом расписание будет открываться быстро.\n\nПожалуйста не закрывайте эту страницу и немного подождите</string>
+    <string name="schedule_loading">Не удалось найти расписание на устройстве, поэтому сейчас мы скачаем его с сайта. Это может занять до нескольких минут времени, зато, потом расписание будет открываться быстро.\n\nПожалуйста не закрывайте эту страницу и немного подождите.</string>
     <string name="monday">понедельник</string>
     <string name="tuesday">вторник</string>
     <string name="wednesday">среда</string>
@@ -29,4 +29,5 @@
     <string name="current_week">Текущая неделя</string>
     <string name="next_week">Следующая неделя</string>
     <string name="other_week">Другая неделя</string>
+    <string name="empty_week">На этой неделе у вас нет ни одной пары, вы полностью свободны!</string>
 </resources>
