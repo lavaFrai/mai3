@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -58,7 +59,9 @@ fun SchedulePageView(schedule: Schedule) {
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val weekSelectorState = rememberModalBottomSheetState()
-    val scheduleListState = rememberLazyListState()
+    val scheduleListState = rememberLazyListState(
+        initialFirstVisibleItemIndex = if (currentSubSchedule.weekId.range.isNow()) getTodayIndex(schedule) else 0
+    )
 
     if (weekSelectorOpened) {
         WeekSelector(
@@ -69,7 +72,7 @@ fun SchedulePageView(schedule: Schedule) {
             onSelect = { selectedWeek ->
                 setCurrentSubSchedule(schedule.subSchedules.find { it.weekId == selectedWeek })
                 if (selectedWeek.range.isNow()) scope.launch {
-
+                    scrollToToday(schedule, scheduleListState)
                 }
                 else scope.launch { scheduleListState.scrollToItem(0) }
             },
@@ -99,8 +102,9 @@ fun SchedulePageView(schedule: Schedule) {
                 .align(Alignment.CenterHorizontally)
         )
 
-        LazyColumn(state = scheduleListState) {
+        LazyColumn(state = scheduleListState, ) {
             currentSubSchedule.days.forEach { day ->
+                item {}
                 stickyHeader {
                     Row(
                         modifier = Modifier
@@ -125,6 +129,18 @@ fun SchedulePageView(schedule: Schedule) {
             }
         }
     }
+}
+
+
+suspend fun scrollToToday(schedule: Schedule, scheduleListState: LazyListState) {
+    scheduleListState.scrollToItem(
+        getTodayIndex(schedule)
+    )
+}
+
+
+fun getTodayIndex(schedule: Schedule): Int {
+    return (schedule.getCurrentSubScheduleOrNull()?.getTodayNumberOrInf() ?: 0) * 2 + 1
 }
 
 
@@ -183,7 +199,9 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule()) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth().padding(8.dp, 0.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp, 0.dp),
             ) {
                 Text(
                     text = lesson.location,
