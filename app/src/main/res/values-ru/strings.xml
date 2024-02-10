@@ -11,7 +11,7 @@
     <string name="settings">Настройки</string>
     <string name="schedule">Расписание</string>
     <string name="schedule_loading_title">Загружаем расписание</string>
-    <string name="schedule_loading">Это может занять до нескольких минут, особенно если расписание открывается первый раз</string>
+    <string name="schedule_loading">Не удалось найти расписание на устройстве, поэтому сейчас мы скачаем его с сайта. Это может занять до нескольких минут времени, зато, потом расписание будет открываться быстро.\n\nПожалуйста не закрывайте эту страницу и немного подождите</string>
     <string name="monday">понедельник</string>
     <string name="tuesday">вторник</string>
     <string name="wednesday">среда</string>
@@ -24,4 +24,9 @@
     <string name="laboratory">лабораторная</string>
     <string name="seminar">семинар</string>
     <string name="select_week">Выбор недели</string>
+
+    <string name="last_week">Прошлая неделя</string>
+    <string name="current_week">Текущая неделя</string>
+    <string name="next_week">Следующая неделя</string>
+    <string name="other_week">Другая неделя</string>
 </resources>

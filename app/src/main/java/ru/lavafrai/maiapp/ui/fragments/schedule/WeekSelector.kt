@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +30,6 @@ import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeekSelector(
-    selectorShowed: SheetState = SheetState(true),
     weeks: List<ScheduleWeekId>,
     onClose: () -> Unit = {},
     onSelect: (weekId: ScheduleWeekId) -> Unit = {}

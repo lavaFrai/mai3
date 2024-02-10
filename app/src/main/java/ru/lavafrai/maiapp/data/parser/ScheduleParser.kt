@@ -78,3 +78,5 @@ fun parseScheduleParseWeeks(groupId: GroupId): List<ScheduleWeekId> {
 
     return page.select("#collapseWeeks").select(".list-group-item").map { parseScheduleWeek(it.text()) }
 }
+
+
