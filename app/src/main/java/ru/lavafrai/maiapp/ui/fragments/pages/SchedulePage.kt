@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
+import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.models.schedule.getEmptySchedule
 import ru.lavafrai.maiapp.ui.fragments.schedule.LoadingPageView
 import ru.lavafrai.maiapp.ui.fragments.schedule.SchedulePageView
@@ -26,7 +27,7 @@ fun SchedulePage() {
 
     val scheduleManager = ScheduleManager(LocalContext.current)
     val (scheduleLoaded, setScheduleLoaded) = remember { mutableStateOf(false) }
-    val (schedule, setSchedule) = remember { mutableStateOf(getEmptySchedule()) }
+    val (schedule, setSchedule) = remember { mutableStateOf<Schedule?>(getEmptySchedule()) }
 
     if (!scheduleManager.hasActualSchedule()) {
         activity.startActivity(Intent(context, GroupSelectActivity::class.java))

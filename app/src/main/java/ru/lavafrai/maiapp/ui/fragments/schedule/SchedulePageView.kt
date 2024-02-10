@@ -3,6 +3,7 @@ package ru.lavafrai.maiapp.ui.fragments.schedule
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -41,11 +42,17 @@ import ru.lavafrai.maiapp.utils.localized
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 // @Preview
 @Composable
-fun SchedulePageView(schedule: Schedule) {
-    val (currentSubSchedule, setCurrentSubSchedule) = remember { mutableStateOf(schedule.getCurrentSubScheduleOrNull()) }
+fun SchedulePageView(schedule: Schedule?) {
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+
+    if (schedule == null) {
+        ErrorScheduleView()
+        return
+    }
+
+    val (currentSubSchedule, setCurrentSubSchedule) = remember { mutableStateOf(schedule.getCurrentSubScheduleOrNull()) }
     val scheduleListState = rememberLazyListState(
         initialFirstVisibleItemIndex = if (currentSubSchedule?.weekId?.range?.isNow() == true) getTodayIndex(
             schedule
@@ -89,7 +96,6 @@ fun SchedulePageView(schedule: Schedule) {
             }
         )
     }
-
 
     if (currentSubSchedule == null) {
         Column {
@@ -142,6 +148,48 @@ fun SchedulePageView(schedule: Schedule) {
             }
         }
     }
+}
+
+
+@Composable
+fun ErrorScheduleView() {
+    Column {
+        Column {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(8.dp, 16.dp)
+                    .fillMaxWidth(),
+            ) {
+                TextH3(text = stringResource(id = R.string.schedule))
+            }
+
+            Box(
+                modifier = Modifier
+                    .height(0.5.dp)
+                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
+                    .fillMaxWidth(0.8f)
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(Icons.Outlined.DateRange, null)
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = stringResource(id = R.string.schedule_loading_error),
+                modifier = Modifier.fillMaxWidth(0.5f),
+                textAlign = TextAlign.Center
+            )
+
+        }
+    }
+    return
 }
 
 

@@ -33,4 +33,28 @@
     <string name="next_week">Next week</string>
     <string name="other_week">Other week</string>
     <string name="empty_week">This week is empty</string>
+
+    <string name="bachelor">bachelor</string>
+    <string name="magistracy">magistracy</string>
+    <string name="postgraduate">postgraduate</string>
+    <string name="special">special</string>
+    <string name="base_high">base high</string>
+    <string name="special_high">special high</string>
+    <string name="unknown">unknown</string>
+    <string name="faculty_num">Faculty №</string>
+    <string name="course_num">Course</string>
+    <string name="tour_group">Your group</string>
+
+    <string name="redownload_schedule">Update schedule</string>
+    <string name="redownload_schedule_set">The schedule will be automatically updated the next time you open it</string>
+    <string name="are_you_sure">A you shure?</string>
+    <string name="data_clear_confirmation">Are you sure you want to delete all the app data? Among them are all the settings and downloaded schedules.\n\nApplication will restart.</string>
+    <string name="confirm">Confirm</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="wipe_data">Wipe app data</string>
+    <string name="schedule_loading_error">For unknown reasons, the schedule can\'t be loaded. \nTry to wipe the application data, if this does not help, contact the developer for help.</string>
+    <string name="app_theme">App theme</string>
+    <string name="day_theme">Day</string>
+    <string name="default_theme">Default</string>
+    <string name="night_theme">Night</string>
 </resources>

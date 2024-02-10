@@ -28,7 +28,7 @@ fun parseGroupsList(): List<GroupId> {
     facultyCoursePairs.mapThreaded { it ->
         val subPage = getPage(GROUPS_PAGE_URL, mapOf("department" to it.first, "course" to it.second))
         groups.addAll(
-            subPage.select("#nav-1-eg1").first()?.children()?.map { group ->
+            subPage.select(".tab-content").select(".btn-group")?.map { group ->
                 GroupId(group.text())
             } ?: listOf()
         )

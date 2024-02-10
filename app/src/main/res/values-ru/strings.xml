@@ -11,7 +11,7 @@
     <string name="settings">Настройки</string>
     <string name="schedule">Расписание</string>
     <string name="schedule_loading_title">Загружаем расписание</string>
-    <string name="schedule_loading">Не удалось найти расписание на устройстве, поэтому сейчас мы скачаем его с сайта. Это может занять до нескольких минут времени, зато, потом расписание будет открываться быстро.\n\nПожалуйста не закрывайте эту страницу и немного подождите.</string>
+    <string name="schedule_loading">Не удалось найти расписание на устройстве или вы попросили его обновить, поэтому сейчас мы скачиваем его с сайта. Это может занять до нескольких минут времени, зато, потом расписание будет открываться быстро.\n\nПожалуйста не закрывайте эту страницу и немного подождите.</string>
     <string name="monday">понедельник</string>
     <string name="tuesday">вторник</string>
     <string name="wednesday">среда</string>
@@ -30,4 +30,24 @@
     <string name="next_week">Следующая неделя</string>
     <string name="other_week">Другая неделя</string>
     <string name="empty_week">На этой неделе у вас нет ни одной пары, вы полностью свободны!</string>
+
+    <string name="bachelor">бакалавриат</string>
+    <string name="magistracy">магистратура</string>
+    <string name="postgraduate">аспирантура</string>
+    <string name="special">специалитет</string>
+    <string name="base_high">базовое высшее</string>
+    <string name="special_high">специальное высшее</string>
+    <string name="unknown">unknown</string>
+    <string name="faculty_num">Институт №</string>
+    <string name="course_num">Курс</string>
+    <string name="tour_group">ваша группа</string>
+    <string name="redownload_schedule">Обновить расписание</string>
+    <string name="redownload_schedule_set">Расписание будет автоматически обновлено при следующем открытии</string>
+    <string name="are_you_sure">Вы уверенны?</string>
+    <string name="data_clear_confirmation">Вы точно хотите удалить все данные приложения? Среди них находятся все настройки и загруженные расписания.\n\nПриложение будет перезапущено.</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="dismiss">Отменить</string>
+    <string name="wipe_data">Очистить данные приложения</string>
+    <string name="schedule_loading_error">По неизвестным причинам, расписание загрузить не получается. \nПопробуйте очистить данные приложения, если это не помогает, обратитесь к разработчику за помощью.</string>
+    <string name="app_theme">Цветовая схема</string>
 </resources>

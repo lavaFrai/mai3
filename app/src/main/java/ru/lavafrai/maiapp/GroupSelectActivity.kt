@@ -34,7 +34,7 @@ import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.lavafrai.maiapp.data.getSettings
+import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.parser.parseGroupsList
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -162,9 +162,7 @@ class GroupSelectActivity : ComponentActivity() {
 
                         Button(
                             onClick = {
-                                val settings = getSettings(this@GroupSelectActivity)
-                                settings.currentGroup = selectedGroup
-                                settings.save(this@GroupSelectActivity)
+                                Settings.setCurrentGroup(selectedGroup)
 
                                 startActivity(Intent(
                                     this@GroupSelectActivity,
