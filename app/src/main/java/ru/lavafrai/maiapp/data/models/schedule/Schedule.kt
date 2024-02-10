@@ -1,6 +1,7 @@
 package ru.lavafrai.maiapp.data.models.schedule
 
 import kotlinx.serialization.Serializable
+import ru.lavafrai.maiapp.data.models.SerializableDate
 import ru.lavafrai.maiapp.data.models.group.GroupId
 
 
@@ -15,6 +16,10 @@ data class Schedule (
 
     fun getWeek(number: Int): OneWeekSchedule? {
         return subSchedules.find { it.weekId.number == number }
+    }
+
+    fun getCurrentSubScheduleOrNull(): OneWeekSchedule? {
+        return subSchedules.find { SerializableDate.now() in it.weekId.range }
     }
 }
 

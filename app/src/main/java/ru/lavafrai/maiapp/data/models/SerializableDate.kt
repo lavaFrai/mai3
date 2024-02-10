@@ -19,7 +19,7 @@ class SerializableDate (
     }
 
     fun isEarlierThan(another: SerializableDate): Boolean {
-        return !(isLaterThan(another) || isEarlierThan(another))
+        return !(isLaterThan(another) || isSame(another))
     }
 
     fun isSame(another: SerializableDate): Boolean {

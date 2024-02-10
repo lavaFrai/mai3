@@ -48,7 +48,7 @@ import ru.lavafrai.maiapp.utils.localized
 // @Preview
 @Composable
 fun SchedulePageView(schedule: Schedule) {
-    val (currentSubSchedule, setCurrentSubSchedule) = remember { mutableStateOf(schedule.subSchedules.firstOrNull()) }
+    val (currentSubSchedule, setCurrentSubSchedule) = remember { mutableStateOf(schedule.getCurrentSubScheduleOrNull()) }
     if (currentSubSchedule == null) {
         Text(text = "EMPTY WEEK")
         return
