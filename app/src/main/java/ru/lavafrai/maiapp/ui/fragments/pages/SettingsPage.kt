@@ -17,6 +17,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -30,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -92,6 +94,7 @@ fun SettingsPage() {
 }
 
 
+@Preview
 @Composable
 fun SettingsSourcesCard() {
     val context = LocalContext.current
@@ -109,13 +112,15 @@ fun SettingsSourcesCard() {
                 modifier = Modifier
                     .padding(16.dp)
             ) {
-                TextH3(
-                    text = stringResource(id = R.string.open_source),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 12.dp)
-                )
+                Row {
+                    Icon(painterResource(R.drawable.ic_github), null, modifier = Modifier.padding(top = 3.dp))
+                    TextH3(
+                        text = stringResource(id = R.string.open_source),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier
+                            .padding(bottom = 12.dp, start = 8.dp)
+                    )
+                }
 
                 Text(text = stringResource(id = R.string.open_source_description))
             }

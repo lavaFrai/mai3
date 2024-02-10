@@ -66,3 +66,11 @@ fun DayOfWeek.localized(): String {
         DayOfWeek.SUNDAY -> stringResource(id = R.string.sunday)
     }
 }
+
+/*
+@Composable
+fun drawableResource(): Unit? {
+    return ContextCompat.getDrawable(LocalContext.current, R.mipmap.ic_launcher)?.let {
+        Image(bitmap = it.toBitmap().asImageBitmap(), contentDescription = null)
+    }
+}*/
