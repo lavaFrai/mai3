@@ -63,4 +63,7 @@
     <string name="uid_description">With this ID, you can ask for support, it is needed so that the developer can identify the problem above.</string>
     <string name="click_to_copy">(click to copy)</string>
     <string name="open_source_description">Our application has an open source code, which anyone can propose changes to. The code is available on Github under a license that allows you to use it for your own purposes.\nDo not forget to report problems and errors found.</string>
+    <string name="community">Community</string>
+    <string name="community_description">If you have any questions or problems, you can contact the telegram chat of the community for support. Developers or others will help you quickly.</string>
+    <string name="change_group">Change group</string>
 </resources>

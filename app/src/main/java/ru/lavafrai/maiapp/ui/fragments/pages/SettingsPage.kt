@@ -25,7 +25,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,10 +39,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import io.appmetrica.analytics.AppMetrica
+import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
+import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
@@ -66,10 +68,23 @@ fun SettingsPage() {
 
         SettingsUserCard(Settings.getCurrentGroup()!!)
 
-        SettingsGroupControls()
+
         SettingsThemeControls()
         SettingsUIDCard()
+        SettingsTelegram()
         SettingsSourcesCard()
+
+        DangerButton(
+            onClick = {
+                Mai3.wipeData()
+                exitProcess(0)
+            }, modifier = Modifier.fillMaxWidth().padding(16.dp), dialogText = stringResource(
+                id = R.string.data_clear_confirmation
+            )
+        ) {
+            Text(stringResource(id = R.string.wipe_data))
+        }
+
     }
 
     /*
@@ -91,6 +106,45 @@ fun SettingsPage() {
             Text(text = "Change group")
         }
     }*/
+}
+
+@Preview
+@Composable
+fun SettingsTelegram() {
+    val context = LocalContext.current
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+    ) {
+        Box(Modifier.clickable {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PROJECT_TELEGRAM_URL))
+            startActivity(context, browserIntent, null)
+        }) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                Row {
+                    Icon(painterResource(R.drawable.ic_telegram), null, modifier = Modifier.padding(top = 3.dp))
+                    TextH3(
+                        text = stringResource(id = R.string.community),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier
+                            .padding(bottom = 12.dp, start = 8.dp)
+                    )
+                }
+
+                Text(text = stringResource(id = R.string.community_description))
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = PROJECT_TELEGRAM_URL,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.3f),
+                )
+            }
+        }
+    }
 }
 
 
@@ -123,6 +177,11 @@ fun SettingsSourcesCard() {
                 }
 
                 Text(text = stringResource(id = R.string.open_source_description))
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = PROJECT_GITHUB_URL,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.3f),
+                )
             }
         }
     }
@@ -196,7 +255,7 @@ fun SettingsThemeControls() {
                 )
 
 
-                var selected by remember { mutableStateOf(when (Settings.getIsDarkTheme()) {
+                var selected by remember { mutableIntStateOf(when (Settings.getIsDarkTheme()) {
                     true -> 2
                     false -> 0
                     else -> 1
@@ -241,21 +300,8 @@ fun SettingsGroupControls() {
     Column(
         modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
-        Button(onClick = {
-            ScheduleManager(context).deleteSchedule(Settings.getCurrentGroup())
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(id = R.string.redownload_schedule))
-        }
-        DangerButton(
-            onClick = {
-                Mai3.wipeData()
-                exitProcess(0)
-            }, modifier = Modifier.fillMaxWidth(), dialogText = stringResource(
-                id = R.string.data_clear_confirmation
-            )
-        ) {
-            Text(stringResource(id = R.string.wipe_data))
-        }
+
+
     }
 }
 
@@ -263,6 +309,8 @@ fun SettingsGroupControls() {
 @Preview
 @Composable
 fun SettingsUserCard(groupId: GroupId = GroupId("М14О-102БВ-23")) {
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -296,6 +344,22 @@ fun SettingsUserCard(groupId: GroupId = GroupId("М14О-102БВ-23")) {
                         .fillMaxWidth(),
                     textAlign = TextAlign.Right
                 )
+
+
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(onClick = {
+                    ScheduleManager(context).deleteSchedule(Settings.getCurrentGroup())
+                }, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(id = R.string.redownload_schedule))
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = {
+                    val intent =  Intent(context, GroupSelectActivity::class.java)
+                    context.startActivity(intent, null)
+                }, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(id = R.string.change_group))
+                }
             }
         }
     }
