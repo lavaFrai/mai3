@@ -1,11 +1,14 @@
 package ru.lavafrai.maiapp.ui.fragments.pages
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,11 +32,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
+import io.appmetrica.analytics.AppMetrica
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
@@ -59,6 +66,8 @@ fun SettingsPage() {
 
         SettingsGroupControls()
         SettingsThemeControls()
+        SettingsUIDCard()
+        SettingsSourcesCard()
     }
 
     /*
@@ -82,6 +91,82 @@ fun SettingsPage() {
     }*/
 }
 
+
+@Composable
+fun SettingsSourcesCard() {
+    val context = LocalContext.current
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, bottom = 32.dp)
+    ) {
+        Box(Modifier.clickable {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PROJECT_GITHUB_URL))
+            startActivity(context, browserIntent, null)
+        }) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                TextH3(
+                    text = stringResource(id = R.string.open_source),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
+                )
+
+                Text(text = stringResource(id = R.string.open_source_description))
+            }
+        }
+    }
+}
+
+
+@Composable
+fun SettingsUIDCard() {
+    val uid = AppMetrica.getDeviceId(LocalContext.current) ?: "<Error>"
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp, 16.dp)
+            .padding(top = 0.dp)
+    ) {
+        Box(Modifier.clickable {
+            Mai3.copyString(uid)
+        }) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                TextH3(
+                    text = stringResource(id = R.string.uid),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
+                )
+
+                Text(
+                    text = uid,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.3f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = stringResource(id = R.string.uid_description))
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(id = R.string.click_to_copy),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.3f),
+                )
+            }
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
@@ -89,7 +174,8 @@ fun SettingsThemeControls() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp, 32.dp)
+            .padding(16.dp, 0.dp)
+            .padding(top = 32.dp)
     ) {
         Box(Modifier.clickable { }) {
             Column(

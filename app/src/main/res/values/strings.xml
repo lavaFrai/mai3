@@ -54,7 +54,13 @@
     <string name="wipe_data">Wipe app data</string>
     <string name="schedule_loading_error">For unknown reasons, the schedule can\'t be loaded. \nTry to wipe the application data, if this does not help, contact the developer for help.</string>
     <string name="app_theme">App theme</string>
+    <string name="open_source">Open sources</string>
+
     <string name="day_theme">Day</string>
     <string name="default_theme">Default</string>
     <string name="night_theme">Night</string>
+    <string name="uid">Unique id</string>
+    <string name="uid_description">With this ID, you can ask for support, it is needed so that the developer can identify the problem above.</string>
+    <string name="click_to_copy">(click to copy)</string>
+    <string name="open_source_description">Our application has an open source code, which anyone can propose changes to. The code is available on Github under a license that allows you to use it for your own purposes.\nDo not forget to report problems and errors found.</string>
 </resources>

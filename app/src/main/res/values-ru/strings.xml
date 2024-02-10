@@ -50,4 +50,14 @@
     <string name="wipe_data">Очистить данные приложения</string>
     <string name="schedule_loading_error">По неизвестным причинам, расписание загрузить не получается. \nПопробуйте очистить данные приложения, если это не помогает, обратитесь к разработчику за помощью.</string>
     <string name="app_theme">Цветовая схема</string>
+    <string name="open_source">Open sources</string>
+
+    <string name="day_theme">Day</string>
+    <string name="default_theme">Default</string>
+    <string name="night_theme">Night</string>
+
+    <string name="uid">Идентефикатор</string>
+    <string name="uid_description">С этим идентификатором вы можете обратиться за поддержкой, он нужен чтобы разработчик смог определить  выше проблему.</string>
+    <string name="click_to_copy">(нажмите чтобы скопировать)</string>
+    <string name="open_source_description">У нашего приложения открытый исходный код, предложить изменения к которому может каждый.\nКод доступен на Github под лицензией, позволяющей использование в его вами в своих целях.\n\nНе забывайте сообщать о найденных проблемах и ошибках.</string>
 </resources>

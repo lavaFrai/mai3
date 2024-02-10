@@ -1,10 +1,14 @@
 package ru.lavafrai.maiapp
 
 import android.app.Application
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import io.appmetrica.analytics.AppMetrica
 import io.appmetrica.analytics.AppMetricaConfig
 import ru.lavafrai.maiapp.data.Settings
 import java.io.File
+
 
 class Mai3 : Application() {
     override fun onCreate() {
@@ -20,10 +24,12 @@ class Mai3 : Application() {
 
         Settings.init(this)
         filesPath = getExternalFilesDir(null)!!
+        clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager;
     }
 
     companion object {
         lateinit var filesPath: File
+        lateinit var clipboard: ClipboardManager
 
         fun wipeData(path: File = filesPath) {
             path.listFiles()?.forEach {
@@ -33,6 +39,11 @@ class Mai3 : Application() {
 
                 it.delete()
             }
+        }
+
+        fun copyString(value: String) {
+            val clip = ClipData.newPlainText(value, value)
+            clipboard.setPrimaryClip(clip)
         }
     }
 }
