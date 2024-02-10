@@ -2,6 +2,9 @@ package ru.lavafrai.maiapp.ui.fragments.pages
 
 import android.app.Activity
 import android.content.Intent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,8 +40,18 @@ fun SchedulePage() {
         setScheduleLoaded(true)
     }
 
-    when {
-        scheduleLoaded -> SchedulePageView(schedule)
-        else -> LoadingPageView()
+    AnimatedVisibility(
+        visible = scheduleLoaded,
+        enter = expandVertically(),
+        exit = shrinkVertically(),
+    ) {
+        SchedulePageView(schedule)
+    }
+    AnimatedVisibility(
+        visible = !scheduleLoaded,
+        enter = expandVertically(),
+        exit = shrinkVertically(),
+    ) {
+        LoadingPageView()
     }
 }

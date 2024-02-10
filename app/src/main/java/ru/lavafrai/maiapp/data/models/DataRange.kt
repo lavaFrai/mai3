@@ -17,6 +17,10 @@ class DateRange(
         return "${startDate.toString()} - ${endDate.toString()}"
     }
 
+    fun isNow(): Boolean {
+        return SerializableDate.now() in this
+    }
+
 
     companion object {
         fun parse(string: String): DateRange {

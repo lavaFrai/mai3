@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -57,6 +58,7 @@ fun SchedulePageView(schedule: Schedule) {
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val weekSelectorState = rememberModalBottomSheetState()
+    val scheduleListState = rememberLazyListState()
 
     if (weekSelectorOpened) {
         WeekSelector(
@@ -66,6 +68,10 @@ fun SchedulePageView(schedule: Schedule) {
             },
             onSelect = { selectedWeek ->
                 setCurrentSubSchedule(schedule.subSchedules.find { it.weekId == selectedWeek })
+                if (selectedWeek.range.isNow()) scope.launch {
+
+                }
+                else scope.launch { scheduleListState.scrollToItem(0) }
             },
             weeks = schedule.getWeeks()
         )
@@ -93,7 +99,7 @@ fun SchedulePageView(schedule: Schedule) {
                 .align(Alignment.CenterHorizontally)
         )
 
-        LazyColumn() {
+        LazyColumn(state = scheduleListState) {
             currentSubSchedule.days.forEach { day ->
                 stickyHeader {
                     Row(
@@ -114,7 +120,7 @@ fun SchedulePageView(schedule: Schedule) {
                 }
 
                 item {
-                    ScheduleDayView(day)
+                    ScheduleDayView(day = day)
                 }
             }
         }
@@ -124,8 +130,8 @@ fun SchedulePageView(schedule: Schedule) {
 
 @Preview
 @Composable
-fun ScheduleDayView(day: OneDaySchedule = getSampleDaySchedule()) {
-    Column(Modifier.padding(8.dp)) {
+fun ScheduleDayView(modifier: Modifier = Modifier, day: OneDaySchedule = getSampleDaySchedule()) {
+    Column(modifier.padding(8.dp)) {
         day.lessons.forEach { lesson ->
             ScheduleLessonView(lesson)
         }
@@ -140,46 +146,59 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule()) {
     Card(modifier = Modifier
         .padding(8.dp)
     ) {
-        Row (Modifier.clickable {  }) {
-            PairName(modifier = Modifier.padding(8.dp), text = lesson.getPairNumber().toString())
-            Column(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .weight(1f)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        lesson.name,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(bottom = 8.dp),
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            lineHeight = 20.sp,
-                        ),
-                        color = MaterialTheme.colorScheme.onBackground,
+        Column (modifier = Modifier.clickable {  }) {
 
-                        )
-                }
-                Row {
-                    Text(text = lesson.timeRange, style = MaterialTheme.typography.bodySmall)
-                }
-                Row {
-                    Text(text = lesson.teacher, style = MaterialTheme.typography.bodySmall)
-                }
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth(),
+            Row() {
+                PairName(
+                    modifier = Modifier.padding(8.dp),
+                    text = lesson.getPairNumber().toString()
+                )
+                Column(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .weight(1f)
                 ) {
-                    Text(
-                        text = lesson.location,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier.weight(1f)
-                    )
-                    SuggestionChip(onClick = {}, label = { Text(text = lesson.type.localized().uppercase()) })
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            lesson.name,
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(bottom = 8.dp),
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                lineHeight = 20.sp,
+                            ),
+                            color = MaterialTheme.colorScheme.onBackground,
+
+                            )
+                    }
+                    Row {
+                        Text(text = lesson.timeRange, style = MaterialTheme.typography.bodySmall)
+                    }
+                    Row {
+                        Text(text = lesson.teacher, style = MaterialTheme.typography.bodySmall)
+                    }
+
                 }
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth().padding(8.dp, 0.dp),
+            ) {
+                Text(
+                    text = lesson.location,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.weight(1f)
+                )
+                /*SuggestionChip(
+                    onClick = {},
+                    label = { Text(text = lesson.location) },
+                    icon = { Icon(Icons.Default.LocationOn, null)
+                    })*/
+                SuggestionChip(
+                    onClick = {},
+                    label = { Text(text = lesson.type.localized().uppercase()) })
             }
         }
     }
