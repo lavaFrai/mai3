@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import io.appmetrica.analytics.AppMetrica
+import ru.lavafrai.maiapp.BuildConfig
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.MainActivity
@@ -78,12 +79,21 @@ fun SettingsPage() {
             onClick = {
                 Mai3.wipeData()
                 exitProcess(0)
-            }, modifier = Modifier.fillMaxWidth().padding(16.dp), dialogText = stringResource(
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp), dialogText = stringResource(
                 id = R.string.data_clear_confirmation
             )
         ) {
             Text(stringResource(id = R.string.wipe_data))
         }
+
+        Text(
+            text = "MAI app by. lava_frai\nBuild: ${BuildConfig.BUILD_TYPE}@${BuildConfig.VERSION_NAME}",
+            modifier = Modifier.padding(16.dp).padding(top = 0.dp).fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
+        )
 
     }
 
