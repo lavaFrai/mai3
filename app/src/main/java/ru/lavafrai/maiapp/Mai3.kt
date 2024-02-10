@@ -14,13 +14,15 @@ class Mai3 : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val config = AppMetricaConfig
-            .newConfigBuilder(BuildConfig.APP_METRIKA_API_KEY)
-            .withAppVersion(getString(R.string.version))
-            .withCrashReporting(true)
-            .withLocationTracking(true)
-            .build()
-        AppMetrica.activate(this, config)
+        if (BuildConfig.APP_METRIKA_API_KEY != null) {
+            val config = AppMetricaConfig
+                .newConfigBuilder(BuildConfig.APP_METRIKA_API_KEY)
+                .withAppVersion(getString(R.string.version))
+                .withCrashReporting(true)
+                .withLocationTracking(true)
+                .build()
+            AppMetrica.activate(this, config)
+        }
 
         Settings.init(this)
         filesPath = getExternalFilesDir(null)!!
