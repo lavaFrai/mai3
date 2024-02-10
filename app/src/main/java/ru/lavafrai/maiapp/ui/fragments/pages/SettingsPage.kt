@@ -196,7 +196,11 @@ fun SettingsThemeControls() {
                 )
 
 
-                var selected by remember { mutableStateOf(0) }
+                var selected by remember { mutableStateOf(when (Settings.getIsDarkTheme()) {
+                    true -> 2
+                    false -> 0
+                    else -> 1
+                }) }
 
                 SingleChoiceSegmentedButtonRow (
                     modifier = Modifier.fillMaxWidth()
