@@ -63,6 +63,7 @@ class MainActivity : ComponentActivity() {
 
         MAI30Theme (
             darkTheme = isDarkTheme,
+            dynamicColor = false
         ) {
             Scaffold(
                 modifier = Modifier

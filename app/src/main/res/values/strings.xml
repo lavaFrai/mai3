@@ -81,4 +81,13 @@
     <string name="november">November</string>
     <string name="december">December</string>
     <string name="no_lessons_in_this_day">No lessons in this day</string>
+    <string name="widget_schedule_not_exist_1">Schedule not downloaded yet</string>
+    <string name="widget_schedule_not_exist_2">Download it in app first time</string>
+    <string name="refresh">Refresh</string>
+
+    <string name="open_github">Open GitHub</string>
+    <string name="open_telegram">Open Telegram</string>
+    <string name="widget">Widget</string>
+    <string name="create_widget">Create widget</string>
+    <string name="widget_settings_description">The application supports displaying the schedule in a widget. Try adding it to the home screen and using it.</string>
 </resources>

@@ -19,6 +19,12 @@ fun Separator() {
 
 
 @Composable
+fun SecondarySeparator() {
+    Box(modifier = GlanceModifier.fillMaxWidth().background(WidgetColors.SECONDARY).height(1f.dp).padding(8.dp)) {}
+}
+
+
+@Composable
 fun VerticalSeparator() {
     Box(modifier = GlanceModifier.fillMaxHeight().background(WidgetColors.PRIMARY).width(2f.dp).padding(8.dp)) {}
 }

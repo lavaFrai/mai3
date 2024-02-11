@@ -23,10 +23,12 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +40,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import androidx.glance.appwidget.GlanceAppWidgetManager
 import io.appmetrica.analytics.AppMetrica
+import kotlinx.coroutines.launch
 import ru.lavafrai.maiapp.BuildConfig
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.Mai3
@@ -53,6 +57,7 @@ import ru.lavafrai.maiapp.data.models.group.GroupNameAnalyzer
 import ru.lavafrai.maiapp.data.models.group.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
+import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
 import kotlin.system.exitProcess
 
 
@@ -61,7 +66,7 @@ fun SettingsPage() {
     val context = LocalContext.current
     // val activity = LocalContext.current as Activity
 
-    Column (
+    Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
     ) {
@@ -71,6 +76,8 @@ fun SettingsPage() {
 
 
         SettingsThemeControls()
+        Spacer(modifier = Modifier.height(16.dp))
+        SettingsWidget()
         SettingsUIDCard()
         SettingsTelegram()
         SettingsSourcesCard()
@@ -90,7 +97,10 @@ fun SettingsPage() {
 
         Text(
             text = "MAI app by. lava_frai\nBuild: ${BuildConfig.BUILD_TYPE}@${BuildConfig.VERSION_NAME}",
-            modifier = Modifier.padding(16.dp).padding(top = 0.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(16.dp)
+                .padding(top = 0.dp)
+                .fillMaxWidth(),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
         )
@@ -118,6 +128,47 @@ fun SettingsPage() {
     }*/
 }
 
+
+@Preview
+@Composable
+fun SettingsWidget() {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+    ) {
+
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+        ) {
+            Row {
+                TextH3(
+                    text = stringResource(id = R.string.widget),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .padding(bottom = 12.dp)
+                )
+            }
+
+            Text(text = stringResource(id = R.string.widget_settings_description))
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(onClick = {
+                scope.launch { GlanceAppWidgetManager(context).requestPinGlanceAppWidget(
+                    ScheduleWidgetReceiver::class.java,
+                    successCallback = null
+                ) }
+            }, modifier = Modifier.fillMaxWidth()) {
+                Text(text = stringResource(id = R.string.create_widget))
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun SettingsTelegram() {
@@ -137,7 +188,11 @@ fun SettingsTelegram() {
                     .padding(16.dp)
             ) {
                 Row {
-                    Icon(painterResource(R.drawable.ic_telegram), null, modifier = Modifier.padding(top = 3.dp))
+                    Icon(
+                        painterResource(R.drawable.ic_telegram),
+                        null,
+                        modifier = Modifier.padding(top = 3.dp)
+                    )
                     TextH3(
                         text = stringResource(id = R.string.community),
                         color = MaterialTheme.colorScheme.onBackground,
@@ -152,6 +207,12 @@ fun SettingsTelegram() {
                     text = PROJECT_TELEGRAM_URL,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.3f),
                 )
+                TextButton(onClick = {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PROJECT_TELEGRAM_URL))
+                    startActivity(context, browserIntent, null)
+                }, modifier = Modifier.fillMaxWidth()) {
+                    Text(text = stringResource(id = R.string.open_telegram))
+                }
             }
         }
     }
@@ -177,7 +238,11 @@ fun SettingsSourcesCard() {
                     .padding(16.dp)
             ) {
                 Row {
-                    Icon(painterResource(R.drawable.ic_github), null, modifier = Modifier.padding(top = 3.dp))
+                    Icon(
+                        painterResource(R.drawable.ic_github),
+                        null,
+                        modifier = Modifier.padding(top = 3.dp)
+                    )
                     TextH3(
                         text = stringResource(id = R.string.open_source),
                         color = MaterialTheme.colorScheme.onBackground,
@@ -192,6 +257,13 @@ fun SettingsSourcesCard() {
                     text = PROJECT_GITHUB_URL,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.3f),
                 )
+
+                TextButton(onClick = {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PROJECT_GITHUB_URL))
+                    startActivity(context, browserIntent, null)
+                }, modifier = Modifier.fillMaxWidth()) {
+                    Text(text = stringResource(id = R.string.open_github))
+                }
             }
         }
     }
@@ -265,18 +337,25 @@ fun SettingsThemeControls() {
                 )
 
 
-                var selected by remember { mutableIntStateOf(when (Settings.getIsDarkTheme()) {
-                    true -> 2
-                    false -> 0
-                    else -> 1
-                }) }
+                var selected by remember {
+                    mutableIntStateOf(
+                        when (Settings.getIsDarkTheme()) {
+                            true -> 2
+                            false -> 0
+                            else -> 1
+                        }
+                    )
+                }
 
-                SingleChoiceSegmentedButtonRow (
+                SingleChoiceSegmentedButtonRow(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     SegmentedButton(
                         shape = SegmentedButtonDefaults.itemShape(index = 0, count = 3),
-                        onClick = { Settings.setIsDarkTheme(false) ; MainActivity.manualRecompose() ; selected = 0 },
+                        onClick = {
+                            Settings.setIsDarkTheme(false); MainActivity.manualRecompose(); selected =
+                            0
+                        },
                         selected = selected == 0
                     ) {
                         Text(stringResource(id = R.string.day_theme))
@@ -284,7 +363,10 @@ fun SettingsThemeControls() {
 
                     SegmentedButton(
                         shape = SegmentedButtonDefaults.itemShape(index = 1, count = 3),
-                        onClick = { Settings.setIsDarkTheme(null) ; MainActivity.manualRecompose() ; selected = 1 },
+                        onClick = {
+                            Settings.setIsDarkTheme(null); MainActivity.manualRecompose(); selected =
+                            1
+                        },
                         selected = selected == 1
                     ) {
                         Text(stringResource(id = R.string.default_theme))
@@ -292,7 +374,10 @@ fun SettingsThemeControls() {
 
                     SegmentedButton(
                         shape = SegmentedButtonDefaults.itemShape(index = 2, count = 3),
-                        onClick = { Settings.setIsDarkTheme(true) ; MainActivity.manualRecompose() ; selected = 2 },
+                        onClick = {
+                            Settings.setIsDarkTheme(true); MainActivity.manualRecompose(); selected =
+                            2
+                        },
                         selected = selected == 2
                     ) {
                         Text(stringResource(id = R.string.night_theme))
@@ -365,7 +450,7 @@ fun SettingsUserCard(groupId: GroupId = GroupId("М14О-102БВ-23")) {
 
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(onClick = {
-                    val intent =  Intent(context, GroupSelectActivity::class.java)
+                    val intent = Intent(context, GroupSelectActivity::class.java)
                     context.startActivity(intent, null)
                 }, modifier = Modifier.fillMaxWidth()) {
                     Text(stringResource(id = R.string.change_group))

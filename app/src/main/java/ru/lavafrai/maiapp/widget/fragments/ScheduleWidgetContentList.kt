@@ -31,7 +31,7 @@ fun ScheduleWidgetContentList(context: Context, schedule: Schedule) {
     }
 
     LazyColumn() {
-        items (dates) { date ->
+        items(dates) { date ->
             WidgetContentDay(date, context, schedule)
         }
     }
@@ -47,7 +47,8 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
         Spacer(modifier = GlanceModifier.height(8.dp))
         WidgetText(
             text = "${
-                date.get(Calendar.DAY_OF_WEEK).toLocalizedDayOfWeekString(context.resources).capitalize()
+                date.get(Calendar.DAY_OF_WEEK).toLocalizedDayOfWeekString(context.resources)
+                    .capitalize()
             }, ${
                 date.get(Calendar.DAY_OF_MONTH)
             } ${
@@ -56,45 +57,46 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
         )
         Spacer(GlanceModifier.height(8.dp))
 
-        daySchedule.lessons.forEach { lesson ->
-            WidgetLessonView(lesson)
-        }
-        if (daySchedule.lessons.isEmpty()) {
-            WidgetEmptyDayView(context)
+        Column {
+            daySchedule.lessons.forEach { lesson ->
+                WidgetLessonView(lesson)
+            }
+            if (daySchedule.lessons.isEmpty()) {
+                WidgetEmptyDayView(context)
+            }
         }
     }
 }
 
-
 @Composable
 fun WidgetLessonView(lesson: ScheduleLesson) {
-    Row {
+    Column {
         Spacer(GlanceModifier.width(8.dp))
-        Column {
-            Row {
-                Column {
-                    WidgetTextCompact(text = lesson.getStartTime())
-                    WidgetTextCompact(text = lesson.getEndTime())
-                }
-                Spacer(GlanceModifier.width(4.dp))
-                VerticalSeparator()
-                Spacer(GlanceModifier.width(4.dp))
-                Column {
-                    WidgetTextCompact(text = lesson.name, maxLines = 1, )
-                    WidgetTextCompact(text = lesson.location, maxLines = 1, )
-                }
+        Row {
+            Column {
+                WidgetTextCompact(text = lesson.getStartTime())
+                WidgetTextCompact(text = lesson.getEndTime())
+            }
+            Spacer(GlanceModifier.width(4.dp))
+            VerticalSeparator()
+            Spacer(GlanceModifier.width(4.dp))
+            Column {
+                WidgetTextCompact(text = lesson.name, maxLines = 1)
+                WidgetTextCompact(text = lesson.location, maxLines = 1)
             }
         }
+        Spacer(GlanceModifier.height(8.dp))
     }
-    Spacer(GlanceModifier.height(8.dp))
-
 }
 
 @Composable
 fun WidgetEmptyDayView(context: Context) {
     Row {
         Spacer(GlanceModifier.width(8.dp))
-        WidgetTextCompact(text =    context.resources.getString(R.string.no_lessons_in_this_day), maxLines = 1)
+        WidgetTextCompact(
+            text = context.resources.getString(R.string.no_lessons_in_this_day),
+            maxLines = 1
+        )
     }
     Spacer(GlanceModifier.height(8.dp))
 }

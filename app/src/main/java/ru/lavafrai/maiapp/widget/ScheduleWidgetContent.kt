@@ -20,11 +20,13 @@ import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
+import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetContentList
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetHeader
 import ru.lavafrai.maiapp.widget.fragments.WidgetText
+
 
 @Composable
 fun ScheduleWidgetContent(context: Context) {
@@ -39,7 +41,7 @@ fun ScheduleWidgetContent(context: Context) {
             val schedule = scheduleManager.getActualSchedule()!!
             WidgetScheduleView(context, schedule)
         } else {
-            WidgetScheduleNotDownloaded()
+            WidgetScheduleNotDownloaded(context)
         }
     }
 }
@@ -55,16 +57,16 @@ fun WidgetScheduleView(context: Context, schedule: Schedule) {
 }
 
 @Composable
-fun WidgetScheduleNotDownloaded() {
+fun WidgetScheduleNotDownloaded(context: Context) {
     Column(modifier = GlanceModifier
-        .fillMaxSize()
-        .background(WidgetColors.BACKGROUND),
+        .fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        WidgetText(text = "Schedule not downloaded yet")
-        Spacer(modifier = GlanceModifier.height(8.dp))
-        Button(text = "Refresh", onClick = actionRunCallback<RefreshUnloadedScheduleAction>())
+        WidgetText(text = context.resources.getString(R.string.widget_schedule_not_exist_1))
+        WidgetText(text = context.resources.getString(R.string.widget_schedule_not_exist_2))
+        Spacer(modifier = GlanceModifier.height(16.dp))
+        Button(text = context.resources.getString(R.string.refresh), onClick = actionRunCallback<RefreshUnloadedScheduleAction>())
     }
 }
 
