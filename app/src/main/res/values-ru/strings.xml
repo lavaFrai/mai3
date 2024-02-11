@@ -87,4 +87,8 @@
     <string name="widget">Виджет</string>
     <string name="create_widget">Создать виджет</string>
     <string name="widget_settings_description">Приложение поддерживает вывод расписания в виджет. Попробуйте добавить его на главный экран и пользоваться им.</string>
+
+    <string name="donation">Пожертвования</string>
+    <string name="donation_description">Если вы пользуетесь этим приложением и оно вам нравится, возможно, вы хотели бы поддержать его разработку. Можете сделать это совершив небольшое пожертвование через сервис CloudTips.</string>
+    <string name="open_donation">Сделать пожертвование</string>
 </resources>

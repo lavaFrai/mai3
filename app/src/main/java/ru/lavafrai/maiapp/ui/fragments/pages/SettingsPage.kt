@@ -48,6 +48,7 @@ import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.data.PROJECT_DONATION_URL
 import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
 import ru.lavafrai.maiapp.data.ScheduleManager
@@ -81,6 +82,7 @@ fun SettingsPage() {
         SettingsUIDCard()
         SettingsTelegram()
         SettingsSourcesCard()
+        SettingsDonation()
 
         DangerButton(
             onClick = {
@@ -218,6 +220,43 @@ fun SettingsTelegram() {
     }
 }
 
+@Preview
+@Composable
+fun SettingsDonation() {
+    val context = LocalContext.current
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+    ) {
+        Box(Modifier.clickable {  }) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                Row {
+                    TextH3(
+                        text = stringResource(id = R.string.donation),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier
+                            .padding(bottom = 12.dp)
+                    )
+                }
+
+                Text(text = stringResource(id = R.string.donation_description))
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PROJECT_DONATION_URL))
+                    startActivity(context, browserIntent, null)
+                }, modifier = Modifier.fillMaxWidth()) {
+                    Text(text = stringResource(id = R.string.open_donation))
+                }
+            }
+        }
+    }
+}
+
 
 @Preview
 @Composable
@@ -227,7 +266,7 @@ fun SettingsSourcesCard() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 32.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Box(Modifier.clickable {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PROJECT_GITHUB_URL))

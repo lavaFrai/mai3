@@ -5,3 +5,4 @@ const val SCHEDULE_PAGE_URL = "https://mai.ru/education/studies/schedule/index.p
 const val GROUPS_PAGE_URL = "https://mai.ru/education/studies/schedule/groups.php"
 const val PROJECT_GITHUB_URL = "https://github.com/lavaFrai/mai3/"
 const val PROJECT_TELEGRAM_URL = "https://t.me/maiapp3/"
+const val PROJECT_DONATION_URL = "https://pay.cloudtips.ru/p/e930707c/"

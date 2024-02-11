@@ -2,7 +2,7 @@
     <string name="app_name">MAI 3.0</string>
     <string name="schedule_file" translatable="false">schedule.json</string>
     <string name="settings_file" translatable="false">settings.json</string>
-    <string name="version" translatable="false">0.3.0a</string>
+    <string name="version" translatable="false">0.4.0a</string>
 
     <string name="lets_chose_group_title">Lets select a group</string>
     <string name="groups_loading">Loading groups list…\nIt may take up to some minutes</string>
@@ -90,4 +90,8 @@
     <string name="widget">Widget</string>
     <string name="create_widget">Create widget</string>
     <string name="widget_settings_description">The application supports displaying the schedule in a widget. Try adding it to the home screen and using it.</string>
+
+    <string name="donation">Donation</string>
+    <string name="donation_description">If you use this app and you like it, you might want to support its development. You can do this by making a small donation through the CloudTips service.</string>
+    <string name="open_donation">Make donation</string>
 </resources>
