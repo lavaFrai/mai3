@@ -77,4 +77,5 @@
     <string name="october">Октября</string>
     <string name="november">Ноября</string>
     <string name="december">Декабря</string>
+    <string name="no_lessons_in_this_day">В этот день нет занятий</string>
 </resources>

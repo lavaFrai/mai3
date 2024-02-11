@@ -21,6 +21,7 @@ import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import ru.lavafrai.maiapp.data.ScheduleManager
+import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetContentList
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetHeader
 import ru.lavafrai.maiapp.widget.fragments.WidgetText
@@ -35,7 +36,8 @@ fun ScheduleWidgetContent(context: Context) {
         .padding(8.dp)
     ) {
         if (scheduleManager.hasActualScheduleDownloaded()) {
-            WidgetScheduleView(context)
+            val schedule = scheduleManager.getActualSchedule()!!
+            WidgetScheduleView(context, schedule)
         } else {
             WidgetScheduleNotDownloaded()
         }
@@ -44,11 +46,11 @@ fun ScheduleWidgetContent(context: Context) {
 
 
 @Composable
-fun WidgetScheduleView(context: Context) {
+fun WidgetScheduleView(context: Context, schedule: Schedule) {
     Column {
         ScheduleWidgetHeader(context)
         Spacer(GlanceModifier.height(8.dp))
-        ScheduleWidgetContentList(context)
+        ScheduleWidgetContentList(context, schedule)
     }
 }
 

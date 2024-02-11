@@ -22,4 +22,12 @@ data class ScheduleLesson(
             else -> 0
         }
     }
+
+    fun getStartTime(): String {
+        return timeRange.split(" – ")[0]
+    }
+
+    fun getEndTime(): String {
+        return timeRange.split(" – ")[1]
+    }
 }

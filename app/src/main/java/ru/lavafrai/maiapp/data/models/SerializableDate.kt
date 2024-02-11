@@ -73,6 +73,13 @@ data class SerializableDate (
                 day = calendar.get(Calendar.DAY_OF_MONTH).toShort(),
             )
         }
+
+        fun ofYearLess(calendar: Calendar): SerializableDate {
+            return SerializableDate(
+                month = (calendar.get(Calendar.MONTH) + 1).toShort(),
+                day = calendar.get(Calendar.DAY_OF_MONTH).toShort(),
+            )
+        }
     }
 }
 

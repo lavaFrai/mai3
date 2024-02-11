@@ -13,6 +13,7 @@ import ru.lavafrai.maiapp.data.models.schedule.network.getSchedulePage
 import ru.lavafrai.maiapp.data.models.schedule.parseScheduleWeek
 import ru.lavafrai.maiapp.utils.mapThreaded
 import java.time.DayOfWeek
+import java.util.Calendar
 
 
 fun parseSchedule(groupId: GroupId) : Schedule {
@@ -67,7 +68,7 @@ fun subParseOneDaySchedule(page: Element): OneDaySchedule {
     }
     val dayDay = dayMatch.groups[1]!!.value.toShort()
 
-    return OneDaySchedule(lessons, dayOfWeek, SerializableDate(0, dayMonth.toShort(), dayDay))
+    return OneDaySchedule(lessons, dayOfWeek, SerializableDate(Calendar.getInstance().get(Calendar.YEAR), dayMonth.toShort(), dayDay))
 }
 
 fun subParseLesson(page: Element): ScheduleLesson {

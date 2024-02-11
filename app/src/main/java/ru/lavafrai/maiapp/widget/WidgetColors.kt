@@ -2,6 +2,7 @@ package ru.lavafrai.maiapp.widget
 
 import androidx.compose.ui.graphics.Color
 import androidx.glance.color.ColorProvider
+import ru.lavafrai.maiapp.ui.theme.MaiColor
 
 class WidgetColors {
     companion object {
@@ -13,6 +14,11 @@ class WidgetColors {
         val ON_BACKGROUND = ColorProvider(
             day = Color.White,
             night = Color.White
+        )
+
+        val PRIMARY = ColorProvider(
+            day = MaiColor,
+            night = MaiColor
         )
     }
 }

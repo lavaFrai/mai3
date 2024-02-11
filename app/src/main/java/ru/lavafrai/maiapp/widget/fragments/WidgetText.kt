@@ -1,11 +1,8 @@
 package ru.lavafrai.maiapp.widget.fragments
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceModifier
-import androidx.glance.layout.Spacer
-import androidx.glance.layout.height
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextDefaults
@@ -38,6 +35,22 @@ fun WidgetTextHeader(
         text = text,
         modifier = modifier,
         style = style.copy(color = WidgetColors.ON_BACKGROUND, fontSize = 17.sp, fontWeight = FontWeight.Bold),
+        maxLines = maxLines
+    )
+}
+
+
+@Composable
+fun WidgetTextCompact(
+    text: String,
+    modifier: GlanceModifier = GlanceModifier,
+    style: TextStyle = TextDefaults.defaultTextStyle,
+    maxLines: Int = Int.MAX_VALUE,
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        style = style.copy(color = WidgetColors.ON_BACKGROUND, fontSize = 14.sp, fontWeight = FontWeight.Normal),
         maxLines = maxLines
     )
 }
