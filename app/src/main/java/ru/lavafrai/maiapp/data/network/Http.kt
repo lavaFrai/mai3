@@ -13,19 +13,23 @@ import java.net.URL
  * @return downloaded content or null if error occurred
  */
 fun httpGet(url: URL, attemptsLeft: Int = 5) : String? {
-    val urlConnection = url.openConnection() as HttpURLConnection
     if (attemptsLeft <= 0) return null;
 
+
     return try {
-        val inputStream: InputStream = BufferedInputStream(urlConnection.inputStream)
-        val outputStringWriter = StringWriter()
+        val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        try {
+            val inputStream: InputStream = BufferedInputStream(urlConnection.inputStream)
+            val outputStringWriter = StringWriter()
 
-        IOUtils.copy(inputStream, outputStringWriter, Charsets.UTF_8)
+            IOUtils.copy(inputStream, outputStringWriter, Charsets.UTF_8)
 
-        outputStringWriter.toString()
+            outputStringWriter.toString()
+        } finally {
+            urlConnection.disconnect()
+        }
     } catch (e: Exception) {
+        e.printStackTrace()
         httpGet(url, attemptsLeft - 1)
-    } finally {
-        urlConnection.disconnect()
     }
 }

@@ -23,8 +23,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -34,9 +36,11 @@ import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.appmetrica.analytics.AppMetrica
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.parser.parseGroupsList
+import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import kotlin.concurrent.thread
@@ -58,22 +62,33 @@ class GroupSelectActivity : ComponentActivity() {
         val (searchBarText, setSearchBarText) = rememberSaveable { mutableStateOf("") }
         val (searchBarActive, setSearchBarActive) = rememberSaveable { mutableStateOf(false) }
         val (groupsLoaded, setGroupsLoaded) = rememberSaveable { mutableStateOf(false) }
+
+        var groupsError by rememberSaveable { mutableStateOf(false) }
+
         val groups = rememberSaveable { mutableListOf<GroupId>() }
         val (selectedGroup, setSelectedGroup) = rememberSaveable { mutableStateOf<GroupId?>(null) }
 
         val context = LocalContext.current
 
         thread {
-            if (!groupsLoaded) {
-                groups.addAll(parseGroupsList())
-                val tmp = groups.distinctBy { it.name }
-                groups.clear()
-                groups.addAll(tmp)
-                setGroupsLoaded(true)
+            try {
+                if (!groupsLoaded) {
+                    groups.addAll(parseGroupsList())
+                    val tmp = groups.distinctBy { it.name }
+                    groups.clear()
+                    groups.addAll(tmp)
+                    setGroupsLoaded(true)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                groupsError = true
+                AppMetrica.reportError("Group activity network error", e)
             }
         }
 
         MAI30Theme {
+            NetworkErrorDialog(groupsError)
+
             Column(modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)

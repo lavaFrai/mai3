@@ -91,4 +91,8 @@
     <string name="donation">Пожертвования</string>
     <string name="donation_description">Если вы пользуетесь этим приложением и оно вам нравится, возможно, вы хотели бы поддержать его разработку. Можете сделать это совершив небольшое пожертвование через сервис CloudTips.</string>
     <string name="open_donation">Сделать пожертвование</string>
+
+    <string name="network_error">Сетевая ошибка</string>
+    <string name="network_error_description">При работе произошла ошибка подключения к сети. Постарайтесь использовать более стабильное подключение по wifi или попробуйте позже. Приложение должно быть перезапущено.</string>
+
 </resources>
