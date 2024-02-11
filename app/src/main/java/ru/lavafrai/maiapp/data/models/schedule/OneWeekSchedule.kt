@@ -13,12 +13,12 @@ data class OneWeekSchedule (
     val days: List<OneDaySchedule>,
 ) {
     fun getTodayNumberOrInf(): Int {
-        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+        var today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
 
-        for ((todayNumber, day) in days.withIndex()) {
-            if (day.dayOfWeek.value >= today) return todayNumber
-        }
-        return 8
+        today -= 2
+        if (today == -1) today = 6
+
+        return today
     }
 }
 

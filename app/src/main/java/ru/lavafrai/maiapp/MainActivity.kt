@@ -62,8 +62,7 @@ class MainActivity : ComponentActivity() {
         var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
 
         MAI30Theme (
-            darkTheme = isDarkTheme,
-            dynamicColor = false
+            darkTheme = isDarkTheme
         ) {
             Scaffold(
                 modifier = Modifier

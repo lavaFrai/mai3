@@ -202,6 +202,6 @@ suspend fun scrollToToday(schedule: Schedule, scheduleListState: LazyListState) 
 
 
 fun getTodayIndex(schedule: Schedule): Int {
-    return (schedule.getCurrentSubScheduleOrNull()?.getTodayNumberOrInf() ?: 0) * 2 + 1
+    return (schedule.getCurrentSubScheduleOrNull()?.getTodayNumberOrInf() ?: 0) * 3
 }
 
