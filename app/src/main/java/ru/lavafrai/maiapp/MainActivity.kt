@@ -17,17 +17,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.glance.appwidget.updateAll
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
 import ru.lavafrai.maiapp.ui.fragments.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.fragments.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
+import ru.lavafrai.maiapp.widget.ScheduleWidget
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        updateWidget = {
+            val coroutineScope = MainScope()
+            coroutineScope.launch {
+                ScheduleWidget().updateAll(this@MainActivity)
+            }
+        }
+        updateWidget()
 
         setContent {
             val isDarkTheme = remember { mutableStateOf<Boolean?>(Settings.getIsDarkTheme()) }
@@ -40,6 +51,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
+    override fun onDestroy() {
+        updateWidget()
+        super.onDestroy()
+    }
 
     @Composable
     fun MainView(isDarkTheme: Boolean) {
@@ -74,5 +90,7 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         var manualRecompose: () -> Unit = { }
+
+        lateinit var updateWidget: () -> Unit
     }
 }

@@ -43,6 +43,7 @@ class ScheduleManager(private val context: Context) {
 
             getSchedule(settings.currentGroup!!)
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }

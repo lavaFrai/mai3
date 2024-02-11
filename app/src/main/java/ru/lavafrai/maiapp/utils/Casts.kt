@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.utils
 
+import android.content.res.Resources
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.Dispatchers
@@ -74,3 +75,34 @@ fun drawableResource(): Unit? {
         Image(bitmap = it.toBitmap().asImageBitmap(), contentDescription = null)
     }
 }*/
+
+fun Int.toLocalizedMonthString(resources: Resources): String {
+    return when (this) {
+        0 -> resources.getString(R.string.january)
+        1 -> resources.getString(R.string.february)
+        2 -> resources.getString(R.string.march)
+        3 -> resources.getString(R.string.april)
+        4 -> resources.getString(R.string.may)
+        5 -> resources.getString(R.string.june)
+        6 -> resources.getString(R.string.july)
+        7 -> resources.getString(R.string.august)
+        8 -> resources.getString(R.string.september)
+        9 -> resources.getString(R.string.october)
+        10 -> resources.getString(R.string.november)
+        11 -> resources.getString(R.string.december)
+        else -> throw IllegalArgumentException("Invalid month number")
+    }
+}
+
+fun Int.toLocalizedDayOfWeekString(resources: Resources): String {
+    return when (this) {
+        1 -> resources.getString(R.string.sunday)
+        2 -> resources.getString(R.string.monday)
+        3 -> resources.getString(R.string.tuesday)
+        4 -> resources.getString(R.string.wednesday)
+        5 -> resources.getString(R.string.thursday)
+        6 -> resources.getString(R.string.friday)
+        7 -> resources.getString(R.string.saturday)
+        else -> throw IllegalArgumentException("Invalid day of week number")
+    }
+}

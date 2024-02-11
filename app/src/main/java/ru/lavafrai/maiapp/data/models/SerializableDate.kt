@@ -1,11 +1,13 @@
 package ru.lavafrai.maiapp.data.models
 
+import android.content.Context
 import kotlinx.serialization.Serializable
+import ru.lavafrai.maiapp.utils.toLocalizedMonthString
 import java.util.Calendar
 
 
 @Serializable
-class SerializableDate (
+data class SerializableDate (
     val year: Int = 0,
     val month: Short = 0,
     val day: Short = 0,
@@ -41,6 +43,10 @@ class SerializableDate (
         return "${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.$year"
     }
 
+    fun toLocalizedDayMonthString(context: Context): String {
+        return "${day.toString().padStart(2, '0')} ${month.toInt().toLocalizedMonthString(context.resources)}"
+    }
+
     companion object {
         fun now(): SerializableDate {
             val calendar = Calendar.getInstance()
@@ -57,6 +63,14 @@ class SerializableDate (
                 match.groups[3]!!.value.toInt(),
                 match.groups[2]!!.value.toShort(),
                 match.groups[1]!!.value.toShort(),
+            )
+        }
+
+        fun of(calendar: Calendar): SerializableDate {
+            return SerializableDate(
+                year = calendar.get(Calendar.YEAR),
+                month = (calendar.get(Calendar.MONTH) + 1).toShort(),
+                day = calendar.get(Calendar.DAY_OF_MONTH).toShort(),
             )
         }
     }

@@ -2,6 +2,8 @@ package ru.lavafrai.maiapp.data.models.schedule
 
 import kotlinx.serialization.Serializable
 import ru.lavafrai.maiapp.data.models.DateRange
+import ru.lavafrai.maiapp.data.models.SerializableDate
+import java.time.DayOfWeek
 import java.util.Calendar
 
 
@@ -24,5 +26,13 @@ fun getEmptyOneWeekSchedule(): OneWeekSchedule {
     return OneWeekSchedule(
         ScheduleWeekId(0, DateRange.parse("09.02.2024 - 11.02.2024")),
         days = listOf(),
+    )
+}
+
+fun getEmptyOneDaySchedule(date: SerializableDate): OneDaySchedule {
+    return OneDaySchedule(
+        lessons = listOf(),
+        dayOfWeek = DayOfWeek.SUNDAY,
+        date = date,
     )
 }

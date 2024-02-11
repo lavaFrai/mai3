@@ -29,6 +29,11 @@ class Mai3 : Application() {
         clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager;
     }
 
+    override fun onTerminate() {
+        super.onTerminate()
+
+    }
+
     companion object {
         lateinit var filesPath: File
         lateinit var clipboard: ClipboardManager

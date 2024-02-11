@@ -21,6 +21,13 @@ data class Schedule (
     fun getCurrentSubScheduleOrNull(): OneWeekSchedule? {
         return subSchedules.find { SerializableDate.now() in it.weekId.range }
     }
+
+    fun getScheduleOfDay(day: SerializableDate): OneDaySchedule {
+        val week = subSchedules.find { day in it.weekId.range }
+        week ?: return getEmptyOneDaySchedule(day)
+        val daySchedule = week.days.find { day == it.date }
+        return daySchedule ?: getEmptyOneDaySchedule(day)
+    }
 }
 
 

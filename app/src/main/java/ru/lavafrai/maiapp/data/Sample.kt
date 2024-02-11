@@ -1,6 +1,7 @@
 package ru.lavafrai.maiapp.data
 
 import ru.lavafrai.maiapp.data.models.DateRange
+import ru.lavafrai.maiapp.data.models.SerializableDate
 import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
@@ -33,7 +34,7 @@ fun getSampleDaySchedule(): OneDaySchedule {
             )
         ),
         DayOfWeek.SATURDAY,
-        "12 февраля"
+        SerializableDate.parse("2024.01.12")
     )
 }
 

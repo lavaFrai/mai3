@@ -28,6 +28,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -134,7 +135,7 @@ fun SchedulePageView(schedule: Schedule?) {
                             TextH3(text = day.dayOfWeek.localized().capitalize())
                             Spacer(modifier = Modifier.width(16.dp))
                             Text(
-                                text = day.date,
+                                text = day.date.toLocalizedDayMonthString(LocalContext.current),
                                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                                 fontWeight = FontWeight.Light
                             )

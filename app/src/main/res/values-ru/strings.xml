@@ -63,4 +63,18 @@
     <string name="community">Сообщество</string>
     <string name="community_description">С любыми вопросами и предложениями, за поддержкой вы можете обратиться в телеграм чат сообщества. Вам быстро помогут разработчики или другие.</string>
     <string name="change_group">Сменить группу</string>
+    <string name="widget_description">Расписание вашей недели</string>
+
+    <string name="january">Января</string>
+    <string name="february">Февраля</string>
+    <string name="march">Марта</string>
+    <string name="april">Апреля</string>
+    <string name="may">Мая</string>
+    <string name="june">Июня</string>
+    <string name="july">Июля</string>
+    <string name="august">Августа</string>
+    <string name="september">Сентября</string>
+    <string name="october">Октября</string>
+    <string name="november">Ноября</string>
+    <string name="december">Декабря</string>
 </resources>

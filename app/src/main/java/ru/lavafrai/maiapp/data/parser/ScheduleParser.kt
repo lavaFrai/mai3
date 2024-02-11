@@ -1,6 +1,7 @@
 package ru.lavafrai.maiapp.data.parser
 
 import org.jsoup.nodes.Element
+import ru.lavafrai.maiapp.data.models.SerializableDate
 import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
@@ -46,8 +47,27 @@ fun subParseOneDaySchedule(page: Element): OneDaySchedule {
     }
     val date = day.subSequence(4, day.length) as String
     val lessons = page.select(".step-content > div").map { subParseLesson(it) }
+    val dayMatch = "(\\d+)\\s+(\\S+)".toRegex().find(date)
 
-    return OneDaySchedule(lessons, dayOfWeek, date)
+    val monthStr = dayMatch!!.groups[2]!!.value
+    val dayMonth = when {
+        monthStr.startsWith("января") -> 1
+        monthStr.startsWith("февраля") -> 2
+        monthStr.startsWith("марта") -> 3
+        monthStr.startsWith("апреля") -> 4
+        monthStr.startsWith("мая") -> 5
+        monthStr.startsWith("июня") -> 6
+        monthStr.startsWith("июля") -> 7
+        monthStr.startsWith("августа") -> 8
+        monthStr.startsWith("сентября") -> 9
+        monthStr.startsWith("октября") -> 10
+        monthStr.startsWith("ноября") -> 11
+        monthStr.startsWith("декабря") -> 12
+        else -> 0
+    }
+    val dayDay = dayMatch.groups[1]!!.value.toShort()
+
+    return OneDaySchedule(lessons, dayOfWeek, SerializableDate(0, dayMonth.toShort(), dayDay))
 }
 
 fun subParseLesson(page: Element): ScheduleLesson {

@@ -66,4 +66,18 @@
     <string name="community">Community</string>
     <string name="community_description">If you have any questions or problems, you can contact the telegram chat of the community for support. Developers or others will help you quickly.</string>
     <string name="change_group">Change group</string>
+    <string name="widget_description">Your week\'s schedule</string>
+
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
 </resources>
