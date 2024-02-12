@@ -32,7 +32,7 @@ fun SchedulePage() {
 
     val scheduleManager = ScheduleManager(LocalContext.current)
     val (scheduleLoaded, setScheduleLoaded) = remember { mutableStateOf(false) }
-    val (schedule, setSchedule) = remember { mutableStateOf<Schedule?>(getEmptySchedule()) }
+    var schedule by remember{ mutableStateOf<Schedule?>(getEmptySchedule()) }
 
     var networkError by rememberSaveable { mutableStateOf(false) }
 
@@ -47,7 +47,7 @@ fun SchedulePage() {
 
     thread {
         try {
-            setSchedule(scheduleManager.getActualSchedule())
+            schedule = (scheduleManager.getActualSchedule())
             setScheduleLoaded(true)
         } catch (e: Exception) {
             e.printStackTrace()
