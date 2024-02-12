@@ -95,4 +95,6 @@
     <string name="open_donation">Make donation</string>
     <string name="network_error">Network error</string>
     <string name="network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later. The application must be restarted.</string>
+    <string name="properties">Properties</string>
+    <string name="property_dynamic_colors">Dynamic colors</string>
 </resources>

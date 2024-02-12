@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,8 +28,13 @@ import ru.lavafrai.maiapp.ui.fragments.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.fragments.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.widget.ScheduleWidget
+import ru.lavafrai.maiapp.widget.WidgetColors
 
 class MainActivity : ComponentActivity() {
+    init {
+        // MainActivity.instance = this
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,12 +48,18 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val isDarkTheme = remember { mutableStateOf<Boolean?>(Settings.getIsDarkTheme()) }
+            val isDynamicColors = rememberSaveable { mutableStateOf(Settings.isDynamicColors()) }
+
             manualRecompose = {
                 isDarkTheme.value = true
                 isDarkTheme.value = Settings.getIsDarkTheme()
+                isDynamicColors.value = Settings.isDynamicColors()
             }
 
-            MainView(isDarkTheme.value ?: isSystemInDarkTheme())
+            MainView(
+                isDarkTheme.value ?: isSystemInDarkTheme(),
+                isDynamicColors.value,
+                )
         }
     }
 
@@ -58,11 +70,12 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun MainView(isDarkTheme: Boolean) {
+    fun MainView(isDarkTheme: Boolean, isDynamicColors: Boolean) {
         var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
 
         MAI30Theme (
-            darkTheme = isDarkTheme
+            darkTheme = isDarkTheme,
+            dynamicColor = isDynamicColors,
         ) {
             Scaffold(
                 modifier = Modifier
@@ -89,7 +102,9 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
-        var manualRecompose: () -> Unit = { }
+        // lateinit var instance: MainActivity
+
+        var manualRecompose: () -> Unit = {}
 
         lateinit var updateWidget: () -> Unit
     }

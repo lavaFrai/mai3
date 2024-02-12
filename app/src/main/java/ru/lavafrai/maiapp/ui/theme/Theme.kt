@@ -84,7 +84,7 @@ private val DarkColorScheme = darkColorScheme(
 fun MAI30Theme(
     darkTheme: Boolean = Settings.isDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = Settings.isDynamicColors(),
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

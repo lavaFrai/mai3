@@ -61,7 +61,7 @@
     <string name="click_to_copy">(нажмите чтобы скопировать)</string>
     <string name="open_source_description">У нашего приложения открытый исходный код, предложить изменения к которому может каждый.\nКод доступен на Github под лицензией, позволяющей вам его использование в своих целях.\n\nНе забывайте сообщать о найденных проблемах и ошибках.</string>
     <string name="community">Сообщество</string>
-    <string name="community_description">С любыми вопросами и предложениями, за поддержкой вы можете обратиться в телеграм чат сообщества. Вам быстро помогут разработчики или другие.</string>
+    <string name="community_description">С любыми вопросами и предложениями, за поддержкой вы можете обратиться в телеграм чат сообщества. Вам быстро помогут разработчики или другие пользователи.</string>
     <string name="change_group">Сменить группу</string>
     <string name="widget_description">Расписание вашей недели</string>
 
@@ -94,5 +94,8 @@
 
     <string name="network_error">Сетевая ошибка</string>
     <string name="network_error_description">При работе произошла ошибка подключения к сети. Постарайтесь использовать более стабильное подключение по wifi или попробуйте позже. Приложение должно быть перезапущено.</string>
+
+    <string name="properties">Параметры</string>
+    <string name="property_dynamic_colors">Динамические цвета</string>
 
 </resources>

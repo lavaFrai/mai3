@@ -27,6 +27,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -57,6 +59,8 @@ import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.group.GroupNameAnalyzer
 import ru.lavafrai.maiapp.data.models.group.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
+import ru.lavafrai.maiapp.ui.fragments.HorizontalSeparator
+import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
 import kotlin.system.exitProcess
@@ -68,8 +72,7 @@ fun SettingsPage() {
     // val activity = LocalContext.current as Activity
 
     Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
+        modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         SettingsHeader()
 
@@ -79,6 +82,7 @@ fun SettingsPage() {
         SettingsThemeControls()
         Spacer(modifier = Modifier.height(16.dp))
         SettingsWidget()
+        SettingsSwitchesPage()
         SettingsUIDCard()
         SettingsTelegram()
         SettingsSourcesCard()
@@ -133,6 +137,28 @@ fun SettingsPage() {
 
 @Preview
 @Composable
+fun SettingsSwitchesPage() {
+    Card(
+        Modifier
+            .padding(16.dp, 0.dp)
+            .padding(bottom = 16.dp)
+            .fillMaxWidth(),
+    ) {
+        Column (
+            Modifier.padding(16.dp),
+        ) {
+            TextH3(text = stringResource(id = R.string.properties))
+            PropertyBoolean(
+                stringResource(id = R.string.property_dynamic_colors),
+                Settings.isDynamicColors()
+            ) { Settings.setDynamicColors(it) ; MainActivity.manualRecompose() }
+        }
+    }
+}
+
+
+@Preview
+@Composable
 fun SettingsWidget() {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -144,15 +170,13 @@ fun SettingsWidget() {
     ) {
 
         Column(
-            modifier = Modifier
-                .padding(16.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Row {
                 TextH3(
                     text = stringResource(id = R.string.widget),
                     color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier
-                        .padding(bottom = 12.dp)
+                    modifier = Modifier.padding(bottom = 12.dp)
                 )
             }
 
@@ -160,10 +184,11 @@ fun SettingsWidget() {
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(onClick = {
-                scope.launch { GlanceAppWidgetManager(context).requestPinGlanceAppWidget(
-                    ScheduleWidgetReceiver::class.java,
-                    successCallback = null
-                ) }
+                scope.launch {
+                    GlanceAppWidgetManager(context).requestPinGlanceAppWidget(
+                        ScheduleWidgetReceiver::class.java, successCallback = null
+                    )
+                }
             }, modifier = Modifier.fillMaxWidth()) {
                 Text(text = stringResource(id = R.string.create_widget))
             }
@@ -186,8 +211,7 @@ fun SettingsTelegram() {
             startActivity(context, browserIntent, null)
         }) {
             Column(
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Row {
                     Icon(
@@ -198,8 +222,7 @@ fun SettingsTelegram() {
                     TextH3(
                         text = stringResource(id = R.string.community),
                         color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier
-                            .padding(bottom = 12.dp, start = 8.dp)
+                        modifier = Modifier.padding(bottom = 12.dp, start = 8.dp)
                     )
                 }
 
@@ -230,17 +253,15 @@ fun SettingsDonation() {
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
-        Box(Modifier.clickable {  }) {
+        Box(Modifier.clickable { }) {
             Column(
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Row {
                     TextH3(
                         text = stringResource(id = R.string.donation),
                         color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier
-                            .padding(bottom = 12.dp)
+                        modifier = Modifier.padding(bottom = 12.dp)
                     )
                 }
 
@@ -273,8 +294,7 @@ fun SettingsSourcesCard() {
             startActivity(context, browserIntent, null)
         }) {
             Column(
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Row {
                     Icon(
@@ -285,8 +305,7 @@ fun SettingsSourcesCard() {
                     TextH3(
                         text = stringResource(id = R.string.open_source),
                         color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier
-                            .padding(bottom = 12.dp, start = 8.dp)
+                        modifier = Modifier.padding(bottom = 12.dp, start = 8.dp)
                     )
                 }
 
@@ -323,8 +342,7 @@ fun SettingsUIDCard() {
             Mai3.copyString(uid)
         }) {
             Column(
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 TextH3(
                     text = stringResource(id = R.string.uid),
@@ -364,8 +382,7 @@ fun SettingsThemeControls() {
     ) {
         Box(Modifier.clickable { }) {
             Column(
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 TextH3(
                     text = stringResource(id = R.string.app_theme),
@@ -390,34 +407,28 @@ fun SettingsThemeControls() {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     SegmentedButton(
-                        shape = SegmentedButtonDefaults.itemShape(index = 0, count = 3),
-                        onClick = {
+                        shape = SegmentedButtonDefaults.itemShape(index = 0, count = 3), onClick = {
                             Settings.setIsDarkTheme(false); MainActivity.manualRecompose(); selected =
                             0
-                        },
-                        selected = selected == 0
+                        }, selected = selected == 0
                     ) {
                         Text(stringResource(id = R.string.day_theme))
                     }
 
                     SegmentedButton(
-                        shape = SegmentedButtonDefaults.itemShape(index = 1, count = 3),
-                        onClick = {
+                        shape = SegmentedButtonDefaults.itemShape(index = 1, count = 3), onClick = {
                             Settings.setIsDarkTheme(null); MainActivity.manualRecompose(); selected =
                             1
-                        },
-                        selected = selected == 1
+                        }, selected = selected == 1
                     ) {
                         Text(stringResource(id = R.string.default_theme))
                     }
 
                     SegmentedButton(
-                        shape = SegmentedButtonDefaults.itemShape(index = 2, count = 3),
-                        onClick = {
+                        shape = SegmentedButtonDefaults.itemShape(index = 2, count = 3), onClick = {
                             Settings.setIsDarkTheme(true); MainActivity.manualRecompose(); selected =
                             2
-                        },
-                        selected = selected == 2
+                        }, selected = selected == 2
                     ) {
                         Text(stringResource(id = R.string.night_theme))
                     }
@@ -452,8 +463,7 @@ fun SettingsUserCard(groupId: GroupId = GroupId("М14О-102БВ-23")) {
     ) {
         Box(Modifier.clickable { }) {
             Column(
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 TextH3(
                     text = groupId.name,
