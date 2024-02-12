@@ -105,4 +105,6 @@ fun Int.toLocalizedDayOfWeekString(resources: Resources): String {
         7 -> resources.getString(R.string.saturday)
         else -> throw IllegalArgumentException("Invalid day of week number")
     }
+
 }
+
