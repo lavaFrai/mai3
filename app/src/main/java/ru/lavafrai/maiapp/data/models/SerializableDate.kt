@@ -44,7 +44,7 @@ data class SerializableDate (
     }
 
     fun toLocalizedDayMonthString(context: Context): String {
-        return "${day.toString().padStart(2, '0')} ${month.toInt().toLocalizedMonthString(context.resources)}"
+        return "${day.toString().padStart(2, '0')} ${(month.toInt() - 1).toLocalizedMonthString(context.resources)}"
     }
 
     companion object {
