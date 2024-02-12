@@ -16,6 +16,7 @@ import java.io.File
 data class Settings (
     var currentGroup: GroupId? = null,
     var isDarkTheme: Boolean? = null,
+    var isDynamicColoursEnabled: Boolean = true,
 ) {
     fun save() {
         val settingsFile = File(filesPath, settingsFileName)
@@ -68,6 +69,16 @@ data class Settings (
             val s = Settings.getInstance()
             s.isDarkTheme = isDarkTheme
             s.save()
+        }
+
+        fun isDynamicColors(): Boolean {
+            return Settings.getInstance().isDynamicColoursEnabled
+        }
+
+        fun setDynamicColors(value: Boolean) {
+            val settings = Settings.getInstance()
+            settings.isDynamicColoursEnabled = value
+            settings.save()
         }
     }
 }
