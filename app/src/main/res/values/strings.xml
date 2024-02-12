@@ -97,4 +97,8 @@
     <string name="network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later. The application must be restarted.</string>
     <string name="properties">Properties</string>
     <string name="property_dynamic_colors">Dynamic colors</string>
+
+    <string name="lecture_shortcut">LK</string>
+    <string name="laboratory_shortcut">LB</string>
+    <string name="seminar_shortcut">SM</string>
 </resources>

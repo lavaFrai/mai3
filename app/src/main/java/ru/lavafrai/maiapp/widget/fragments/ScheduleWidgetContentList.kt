@@ -3,19 +3,23 @@ package ru.lavafrai.maiapp.widget.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
+import androidx.glance.layout.Alignment
 import androidx.glance.layout.Column
 import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
 import androidx.glance.layout.height
 import androidx.glance.layout.width
+import androidx.glance.unit.ColorProvider
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.models.SerializableDate
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
+import ru.lavafrai.maiapp.data.models.schedule.localizedShortcut
 import ru.lavafrai.maiapp.utils.toLocalizedDayOfWeekString
 import ru.lavafrai.maiapp.utils.toLocalizedMonthString
 import java.util.Calendar
@@ -59,7 +63,7 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
 
         Column {
             daySchedule.lessons.forEach { lesson ->
-                WidgetLessonView(lesson)
+                WidgetLessonView(lesson, context)
             }
             if (daySchedule.lessons.isEmpty()) {
                 WidgetEmptyDayView(context)
@@ -69,7 +73,7 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
 }
 
 @Composable
-fun WidgetLessonView(lesson: ScheduleLesson) {
+fun WidgetLessonView(lesson: ScheduleLesson, context: Context) {
     Column {
         Spacer(GlanceModifier.width(8.dp))
         Row {
@@ -82,7 +86,15 @@ fun WidgetLessonView(lesson: ScheduleLesson) {
             Spacer(GlanceModifier.width(4.dp))
             Column {
                 WidgetTextCompact(text = lesson.name, maxLines = 1)
-                WidgetTextCompact(text = lesson.location, maxLines = 1)
+                Row (
+                    verticalAlignment = Alignment.Vertical.CenterVertically
+                ) {
+                    WidgetTextCompact(text = lesson.type.localizedShortcut(context))
+                    Spacer(GlanceModifier.width(4.dp))
+                    VerticalSeparatorSized(color = ColorProvider(Color.Gray.copy(alpha = 0.6f)), width = 1.2f.dp, height = 14.dp)
+                    Spacer(GlanceModifier.width(4.dp))
+                    WidgetTextCompact(text = lesson.location)
+                }
             }
         }
         Spacer(GlanceModifier.height(8.dp))

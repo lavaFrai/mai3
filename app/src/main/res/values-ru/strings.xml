@@ -98,4 +98,8 @@
     <string name="properties">Параметры</string>
     <string name="property_dynamic_colors">Динамические цвета</string>
 
+    <string name="lecture_shortcut">ЛК</string>
+    <string name="laboratory_shortcut">ЛР</string>
+    <string name="seminar_shortcut">ПЗ</string>
+
 </resources>

@@ -7,8 +7,8 @@ import ru.lavafrai.maiapp.ui.theme.MaiColor
 class WidgetColors {
     companion object {
         val BACKGROUND = ColorProvider(
-            day = Color.Gray.copy(alpha = 0.4f),
-            night = Color.Black.copy(alpha = 0.6f)
+            day = Color(0xFF222222).copy(alpha = 0.9f),
+            night = Color(0xFF131313).copy(alpha = 0.9f)
         )
 
         val ON_BACKGROUND = ColorProvider(

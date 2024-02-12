@@ -1,6 +1,7 @@
 package ru.lavafrai.maiapp.widget.fragments
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceModifier
 import androidx.glance.background
@@ -10,6 +11,7 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.width
+import androidx.glance.unit.ColorProvider
 import ru.lavafrai.maiapp.widget.WidgetColors
 
 @Composable
@@ -25,6 +27,10 @@ fun SecondarySeparator() {
 
 
 @Composable
-fun VerticalSeparator() {
-    Box(modifier = GlanceModifier.fillMaxHeight().background(WidgetColors.PRIMARY).width(2f.dp).padding(8.dp)) {}
+fun VerticalSeparator(color: ColorProvider = WidgetColors.PRIMARY, width: Dp = 2.dp) {
+    Box(modifier = GlanceModifier.fillMaxHeight().background(color).width(width).padding(8.dp)) {}
+}
+@Composable
+fun VerticalSeparatorSized(color: ColorProvider = WidgetColors.PRIMARY, width: Dp = 2.dp, height: Dp = 2.dp) {
+    Box(modifier = GlanceModifier.height(height).background(color).width(width).padding(8.dp)) {}
 }
