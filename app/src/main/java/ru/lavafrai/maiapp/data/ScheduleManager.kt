@@ -1,9 +1,7 @@
 package ru.lavafrai.maiapp.data
 
 import android.content.Context
-import android.widget.Toast
 import kotlinx.serialization.json.Json
-import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.parser.parseSchedule
@@ -23,13 +21,25 @@ class ScheduleManager(private val context: Context) {
         return Json.decodeFromFile<Schedule>(scheduleFile)
     }
 
+    fun getScheduleOrDownload(groupId: GroupId): Schedule? {
+        return try {
+            if (!hasScheduleDownloaded(groupId)) {
+                downloadSchedule(groupId)
+            }
+
+            getSchedule(groupId)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
     fun deleteSchedule(groupId: GroupId?) {
         if (groupId == null) return
 
         val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
         if (scheduleFile.exists()) {
             scheduleFile.delete()
-            Toast.makeText(context, context.getText(R.string.redownload_schedule_set), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -70,5 +80,10 @@ class ScheduleManager(private val context: Context) {
         val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
         Json.encodeToFile(schedule, scheduleFile)
         Thread.sleep(100)
+    }
+
+    fun getDownloadedSchedulesList(): List<String> {
+        val scheduleFile = context.getExternalFilesDir("schedule")
+        return scheduleFile!!.listFiles()!!.map { it.name }
     }
 }

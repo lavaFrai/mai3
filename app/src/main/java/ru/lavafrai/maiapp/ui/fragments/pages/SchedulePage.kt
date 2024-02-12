@@ -12,10 +12,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import io.appmetrica.analytics.AppMetrica
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
+import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.models.schedule.getEmptySchedule
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
@@ -24,9 +24,8 @@ import ru.lavafrai.maiapp.ui.fragments.schedule.SchedulePageView
 import kotlin.concurrent.thread
 
 
-@Preview
 @Composable
-fun SchedulePage() {
+fun SchedulePage(currentGroup: GroupId?) {
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
 
@@ -46,8 +45,10 @@ fun SchedulePage() {
 
 
     thread {
+        Thread.sleep(10)
+
         try {
-            schedule = (scheduleManager.getActualSchedule())
+            schedule = (scheduleManager.getScheduleOrDownload(currentGroup!!))
             setScheduleLoaded(true)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -55,7 +56,7 @@ fun SchedulePage() {
             AppMetrica.reportError("Main activity network error", e)
         }
     }
-    
+
     NetworkErrorDialog(dialogShowed = networkError)
 
     AnimatedVisibility(

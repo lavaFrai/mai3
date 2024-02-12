@@ -9,7 +9,8 @@ enum class ScheduleLessonType {
     LECTURE,
     LABORATORY,
     SEMINAR,
-    Unknown
+    EXAM,
+    Unknown,
 }
 
 
@@ -19,6 +20,7 @@ fun ScheduleLessonType.localized(): String {
         ScheduleLessonType.LECTURE -> stringResource(id = R.string.lecture)
         ScheduleLessonType.LABORATORY -> stringResource(id = R.string.laboratory)
         ScheduleLessonType.SEMINAR -> stringResource(id = R.string.seminar)
+        ScheduleLessonType.EXAM -> stringResource(id = R.string.exam)
         else -> "Unk."
     }
 }
@@ -29,6 +31,7 @@ fun ScheduleLessonType.localizedShortcut(context: Context): String {
         ScheduleLessonType.LECTURE -> context.resources.getString(R.string.lecture_shortcut)
         ScheduleLessonType.LABORATORY -> context.resources.getString(R.string.laboratory_shortcut)
         ScheduleLessonType.SEMINAR -> context.resources.getString(R.string.seminar_shortcut)
+        ScheduleLessonType.EXAM -> context.resources.getString(R.string.exam_shortcut)
         else -> "UNK"
     }
 }

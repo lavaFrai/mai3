@@ -42,7 +42,7 @@
     <string name="course_num">Курс</string>
     <string name="tour_group">ваша группа</string>
     <string name="redownload_schedule">Обновить расписание</string>
-    <string name="redownload_schedule_set">Расписание будет автоматически обновлено при следующем открытии</string>
+    <string name="redownload_schedule_set">Расписание будет обновлено автоматически при следующем открытии</string>
     <string name="are_you_sure">Вы уверенны?</string>
     <string name="data_clear_confirmation">Вы точно хотите удалить все данные приложения? Среди них находятся все настройки и загруженные расписания.\n\nПриложение будет перезапущено.</string>
     <string name="confirm">Подтвердить</string>
@@ -102,4 +102,9 @@
     <string name="laboratory_shortcut">ЛР</string>
     <string name="seminar_shortcut">ПЗ</string>
 
+    <string name="add_group">Добавить группу</string>
+    <string name="group_removed">Группа удалена</string>
+    <string name="group_switched">Группа изменена</string>
+    <string name="exam">экзамен</string>
+    <string name="exam_shortcut">ЭКЗ</string>
 </resources>

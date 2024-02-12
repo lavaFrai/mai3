@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.widget.Toast
 import io.appmetrica.analytics.AppMetrica
 import io.appmetrica.analytics.AppMetricaConfig
 import ru.lavafrai.maiapp.data.Settings
@@ -27,6 +28,10 @@ class Mai3 : Application() {
         Settings.init(this)
         filesPath = getExternalFilesDir(null)!!
         clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager;
+
+        showToast = {
+            Toast.makeText(this@Mai3, it, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onTerminate() {
@@ -52,5 +57,7 @@ class Mai3 : Application() {
             val clip = ClipData.newPlainText(value, value)
             clipboard.setPrimaryClip(clip)
         }
+
+        var showToast: (String) -> Unit = {}
     }
 }

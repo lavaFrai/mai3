@@ -22,13 +22,13 @@ import androidx.glance.appwidget.updateAll
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import ru.lavafrai.maiapp.data.Settings
+import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
 import ru.lavafrai.maiapp.ui.fragments.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.fragments.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.widget.ScheduleWidget
-import ru.lavafrai.maiapp.widget.WidgetColors
 
 class MainActivity : ComponentActivity() {
     init {
@@ -49,17 +49,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             val isDarkTheme = remember { mutableStateOf<Boolean?>(Settings.getIsDarkTheme()) }
             val isDynamicColors = rememberSaveable { mutableStateOf(Settings.isDynamicColors()) }
+            val currentGroup = remember { mutableStateOf(Settings.getCurrentGroup()) }
 
             manualRecompose = {
                 isDarkTheme.value = true
                 isDarkTheme.value = Settings.getIsDarkTheme()
                 isDynamicColors.value = Settings.isDynamicColors()
+                currentGroup.value = Settings.getCurrentGroup()!!
             }
 
             MainView(
                 isDarkTheme.value ?: isSystemInDarkTheme(),
                 isDynamicColors.value,
-                )
+                currentGroup,
+            )
         }
     }
 
@@ -70,7 +73,11 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun MainView(isDarkTheme: Boolean, isDynamicColors: Boolean) {
+    fun MainView(
+        isDarkTheme: Boolean,
+        isDynamicColors: Boolean,
+        currentGroup: MutableState<GroupId?>
+    ) {
         var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
 
         MAI30Theme (
@@ -92,8 +99,8 @@ class MainActivity : ComponentActivity() {
 
                 ) {
                     when (selectedPage) {
-                        MainNavigationVariants.SCHEDULE -> SchedulePage()
-                        MainNavigationVariants.SETTINGS -> SettingsPage()
+                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value)
+                        MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
                         else -> {}
                     }
                 }

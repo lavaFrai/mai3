@@ -101,4 +101,10 @@
     <string name="lecture_shortcut">LK</string>
     <string name="laboratory_shortcut">LB</string>
     <string name="seminar_shortcut">SM</string>
+
+    <string name="add_group">Add group</string>
+    <string name="group_removed">Group removed</string>
+    <string name="group_switched">Group switched</string>
+    <string name="exam">exam</string>
+    <string name="exam_shortcut">EX</string>
 </resources>

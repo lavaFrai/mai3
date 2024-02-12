@@ -71,6 +71,7 @@ class GroupSelectActivity : ComponentActivity() {
         val context = LocalContext.current
 
         thread {
+            Thread.sleep(10)
             try {
                 if (!groupsLoaded) {
                     groups.addAll(parseGroupsList())

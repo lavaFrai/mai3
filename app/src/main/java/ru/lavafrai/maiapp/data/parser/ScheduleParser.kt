@@ -76,6 +76,7 @@ fun subParseLesson(page: Element): ScheduleLesson {
         "ЛК" -> ScheduleLessonType.LECTURE
         "ПЗ" -> ScheduleLessonType.SEMINAR
         "ЛР" -> ScheduleLessonType.LABORATORY
+        "Экзамен" -> ScheduleLessonType.EXAM
         else -> ScheduleLessonType.Unknown
     }
     val name = page.child(0).text().removeSuffix(" ${page.select(".badge").text()}")
