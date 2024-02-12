@@ -8,15 +8,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import ru.lavafrai.maiapp.utils.bottomBorder
 
 
 @Preview
 @Composable
-fun PropertyBoolean(name: String = "PropertyName", isSet: Boolean = true, onChange: (Boolean) -> Unit = {}) {
+fun PropertyBoolean(
+    name: String = "PropertyName",
+    isSet: Boolean = true,
+    enabled: Boolean = true,
+    onChange: (Boolean) -> Unit = {},
+) {
     Row (
         Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,

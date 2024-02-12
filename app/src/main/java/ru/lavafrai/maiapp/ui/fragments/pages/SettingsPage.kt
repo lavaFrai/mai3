@@ -2,6 +2,7 @@ package ru.lavafrai.maiapp.ui.fragments.pages
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,8 +28,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -59,7 +58,6 @@ import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.group.GroupNameAnalyzer
 import ru.lavafrai.maiapp.data.models.group.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
-import ru.lavafrai.maiapp.ui.fragments.HorizontalSeparator
 import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
@@ -144,14 +142,23 @@ fun SettingsSwitchesPage() {
             .padding(bottom = 16.dp)
             .fillMaxWidth(),
     ) {
-        Column (
+        Column(
             Modifier.padding(16.dp),
         ) {
             TextH3(text = stringResource(id = R.string.properties))
-            PropertyBoolean(
-                stringResource(id = R.string.property_dynamic_colors),
-                Settings.isDynamicColors()
-            ) { Settings.setDynamicColors(it) ; MainActivity.manualRecompose() }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                PropertyBoolean(
+                    stringResource(id = R.string.property_dynamic_colors),
+                    Settings.isDynamicColors()
+                ) { Settings.setDynamicColors(it); MainActivity.manualRecompose() }
+            }
+            else {
+                PropertyBoolean(
+                    stringResource(id = R.string.property_dynamic_colors),
+                    isSet = false,
+                    enabled = false,
+                )
+            }
         }
     }
 }
