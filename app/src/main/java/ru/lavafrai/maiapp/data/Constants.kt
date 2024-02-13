@@ -6,3 +6,5 @@ const val GROUPS_PAGE_URL = "https://mai.ru/education/studies/schedule/groups.ph
 const val PROJECT_GITHUB_URL = "https://github.com/lavaFrai/mai3/"
 const val PROJECT_TELEGRAM_URL = "https://t.me/maiapp3/"
 const val PROJECT_DONATION_URL = "https://pay.cloudtips.ru/p/e930707c/"
+const val ACTUAL_VERSION_INFO_URL = "https://errors.lavafrai.ru/update-available"
+const val ACTUAL_VERSION_FILE_URL = "https://errors.lavafrai.ru/actual.apk"

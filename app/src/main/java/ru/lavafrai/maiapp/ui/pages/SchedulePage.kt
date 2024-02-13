@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.fragments.pages
+package ru.lavafrai.maiapp.ui.pages
 
 import android.app.Activity
 import android.content.Intent

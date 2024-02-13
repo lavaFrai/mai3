@@ -20,6 +20,7 @@ import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 import ru.lavafrai.maiapp.R
 import java.io.File
+import java.io.InputStream
 import java.net.URL
 import java.time.DayOfWeek
 
@@ -135,3 +136,9 @@ fun Modifier.bottomBorder(strokeWidth: Dp, color: Color) = composed(
         }
     }
 )
+
+fun File.copyInputStreamToFile(inputStream: InputStream) {
+    this.outputStream().use { fileOut ->
+        inputStream.copyTo(fileOut)
+    }
+}

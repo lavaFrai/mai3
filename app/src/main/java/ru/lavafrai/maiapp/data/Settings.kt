@@ -17,6 +17,7 @@ data class Settings (
     var currentGroup: GroupId? = null,
     var isDarkTheme: Boolean? = null,
     var isDynamicColoursEnabled: Boolean = true,
+    var lastNotifiedUpgrade: String? = null
 ) {
     fun save() {
         val settingsFile = File(filesPath, settingsFileName)
@@ -78,6 +79,16 @@ data class Settings (
         fun setDynamicColors(value: Boolean) {
             val settings = Settings.getInstance()
             settings.isDynamicColoursEnabled = value
+            settings.save()
+        }
+
+        fun getLastNotifiedUpgrade(): String? {
+            return Settings.getInstance().lastNotifiedUpgrade
+        }
+
+        fun setLastNotifiedUpgrade(value: String) {
+            val settings = Settings.getInstance()
+            settings.lastNotifiedUpgrade = value
             settings.save()
         }
     }

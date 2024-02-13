@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">МАИ 3.0</string>
+    <string name="app_name">МАИ</string>
 
     <string name="lets_chose_group_title">Выберите свою группу</string>
     <string name="groups_loading">Загружаем список групп…\nЭто может занять несколько минут.</string>

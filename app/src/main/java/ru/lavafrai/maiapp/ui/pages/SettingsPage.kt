@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.fragments.pages
+package ru.lavafrai.maiapp.ui.pages
 
 import android.content.Intent
 import android.net.Uri

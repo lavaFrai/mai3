@@ -23,10 +23,12 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.systems.AppSystemName
+import ru.lavafrai.maiapp.systems.permissions.PermissionsSystem
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
-import ru.lavafrai.maiapp.ui.fragments.pages.SchedulePage
-import ru.lavafrai.maiapp.ui.fragments.pages.SettingsPage
+import ru.lavafrai.maiapp.ui.pages.SchedulePage
+import ru.lavafrai.maiapp.ui.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.widget.ScheduleWidget
 
@@ -78,6 +80,9 @@ class MainActivity : ComponentActivity() {
         isDynamicColors: Boolean,
         currentGroup: MutableState<GroupId?>
     ) {
+        val permissionSystem = Mai3.getSystem(AppSystemName.PERMISSIONS) as PermissionsSystem
+        permissionSystem.requestRequired(this)
+
         var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
 
         MAI30Theme (

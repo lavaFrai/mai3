@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MAI 3.0</string>
+    <string name="app_name">MAI</string>
     <string name="schedule_file" translatable="false">schedule.json</string>
     <string name="settings_file" translatable="false">settings.json</string>
 
@@ -107,4 +107,18 @@
     <string name="group_switched">Group switched</string>
     <string name="exam">exam</string>
     <string name="exam_shortcut">EX</string>
+    <string name="upgrade_available">Upgrade available</string>
+    <string name="upgrade_available_description">You can upgrade now</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="network_error_ocured">An unknown network error has occurred, make sure the network connection is stable and try again.</string>
+    <string name="retry">Retry</string>
+    <string name="checking_for_upgrades">Checking for upgrades...</string>
+    <string name="version_ready_to_download">New version is ready to download</string>
+    <string name="size">Size</string>
+    <string name="download">Download</string>
+    <string name="downloading_upgrade">Upgrade is downloading...</string>
+    <string name="current_version">Current version</string>
+    <string name="actual_version">Actual version</string>
+    <string name="version_ready_install">Upgrade is ready to install</string>
+    <string name="up_to_date">Latest version is already installed</string>
 </resources>
