@@ -73,7 +73,8 @@ fun SchedulePageView(schedule: Schedule?) {
                 }
                 else scope.launch { scheduleListState.scrollToItem(0) }
             },
-            weeks = schedule.getWeeks()
+            weeks = schedule.getWeeks(),
+            openedWeekId = currentSubSchedule?.weekId
         )
     }
 

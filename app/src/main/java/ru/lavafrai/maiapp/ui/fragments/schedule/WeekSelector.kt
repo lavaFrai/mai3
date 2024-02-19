@@ -32,7 +32,8 @@ import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 fun WeekSelector(
     weeks: List<ScheduleWeekId>,
     onClose: () -> Unit = {},
-    onSelect: (weekId: ScheduleWeekId) -> Unit = {}
+    onSelect: (weekId: ScheduleWeekId) -> Unit = {},
+    openedWeekId: ScheduleWeekId?
 ) {
 
     ModalBottomSheet(
@@ -56,13 +57,17 @@ fun WeekSelector(
                         .fillMaxWidth()
                         .padding(0.dp)
                         .background(
-                            if (SerializableDate.now() in week.range)
+                            if (openedWeekId?.range == week.range)
                                 MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
                             else Color.Transparent),
                     verticalAlignment = Alignment.CenterVertically,
 
                 ) {
-                    PairName(text = week.number.toString(), modifier = Modifier.padding(16.dp))
+                    if (SerializableDate.now() in week.range)
+                        PairName(text = week.number.toString(), modifier = Modifier.padding(16.dp), background = MaterialTheme.colorScheme.onPrimaryContainer)
+                    else
+                        PairName(text = week.number.toString(), modifier = Modifier.padding(16.dp))
+
                     Text(text = week.range.toString())
                 }
             }

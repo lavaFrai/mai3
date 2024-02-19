@@ -34,7 +34,6 @@ import ru.lavafrai.maiapp.ui.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.widget.ScheduleWidget
-import kotlin.concurrent.thread
 
 class MainActivity : ComponentActivity() {
     init {
@@ -56,8 +55,9 @@ class MainActivity : ComponentActivity() {
 
         var schedule: Schedule? = null
         val scheduleLoaded = mutableStateOf<Boolean?>(null)
-        thread {
-            schedule = ScheduleManager(this).getActualSchedule()
+
+        loadSchedule {
+            schedule = it
             scheduleLoaded.value = schedule != null
         }
 
@@ -72,8 +72,8 @@ class MainActivity : ComponentActivity() {
                 isDynamicColors.value = Settings.isDynamicColors()
                 currentGroup.value = Settings.getCurrentGroup()!!
                 scheduleLoaded.value = null
-                thread {
-                    schedule = ScheduleManager(this).getActualSchedule()
+                loadSchedule {
+                    schedule = it
                     scheduleLoaded.value = schedule != null
                 }
             }
@@ -94,6 +94,16 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
     }
 
+    fun loadSchedule(after: (Schedule?) -> Unit) {
+        try {
+            val schedule = ScheduleManager(this).getActualSchedule()
+            after(schedule)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            after(null)
+        }
+    }
+
     @Composable
     fun MainView(
         isDarkTheme: Boolean,
@@ -106,6 +116,7 @@ class MainActivity : ComponentActivity() {
         permissionSystem.requestRequired(this)
 
         var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
+        //var selectedWeek by rememberSaveable {  }
 
         MAI30Theme (
             darkTheme = isDarkTheme,

@@ -12,19 +12,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun PairName(modifier: Modifier = Modifier, text: String = "1") {
+fun PairName(
+    modifier: Modifier = Modifier,
+    text: String = "1",
+    background: Color = MaterialTheme.colorScheme.primary,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
+) {
     Surface(
         modifier = modifier
             .width(30.dp)
             .height(30.dp)
             .clip(CircleShape),
-        color = MaterialTheme.colorScheme.primary
+        color = background
     ) {
         Box (
             contentAlignment = Alignment.Center,
@@ -32,7 +38,7 @@ fun PairName(modifier: Modifier = Modifier, text: String = "1") {
         ) {
             Text(
                 text,
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = color,
                 textAlign = TextAlign.Center
             )
         }
