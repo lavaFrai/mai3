@@ -107,4 +107,19 @@
     <string name="group_switched">Группа изменена</string>
     <string name="exam">экзамен</string>
     <string name="exam_shortcut">ЭКЗ</string>
+
+    <string name="upgrade_available">Доступно обновление</string>
+    <string name="upgrade_available_description">Выполните обновление до актуальной версии</string>
+    <string name="upgrade">Обновление</string>
+    <string name="network_error_ocured">Произошла неизвестная сетевая ошибка, убедитесь, что сетевое подключение стабильно, и повторите попытку.</string>
+    <string name="retry">Повторить</string>
+    <string name="checking_for_upgrades">Проверка обновлений…</string>
+    <string name="version_ready_to_download">Новая версия готова к загрузке</string>
+    <string name="size">Размер</string>
+    <string name="download">Загрузить</string>
+    <string name="downloading_upgrade">Загрузка обновления…</string>
+    <string name="current_version">Установленная версия</string>
+    <string name="actual_version">Актуальная версия</string>
+    <string name="version_ready_install">Обновление готово к установке</string>
+    <string name="up_to_date">Установлена актуальная версия</string>
 </resources>

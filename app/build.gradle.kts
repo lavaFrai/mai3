@@ -96,4 +96,5 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("io.appmetrica.analytics:analytics:6.1.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 }

@@ -34,7 +34,7 @@ fun ScheduleWidgetContentList(context: Context, schedule: Schedule) {
         calendar.clone() as Calendar
     }
 
-    LazyColumn() {
+    LazyColumn () {
         items(dates) { date ->
             WidgetContentDay(date, context, schedule)
         }
@@ -47,7 +47,7 @@ fun ScheduleWidgetContentList(context: Context, schedule: Schedule) {
 fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
     val daySchedule = schedule.getScheduleOfDay(SerializableDate.of(date))
 
-    Column {
+    Column () {
         Spacer(modifier = GlanceModifier.height(8.dp))
         WidgetText(
             text = "${

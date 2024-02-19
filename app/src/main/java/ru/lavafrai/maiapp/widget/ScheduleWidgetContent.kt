@@ -9,6 +9,8 @@ import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.LocalContext
 import androidx.glance.action.ActionParameters
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.updateAll
@@ -20,6 +22,7 @@ import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
+import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
@@ -36,6 +39,7 @@ fun ScheduleWidgetContent(context: Context) {
         .fillMaxSize()
         .background(WidgetColors.BACKGROUND)
         .padding(8.dp)
+        .clickable( actionStartActivity<MainActivity>() )
     ) {
         if (scheduleManager.hasActualScheduleDownloaded()) {
             val schedule = scheduleManager.getActualSchedule()!!
