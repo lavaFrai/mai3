@@ -44,7 +44,7 @@ class AutoUpdateReceiver: BroadcastReceiver() {
                 }
             } catch(e: Exception) {
                 e.printStackTrace()
-                AppMetrica.reportError("Upgrade check error", e)
+                try { AppMetrica.reportError("Upgrade check error", e) } finally {}
             }
         }
     }

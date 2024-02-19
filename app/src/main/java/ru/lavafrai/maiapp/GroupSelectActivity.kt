@@ -47,6 +47,7 @@ import kotlin.concurrent.thread
 
 class GroupSelectActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -87,13 +88,13 @@ class GroupSelectActivity : ComponentActivity() {
             }
         }
 
-        MAI30Theme {
+        MAI30Theme (edgeToEdge = false) {
             NetworkErrorDialog(groupsError)
 
             Column(modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
-                .padding(8.dp),
+                .padding(8.dp, 16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

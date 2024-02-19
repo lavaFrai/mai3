@@ -522,6 +522,7 @@ fun SettingsGroupCard(groupId: GroupId = GroupId("М14О-102БВ-23"), scheduleM
                 Button(onClick = {
                     ScheduleManager(context).deleteSchedule(groupId)
                     Toast.makeText(context, context.getText(R.string.redownload_schedule_set), Toast.LENGTH_LONG).show()
+                    MainActivity.manualRecompose()
                 }, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Default.Refresh, null)
                     Text(stringResource(id = R.string.redownload_schedule))

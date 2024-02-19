@@ -22,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.glance.appwidget.updateAll
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.systems.AppSystemName
 import ru.lavafrai.maiapp.systems.permissions.PermissionsSystem
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
@@ -32,6 +34,7 @@ import ru.lavafrai.maiapp.ui.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.widget.ScheduleWidget
+import kotlin.concurrent.thread
 
 class MainActivity : ComponentActivity() {
     init {
@@ -51,6 +54,13 @@ class MainActivity : ComponentActivity() {
         }
         updateWidget()
 
+        var schedule: Schedule? = null
+        val scheduleLoaded = mutableStateOf<Boolean?>(null)
+        thread {
+            schedule = ScheduleManager(this).getActualSchedule()
+            scheduleLoaded.value = schedule != null
+        }
+
         setContent {
             val isDarkTheme = remember { mutableStateOf<Boolean?>(Settings.getIsDarkTheme()) }
             val isDynamicColors = rememberSaveable { mutableStateOf(Settings.isDynamicColors()) }
@@ -61,12 +71,19 @@ class MainActivity : ComponentActivity() {
                 isDarkTheme.value = Settings.getIsDarkTheme()
                 isDynamicColors.value = Settings.isDynamicColors()
                 currentGroup.value = Settings.getCurrentGroup()!!
+                scheduleLoaded.value = null
+                thread {
+                    schedule = ScheduleManager(this).getActualSchedule()
+                    scheduleLoaded.value = schedule != null
+                }
             }
 
             MainView(
                 isDarkTheme.value ?: isSystemInDarkTheme(),
                 isDynamicColors.value,
                 currentGroup,
+                schedule,
+                scheduleLoaded.value,
             )
         }
     }
@@ -81,7 +98,9 @@ class MainActivity : ComponentActivity() {
     fun MainView(
         isDarkTheme: Boolean,
         isDynamicColors: Boolean,
-        currentGroup: MutableState<GroupId?>
+        currentGroup: MutableState<GroupId?>,
+        schedule: Schedule?,
+        scheduleLoaded: Boolean?,
     ) {
         val permissionSystem = Mai3.getSystem(AppSystemName.PERMISSIONS) as PermissionsSystem
         permissionSystem.requestRequired(this)
@@ -107,7 +126,7 @@ class MainActivity : ComponentActivity() {
 
                 ) {
                     when (selectedPage) {
-                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value)
+                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded)
                         MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
                         else -> {}
                     }

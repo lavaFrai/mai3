@@ -83,7 +83,8 @@ fun MAI30Theme(
     darkTheme: Boolean = Settings.isDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = Settings.isDynamicColors(),
-    content: @Composable () -> Unit
+    edgeToEdge: Boolean = true,
+    content: @Composable () -> Unit,
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -96,16 +97,28 @@ fun MAI30Theme(
     }
     val view = LocalView.current
 
-    /*if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-        }
-    }*/
+    if (!edgeToEdge) {
+        /*if (!view.isInEditMode) {
+            SideEffect {
+                val window = (view.context as Activity).window
+                window.statusBarColor = colorScheme.primary.toArgb()
+                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
+                    darkTheme
+            }
+        }*/
 
-    val systemUiController = rememberSystemUiController()
-    systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = !Settings.isDarkTheme())
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setSystemBarsColor(
+            color = colorScheme.background,
+            darkIcons = !Settings.isDarkTheme()
+        )
+    } else {
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent,
+            darkIcons = !Settings.isDarkTheme()
+        )
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,
