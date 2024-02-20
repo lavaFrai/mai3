@@ -25,15 +25,18 @@ import kotlinx.coroutines.launch
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.systems.AppSystemName
 import ru.lavafrai.maiapp.systems.permissions.PermissionsSystem
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
+import ru.lavafrai.maiapp.ui.pages.ComingSoonPage
 import ru.lavafrai.maiapp.ui.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.widget.ScheduleWidget
+import kotlin.concurrent.thread
 
 class MainActivity : ComponentActivity() {
     init {
@@ -55,10 +58,12 @@ class MainActivity : ComponentActivity() {
 
         var schedule: Schedule? = null
         val scheduleLoaded = mutableStateOf<Boolean?>(null)
+        var subSchedule = mutableStateOf(null as OneWeekSchedule?)
 
         loadSchedule {
             schedule = it
             scheduleLoaded.value = schedule != null
+            subSchedule.value = schedule?.getCurrentSubScheduleOrNull()
         }
 
         setContent {
@@ -75,6 +80,8 @@ class MainActivity : ComponentActivity() {
                 loadSchedule {
                     schedule = it
                     scheduleLoaded.value = schedule != null
+
+                    subSchedule.value = schedule?.getCurrentSubScheduleOrNull()
                 }
             }
 
@@ -84,6 +91,7 @@ class MainActivity : ComponentActivity() {
                 currentGroup,
                 schedule,
                 scheduleLoaded.value,
+                subSchedule,
             )
         }
     }
@@ -94,13 +102,15 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
     }
 
-    fun loadSchedule(after: (Schedule?) -> Unit) {
-        try {
-            val schedule = ScheduleManager(this).getActualSchedule()
-            after(schedule)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            after(null)
+    private fun loadSchedule(after: (Schedule?) -> Unit) {
+        thread {
+            try {
+                val schedule = ScheduleManager(this).getActualSchedule()
+                after(schedule)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                after(null)
+            }
         }
     }
 
@@ -111,6 +121,7 @@ class MainActivity : ComponentActivity() {
         currentGroup: MutableState<GroupId?>,
         schedule: Schedule?,
         scheduleLoaded: Boolean?,
+        subSchedule: MutableState<OneWeekSchedule?>
     ) {
         val permissionSystem = Mai3.getSystem(AppSystemName.PERMISSIONS) as PermissionsSystem
         permissionSystem.requestRequired(this)
@@ -137,8 +148,9 @@ class MainActivity : ComponentActivity() {
 
                 ) {
                     when (selectedPage) {
-                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded)
+                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded, subSchedule, )
                         MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
+                        MainNavigationVariants.INFO -> ComingSoonPage()
                         else -> {}
                     }
                 }

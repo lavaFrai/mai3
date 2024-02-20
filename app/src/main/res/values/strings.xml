@@ -122,4 +122,5 @@
     <string name="actual_version">Actual version</string>
     <string name="version_ready_install">Upgrade is ready to install</string>
     <string name="up_to_date">Latest version is already installed</string>
+    <string name="info">Info</string>
 </resources>

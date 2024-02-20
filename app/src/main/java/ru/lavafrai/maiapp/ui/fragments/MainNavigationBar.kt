@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -24,7 +25,8 @@ import ru.lavafrai.maiapp.R
 
 enum class MainNavigationVariants {
     SCHEDULE,
-    SETTINGS
+    SETTINGS,
+    INFO,
 }
 
 
@@ -54,6 +56,17 @@ fun NavigationItemsHorizontal(
     NavigationBar {
         Row {
             NavigationBarItem(
+                selected = selected.intValue == 2,
+                label = { Text(stringResource(id = R.string.info)) },
+                onClick = {
+                    selected.intValue = 2
+                    onSelectionChanged(MainNavigationVariants.INFO)
+                },
+                icon = { Icon(Icons.Default.Info, null) },
+                alwaysShowLabel = false
+            )
+
+            NavigationBarItem(
                 selected = selected.intValue == 0,
                 label = { Text(stringResource(id = R.string.schedule)) },
                 onClick = {
@@ -63,6 +76,7 @@ fun NavigationItemsHorizontal(
                 icon = { Icon(Icons.Default.DateRange, null) },
                 alwaysShowLabel = false
             )
+
             NavigationBarItem(
                 selected = selected.intValue == 1,
                 label = { Text(stringResource(id = R.string.settings)) },

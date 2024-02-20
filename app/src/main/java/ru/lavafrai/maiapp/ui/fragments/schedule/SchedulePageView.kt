@@ -22,10 +22,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -35,7 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
+import ru.lavafrai.maiapp.data.models.schedule.ScheduleWeekId
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.localized
@@ -43,7 +47,7 @@ import ru.lavafrai.maiapp.utils.localized
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 // @Preview
 @Composable
-fun SchedulePageView(schedule: Schedule?) {
+fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSchedule?>) {
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -53,7 +57,9 @@ fun SchedulePageView(schedule: Schedule?) {
         return
     }
 
-    val (currentSubSchedule, setCurrentSubSchedule) = remember { mutableStateOf(schedule.getCurrentSubScheduleOrNull()) }
+    val currentSubSchedule = subSchedule.value
+    val setCurrentSubSchedule = {value: OneWeekSchedule? -> subSchedule.value = value}
+
     val scheduleListState = rememberLazyListState(
         initialFirstVisibleItemIndex = if (currentSubSchedule?.weekId?.range?.isNow() == true) getTodayIndex(
             schedule

@@ -3,11 +3,14 @@ package ru.lavafrai.maiapp.ui.pages
 import android.app.Activity
 import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
+import ru.lavafrai.maiapp.data.models.schedule.ScheduleWeekId
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.LoadingPageView
 import ru.lavafrai.maiapp.ui.fragments.schedule.SchedulePageView
@@ -18,6 +21,7 @@ fun SchedulePage(
     currentGroup: GroupId?,
     schedule: Schedule?,
     scheduleLoaded: Boolean?,
+    subSchedule: MutableState<OneWeekSchedule?>,
 ) {
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
@@ -69,7 +73,7 @@ fun SchedulePage(
     }*/
     
     when (scheduleLoaded) {
-        true -> SchedulePageView(schedule = schedule)
+        true -> SchedulePageView(schedule = schedule, subSchedule)
         null -> LoadingPageView()
         false -> NetworkErrorDialog(dialogShowed = true)
     }
