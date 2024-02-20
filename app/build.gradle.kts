@@ -97,4 +97,7 @@ dependencies {
     implementation("io.appmetrica.analytics:analytics:6.1.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
+    implementation("br.com.devsrsouza.compose.icons:simple-icons:1.1.0")
+    implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
 }
