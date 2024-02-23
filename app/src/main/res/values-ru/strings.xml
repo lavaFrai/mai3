@@ -123,4 +123,8 @@
     <string name="version_ready_install">Обновление готово к установке</string>
     <string name="up_to_date">Установлена актуальная версия</string>
     <string name="info">Инфо</string>
+
+    <string name="information">Информация</string>
+    <string name="canteens_and_buffets">Столовые и буфеты</string>
+    <string name="sport_sections">Спортивные секции</string>
 </resources>

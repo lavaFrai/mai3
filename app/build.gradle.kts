@@ -100,4 +100,5 @@ dependencies {
 
     implementation("br.com.devsrsouza.compose.icons:simple-icons:1.1.0")
     implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
+    implementation("br.com.devsrsouza.compose.icons:line-awesome:1.1.0")
 }

@@ -123,4 +123,8 @@
     <string name="version_ready_install">Upgrade is ready to install</string>
     <string name="up_to_date">Latest version is already installed</string>
     <string name="info">Info</string>
+
+    <string name="information">Information</string>
+    <string name="canteens_and_buffets">Canteens and buffets</string>
+    <string name="sport_sections">Sport sections</string>
 </resources>

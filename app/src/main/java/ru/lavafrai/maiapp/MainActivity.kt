@@ -31,7 +31,7 @@ import ru.lavafrai.maiapp.systems.AppSystemName
 import ru.lavafrai.maiapp.systems.permissions.PermissionsSystem
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
-import ru.lavafrai.maiapp.ui.pages.ComingSoonPage
+import ru.lavafrai.maiapp.ui.pages.InfoPage
 import ru.lavafrai.maiapp.ui.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
@@ -150,7 +150,7 @@ class MainActivity : ComponentActivity() {
                     when (selectedPage) {
                         MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded, subSchedule, )
                         MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
-                        MainNavigationVariants.INFO -> ComingSoonPage()
+                        MainNavigationVariants.INFO -> InfoPage()
                         else -> {}
                     }
                 }
