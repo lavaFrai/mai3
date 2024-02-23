@@ -127,4 +127,7 @@
     <string name="information">Информация</string>
     <string name="canteens_and_buffets">Столовые и буфеты</string>
     <string name="sport_sections">Спортивные секции</string>
+    <string name="libraries">Библиотеки</string>
+    <string name="creative_teams">Творческие коллективы</string>
+    <string name="students_organizations">Студенческие организации</string>
 </resources>
