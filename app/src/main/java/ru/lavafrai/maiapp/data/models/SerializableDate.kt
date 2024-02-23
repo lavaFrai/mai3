@@ -16,7 +16,7 @@ data class SerializableDate (
         return if (year == another.year) {
             if (month == another.month) {
                 day > another.day
-            } else month > another.year
+            } else month > another.month
         } else year > another.year
     }
 
