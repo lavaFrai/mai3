@@ -1,0 +1,79 @@
+[
+  {
+    "type": "card",
+    "firstText": "Студенческий строительный отряд МАИ \"Взлет\"",
+    "secondText": "---",
+    "contactType": "tel",
+    "contactText": "+7 919 192-42-07"
+  },
+  {
+    "type": "card",
+    "firstText": "Студенческий пожарно-спасательный отряд",
+    "secondText": "---",
+    "contactType": "tel",
+    "contactText": "+7 950 539-01-30"
+  },
+  {
+    "type": "card",
+    "firstText": "Профсоюзный комитет студентов и аспирантов МАИ",
+    "secondText": "Волоколамское шоссе, дом 4, корпус 26 (ГУК зона \"В\"), комната 301",
+    "contactType": "tel",
+    "contactText": "+7 499 158-42-40"
+  },
+  {
+    "type": "card",
+    "firstText": "Авиационный клуб МАИ",
+    "secondText": "улица Панфилова, дом 20, корпус 3",
+    "contactType": "tel",
+    "contactText": "+7 499 960-18-03"
+  },
+  {
+    "type": "card",
+    "firstText": "Авиамодательный клуб МАИ",
+    "secondText": "Волоколамское шоссе, дом 4, корпус 4, 1 этаж",
+    "contactType": "tel",
+    "contactText": "+7 499 158-49-05"
+  },
+  {
+    "type": "card",
+    "firstText": "Студенческий парламентский клуб",
+    "secondText": "Волоколамское шоссе, дом 4, корпус 20, ГУК зона \"А\", комната 519",
+    "contactType": "tel",
+    "contactText": "+7 499 158-49-50"
+  },
+  {
+    "type": "card",
+    "firstText": "Волонтерский центр",
+    "secondText": "Волоколамское шоссе, дом 4, корпус 20, ГУК зона \"А\", комната 219",
+    "contactType": "tel",
+    "contactText": "+7 499 158-47-20"
+  },
+  {
+    "type": "card",
+    "firstText": "Спортивный клуб МАИ",
+    "secondText": "улица Константина Царева, дом 12а",
+    "contactType": "tel",
+    "contactText": "+7 499 158-57-58"
+  },
+  {
+    "type": "card",
+    "firstText": "Клуб \"Дебаты\" МАИ",
+    "secondText": "---",
+    "contactType": "tel",
+    "contactText": "+7 977 805-53-66"
+  },
+  {
+    "type": "card",
+    "firstText": "Клуб веселых и находчивых",
+    "secondText": "---",
+    "contactType": "tel",
+    "contactText": "+7 905 783-34-86"
+  },
+  {
+    "type": "card",
+    "firstText": "Клуб любителей программирования \"Lambda IT\"",
+    "secondText": "улица Дубосековская, дом 9, корпус 1, комната 101",
+    "contactType": "tel",
+    "contactText": "+7 495 055-28-96"
+  }
+]

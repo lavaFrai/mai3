@@ -127,4 +127,7 @@
     <string name="information">Information</string>
     <string name="canteens_and_buffets">Canteens and buffets</string>
     <string name="sport_sections">Sport sections</string>
+    <string name="libraries">Libraries</string>
+    <string name="creative_teams">Creative teams</string>
+    <string name="students_organizations">Students organizations</string>
 </resources>

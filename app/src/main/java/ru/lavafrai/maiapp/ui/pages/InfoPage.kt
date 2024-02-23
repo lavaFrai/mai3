@@ -33,6 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.BikingSolid
+import compose.icons.lineawesomeicons.BookOpenSolid
+import compose.icons.lineawesomeicons.CoffeeSolid
+import compose.icons.lineawesomeicons.PaletteSolid
+import compose.icons.lineawesomeicons.UserFriendsSolid
 import ru.lavafrai.maiapp.InfoListViewActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -42,7 +46,11 @@ import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 @Composable
 fun InfoPage() {
     val campusCategories = listOf<Triple<String, ImageVector, Int>>(
-        Triple(stringResource(id = R.string.sport_sections), LineAwesomeIcons.BikingSolid, R.raw.sport_sections)
+        Triple(stringResource(id = R.string.canteens_and_buffets), LineAwesomeIcons.CoffeeSolid, R.raw.cafeteries),
+        Triple(stringResource(id = R.string.libraries), LineAwesomeIcons.BookOpenSolid, R.raw.libraries),
+        Triple(stringResource(id = R.string.sport_sections), LineAwesomeIcons.BikingSolid, R.raw.sport_sections),
+        Triple(stringResource(id = R.string.creative_teams), LineAwesomeIcons.PaletteSolid, R.raw.creative_teams),
+        Triple(stringResource(id = R.string.students_organizations), LineAwesomeIcons.UserFriendsSolid, R.raw.students_organizations),
     )
 
     Column {

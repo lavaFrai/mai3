@@ -32,6 +32,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import ru.lavafrai.maiapp.data.models.InfoListItemData
 import ru.lavafrai.maiapp.ui.fragments.InfoCard
+import ru.lavafrai.maiapp.ui.fragments.InfoHeader
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 
@@ -73,15 +74,22 @@ class InfoListViewActivity: ComponentActivity() {
                         Spacer(modifier = Modifier.height(4.dp))
                     }
                     items(infoItems) {
-                        InfoCard(
-                            firstText = it.firstText,
-                            secondText = it.secondText,
-                            thirdText = it.thirdText,
-                            contactText = it.contactText,
-                            contactType = it.contactType,
-                            contactLink = it.contactLink,
-                            topText = it.topText,
-                        )
+                        if (it.type == "card") {
+                            InfoCard(
+                                firstText = it.firstText,
+                                secondText = it.secondText,
+                                thirdText = it.thirdText,
+                                contactText = it.contactText,
+                                contactType = it.contactType,
+                                contactLink = it.contactLink,
+                                topText = it.topText,
+                            )
+                        } else {
+                            InfoHeader(
+                                firstText = it.firstText,
+                                secondText = it.secondText,
+                            )
+                        }
                     }
                     item {
                         Spacer(modifier = Modifier.height(24.dp))

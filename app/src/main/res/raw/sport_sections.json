@@ -1,5 +1,11 @@
 [
   {
+    "type": "header",
+    "firstText": "Спорткомплекс МАИ №4",
+    "secondText": "Зал тяжёлой атлетики\nул. Дубосековская, д.5"
+  },
+
+  {
     "type": "card",
     "firstText": "Пауэрлифтинг, жим лежа, силовая подготовка",
     "thirdText": "Сергей Митрофанович Косарев",
@@ -23,6 +29,11 @@
     "contactText": "+7 906 762-04-23"
   },
 
+  {
+    "type": "header",
+    "firstText": "Спорткомплекс МАИ №2",
+    "secondText": "ул. Константина Царева, д. 10а"
+  },
 
   {
     "type": "card",
@@ -64,6 +75,11 @@
     "contactText": "+7 499 158-57-58"
   },
 
+  {
+    "type": "header",
+    "firstText": "Прочие секции",
+    "secondText": "---"
+  },
 
   {
     "type": "card",
@@ -153,6 +169,11 @@
     "contactText": "+7 916 425-65-24"
   },
 
+  {
+    "type": "header",
+    "firstText": "\"Черепаха\" МАИ",
+    "secondText": "Спортивный комплекс МАИ №1, корпус №12"
+  },
 
   {
     "type": "card",
@@ -184,5 +205,60 @@
     "thirdText": "Борис Валентинович Казбеков",
     "contactType": "tel",
     "contactText": "+7 916 705-10-30"
+  },
+
+  {
+    "type": "card",
+    "firstText": "Аэробика",
+    "thirdText": "Настольный теннис",
+    "contactType": "tel",
+    "contactText": "+7 985 721-30-54"
+  },
+
+  {
+    "type": "card",
+    "firstText": "Чирлидинг",
+    "thirdText": "Ольга Тарасовна Кравец",
+    "contactType": "tel",
+    "contactText": "+7 929 520-66-40"
+  },
+
+  {
+    "type": "header",
+    "firstText": "Спорткомплекс МАИ №3",
+    "secondText": "Универсальный спортивный зал, зал бокса, тир, корпус №3"
+  },
+
+  {
+    "type": "card",
+    "firstText": "Бокс",
+    "thirdText": "Анатолий Сергеевич Шпилев",
+    "contactType": "tel",
+    "contactText": "+7 929 512-88-20"
+  },
+
+  {
+    "type": "card",
+    "firstText": "Пулевая стрельба",
+    "thirdText": "Светлана Михайловна Воробьева",
+    "contactType": "tel",
+    "contactText": "+7 499 158-06-03"
+  },
+
+  {
+    "type": "card",
+    "firstText": "Спортивный туризм",
+    "thirdText": "Андрей Александрович Лебедев",
+    "contactType": "tel",
+    "contactText": "+7 926 626-47-54"
+  },
+
+  {
+    "type": "card",
+    "firstText": "Вольная, греко-римская борьба, дзюдо, самбо",
+    "thirdText": "Евгений Яковлевич Крупник",
+    "contactType": "tel",
+    "contactText": "+7 910 431-86-88"
   }
 ]
+
