@@ -130,4 +130,7 @@
     <string name="libraries">Libraries</string>
     <string name="creative_teams">Creative teams</string>
     <string name="students_organizations">Students organizations</string>
+    <string name="campus_map">Campus map</string>
+    <string name="campus">Campus</string>
+    <string name="live">Live</string>
 </resources>

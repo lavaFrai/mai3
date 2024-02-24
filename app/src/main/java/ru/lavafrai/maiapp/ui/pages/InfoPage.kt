@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.ui.pages
 
+import Quadtuple
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
@@ -35,9 +37,11 @@ import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.BikingSolid
 import compose.icons.lineawesomeicons.BookOpenSolid
 import compose.icons.lineawesomeicons.CoffeeSolid
+import compose.icons.lineawesomeicons.Map
 import compose.icons.lineawesomeicons.PaletteSolid
 import compose.icons.lineawesomeicons.UserFriendsSolid
 import ru.lavafrai.maiapp.InfoListViewActivity
+import ru.lavafrai.maiapp.MapViewActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
@@ -45,12 +49,16 @@ import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 @Preview
 @Composable
 fun InfoPage() {
-    val campusCategories = listOf<Triple<String, ImageVector, Int>>(
-        Triple(stringResource(id = R.string.canteens_and_buffets), LineAwesomeIcons.CoffeeSolid, R.raw.cafeteries),
-        Triple(stringResource(id = R.string.libraries), LineAwesomeIcons.BookOpenSolid, R.raw.libraries),
-        Triple(stringResource(id = R.string.sport_sections), LineAwesomeIcons.BikingSolid, R.raw.sport_sections),
-        Triple(stringResource(id = R.string.creative_teams), LineAwesomeIcons.PaletteSolid, R.raw.creative_teams),
-        Triple(stringResource(id = R.string.students_organizations), LineAwesomeIcons.UserFriendsSolid, R.raw.students_organizations),
+    val campusCategories = listOf<Quadtuple<String, ImageVector?, Int?, Class<*>?>>(
+
+        Quadtuple(stringResource(id = R.string.campus), null, null, null),
+        Quadtuple(stringResource(id = R.string.campus_map), LineAwesomeIcons.Map, R.drawable.ic_campus_map, MapViewActivity::class.java),
+        Quadtuple(stringResource(id = R.string.canteens_and_buffets), LineAwesomeIcons.CoffeeSolid, R.raw.cafeteries, InfoListViewActivity::class.java),
+        Quadtuple(stringResource(id = R.string.libraries), LineAwesomeIcons.BookOpenSolid, R.raw.libraries, InfoListViewActivity::class.java),
+        Quadtuple(stringResource(id = R.string.live), null, null, null),
+        Quadtuple(stringResource(id = R.string.sport_sections), LineAwesomeIcons.BikingSolid, R.raw.sport_sections, InfoListViewActivity::class.java),
+        Quadtuple(stringResource(id = R.string.creative_teams), LineAwesomeIcons.PaletteSolid, R.raw.creative_teams, InfoListViewActivity::class.java),
+        Quadtuple(stringResource(id = R.string.students_organizations), LineAwesomeIcons.UserFriendsSolid, R.raw.students_organizations, InfoListViewActivity::class.java),
     )
 
     Column {
@@ -58,7 +66,20 @@ fun InfoPage() {
 
         LazyColumn {
             items(campusCategories) { item ->
-                InfoCategory(item.first, item.second, item.third)
+                if (item.second != null && item.third != null) {
+                    InfoCategory(item.first, item.second, item.third, item.fourth!!)
+                } else {
+                    Text(
+                        text = item.first,
+                        fontSize = 24.sp,
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 16.dp, bottom = 8.dp)
+                            .fillMaxWidth(),
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
             }
         }
     }
@@ -91,7 +112,7 @@ fun InfoHeader() {
 
 @Preview
 @Composable
-fun InfoCategory(name: String = "Category", icon: ImageVector = Icons.Default.Settings, resource: Int = 0) {
+fun InfoCategory(name: String = "Category", icon: ImageVector = Icons.Default.Settings, resource: Int = 0, activity: Class<*> = InfoListViewActivity::class.java) {
     val context = LocalContext.current
 
     Card (
@@ -101,20 +122,24 @@ fun InfoCategory(name: String = "Category", icon: ImageVector = Icons.Default.Se
     ) {
         Box (
             Modifier.clickable {
-                val intent = Intent(context, InfoListViewActivity::class.java)
+                val intent = Intent(context, activity)
                 intent.putExtra("title", name)
                 intent.putExtra("resource", resource)
                 context.startActivity(intent)
             }
         ) {
             Row(
-                Modifier.padding(16.dp).fillMaxSize(),
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     icon,
                     null,
-                    Modifier.height(28.dp).width(28.dp),
+                    Modifier
+                        .height(28.dp)
+                        .width(28.dp),
                     tint = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.width(12.dp))

@@ -130,4 +130,7 @@
     <string name="libraries">Библиотеки</string>
     <string name="creative_teams">Творческие коллективы</string>
     <string name="students_organizations">Студенческие организации</string>
+    <string name="campus_map">Карта кампуса</string>
+    <string name="campus">Кампус</string>
+    <string name="live">Жизнь</string>
 </resources>

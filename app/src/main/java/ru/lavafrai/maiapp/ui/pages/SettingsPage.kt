@@ -569,7 +569,7 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroupId: GroupId)
                 },
             colors = OutlinedTextFieldDefaults.colors(disabledTextColor = MaterialTheme.colorScheme.onBackground, disabledTrailingIconColor = MaterialTheme.colorScheme.onBackground),
             trailingIcon = {
-                Icon(icon,null, Modifier.clickable { expanded = !expanded })
+                if (groupsSuggestions.size > 0) Icon(icon,null, Modifier.clickable { expanded = !expanded })
             }
         )
         DropdownMenu(

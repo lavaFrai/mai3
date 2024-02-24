@@ -29,9 +29,9 @@ android {
         applicationId = "ru.lavafrai.maiapp"
         minSdk = 26
         targetSdk = 34
-        versionCode = 5
+        versionCode = 6
         
-        versionName = "0.5.1b"
+        versionName = "0.6.0b"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -97,6 +97,7 @@ dependencies {
     implementation("io.appmetrica.analytics:analytics:6.1.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation("me.saket.telephoto:zoomable-image-coil:0.8.0")
 
     implementation("br.com.devsrsouza.compose.icons:simple-icons:1.1.0")
     implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")

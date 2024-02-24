@@ -49,6 +49,12 @@
             android:theme="@style/Theme.MAI30">
         </activity>
 
+
+        <activity
+            android:name=".MapViewActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MAI30">
+        </activity>
         <receiver
             android:name=".widget.ScheduleWidgetReceiver"
             android:enabled="true"
