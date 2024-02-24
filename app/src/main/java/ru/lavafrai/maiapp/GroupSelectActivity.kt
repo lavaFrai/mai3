@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.appmetrica.analytics.AppMetrica
+import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.parser.parseGroupsList
@@ -72,10 +73,10 @@ class GroupSelectActivity : ComponentActivity() {
         val context = LocalContext.current
 
         thread {
-            Thread.sleep(10)
+            Thread.sleep(100)
             try {
                 if (!groupsLoaded) {
-                    groups.addAll(parseGroupsList())
+                    groups.addAll(Api.getInstance().getGroupsListOrNull() ?: parseGroupsList())
                     val tmp = groups.distinctBy { it.name }
                     groups.clear()
                     groups.addAll(tmp)

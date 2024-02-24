@@ -2,6 +2,7 @@ package ru.lavafrai.maiapp.data
 
 import android.content.Context
 import kotlinx.serialization.json.Json
+import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.parser.parseSchedule
@@ -76,7 +77,8 @@ class ScheduleManager(private val context: Context) {
     }
 
     private fun downloadSchedule(groupId: GroupId) {
-        val schedule = parseSchedule(groupId)
+        val schedule = Api.getInstance().getGroupScheduleOrNull(groupId) ?: parseSchedule(groupId)
+
         val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
         Json.encodeToFile(schedule, scheduleFile)
         Thread.sleep(100)

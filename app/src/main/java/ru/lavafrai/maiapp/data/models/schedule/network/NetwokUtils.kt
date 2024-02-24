@@ -18,6 +18,7 @@ fun getPage(url: String, args: Map<String, String> = mapOf(), attemptsLeft: Int 
         return Jsoup
             .connect(builtUrl)
             .header("Cookie", COOKIES_CONSTANT)
+            .validateTLSCertificates(false)
             .get()
     } catch (e: Exception) {
         e.printStackTrace()
