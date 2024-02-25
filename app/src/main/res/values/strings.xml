@@ -133,4 +133,6 @@
     <string name="campus_map">Campus map</string>
     <string name="campus">Campus</string>
     <string name="live">Live</string>
+    <string name="schedule_updated">Schedule updated</string>
+    <string name="schedule_update_failed">Failed to update schedule</string>
 </resources>

@@ -1,6 +1,9 @@
 package ru.lavafrai.maiapp
 
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -22,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.glance.appwidget.updateAll
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
@@ -35,7 +40,9 @@ import ru.lavafrai.maiapp.ui.pages.InfoPage
 import ru.lavafrai.maiapp.ui.pages.SchedulePage
 import ru.lavafrai.maiapp.ui.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
+import ru.lavafrai.maiapp.utils.encodeToFile
 import ru.lavafrai.maiapp.widget.ScheduleWidget
+import java.io.File
 import kotlin.concurrent.thread
 
 class MainActivity : ComponentActivity() {
@@ -56,14 +63,16 @@ class MainActivity : ComponentActivity() {
         }
         updateWidget()
 
-        var schedule: Schedule? = null
+        var schedule: MutableState<Schedule?> = mutableStateOf(null as Schedule?)
         val scheduleLoaded = mutableStateOf<Boolean?>(null)
         var subSchedule = mutableStateOf(null as OneWeekSchedule?)
 
         loadSchedule {
-            schedule = it
-            scheduleLoaded.value = schedule != null
-            subSchedule.value = schedule?.getCurrentSubScheduleOrNull()
+            schedule.value = it
+            scheduleLoaded.value = schedule.value != null
+            subSchedule.value = schedule.value?.getCurrentSubScheduleOrNull()
+
+            updateScheduleAsync(schedule)
         }
 
         setContent {
@@ -78,10 +87,9 @@ class MainActivity : ComponentActivity() {
                 currentGroup.value = Settings.getCurrentGroup()!!
                 scheduleLoaded.value = null
                 loadSchedule {
-                    schedule = it
-                    scheduleLoaded.value = schedule != null
-
-                    subSchedule.value = schedule?.getCurrentSubScheduleOrNull()
+                    schedule.value = it
+                    scheduleLoaded.value = schedule.value != null
+                    subSchedule.value = schedule.value?.getCurrentSubScheduleOrNull()
                 }
             }
 
@@ -89,7 +97,7 @@ class MainActivity : ComponentActivity() {
                 isDarkTheme.value ?: isSystemInDarkTheme(),
                 isDynamicColors.value,
                 currentGroup,
-                schedule,
+                schedule.value,
                 scheduleLoaded.value,
                 subSchedule,
             )
@@ -112,6 +120,24 @@ class MainActivity : ComponentActivity() {
                 after(null)
             }
         }
+    }
+
+    private fun updateScheduleAsync(schedule: MutableState<Schedule?>) {
+        // Toast.makeText(this, "updating schedule", Toast.LENGTH_SHORT).show()
+        val group = Settings.getCurrentGroup() ?: return
+
+        thread {
+            Looper.prepare()
+            val newSchedule = Api.getInstance().getGroupScheduleOrNull(group)
+            schedule.value = newSchedule ?: schedule.value
+            if (newSchedule == null) { Toast.makeText(this, getString(R.string.schedule_update_failed), Toast.LENGTH_SHORT).show() }
+            else {
+                Log.i("APP", "Schedule updated")
+                val scheduleFile = File(getExternalFilesDir("schedule"), group.name)
+                Json.encodeToFile(schedule.value, scheduleFile)
+            }
+        }
+
     }
 
     @Composable
