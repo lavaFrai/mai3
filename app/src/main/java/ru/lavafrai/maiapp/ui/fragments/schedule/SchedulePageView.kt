@@ -1,5 +1,8 @@
 package ru.lavafrai.maiapp.ui.fragments.schedule
 
+import android.os.Looper
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,8 +26,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -35,22 +38,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import eu.bambooapps.material3.pullrefresh.PullRefreshIndicator
+import eu.bambooapps.material3.pullrefresh.pullRefresh
+import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
 import kotlinx.coroutines.launch
+import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.data.ScheduleManager
+import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleWeekId
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.localized
+import kotlin.concurrent.thread
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 // @Preview
 @Composable
 fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSchedule?>) {
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
-    val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable { mutableStateOf(false) }
+    val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable {
+        mutableStateOf(
+            false
+        )
+    }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     if (schedule == null) {
         ErrorScheduleView()
@@ -58,7 +73,7 @@ fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSched
     }
 
     val currentSubSchedule = subSchedule.value
-    val setCurrentSubSchedule = {value: OneWeekSchedule? -> subSchedule.value = value}
+    val setCurrentSubSchedule = { value: OneWeekSchedule? -> subSchedule.value = value }
 
     val scheduleListState = rememberLazyListState(
         initialFirstVisibleItemIndex = if (currentSubSchedule?.weekId?.range?.isNow() == true) getTodayIndex(
@@ -111,47 +126,89 @@ fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSched
                 setChangeWeekDialogOpened(true)
             }
 
-            Column (
+            Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(Icons.Outlined.DateRange, null)
                 Spacer(modifier = Modifier.height(32.dp))
-                Text(text = stringResource(id = R.string.empty_week), modifier = Modifier.fillMaxWidth(0.5f), textAlign = TextAlign.Center)
+                Text(
+                    text = stringResource(id = R.string.empty_week),
+                    modifier = Modifier.fillMaxWidth(0.5f),
+                    textAlign = TextAlign.Center
+                )
             }
         }
-    }
-    else {
-        Column {
+    } else {
+        Column() {
             ScheduleHeader {
                 setChangeWeekDialogOpened(true)
             }
 
-            LazyColumn(state = scheduleListState) {
-                currentSubSchedule.days.forEach { day ->
-                    item {}
-                    stickyHeader {
-                        Row(
-                            modifier = Modifier
-                                .background(MaterialTheme.colorScheme.background)
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            TextH3(text = day.dayOfWeek.localized().capitalize())
-                            Spacer(modifier = Modifier.width(16.dp))
-                            Text(
-                                text = day.date.toLocalizedDayMonthString(LocalContext.current),
-                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-                                fontWeight = FontWeight.Light
-                            )
+            Box {
+                var isRefreshing by rememberSaveable { mutableStateOf(false) }
+                val pullToRefreshState = rememberPullRefreshState(isRefreshing, {
+                    thread {
+                        isRefreshing = true
+
+                        val group = Settings.getCurrentGroup() ?: return@thread
+
+                        thread {
+                            Looper.prepare()
+                            val newSchedule = Api.getInstance().getGroupScheduleOrNull(group) ?: ScheduleManager(context).downloadScheduleOrNull(group)
+
+                            if (newSchedule == null) { Toast.makeText(context, context.getString(R.string.schedule_update_failed), Toast.LENGTH_SHORT).show() }
+                            else {
+                                Log.i("APP", "Schedule updated")
+
+                                MainActivity.setSchedule(newSchedule)
+                            }
+
+                            isRefreshing = false
+                        }
+
+                    }
+                })
+                Box {
+                    LazyColumn(
+                        state = scheduleListState,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .pullRefresh(pullToRefreshState)
+                    ) {
+                        currentSubSchedule.days.forEach { day ->
+                            item {}
+                            stickyHeader {
+                                Row(
+                                    modifier = Modifier
+                                        .background(MaterialTheme.colorScheme.background)
+                                        .fillMaxWidth()
+                                        .padding(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    TextH3(text = day.dayOfWeek.localized().capitalize())
+                                    Spacer(modifier = Modifier.width(16.dp))
+                                    Text(
+                                        text = day.date.toLocalizedDayMonthString(LocalContext.current),
+                                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+                                        fontWeight = FontWeight.Light
+                                    )
+                                }
+                            }
+
+                            item {
+                                ScheduleDayView(day = day)
+                            }
                         }
                     }
 
-                    item {
-                        ScheduleDayView(day = day)
-                    }
+                    PullRefreshIndicator(
+                        refreshing = isRefreshing,
+                        state = pullToRefreshState,
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                    )
                 }
             }
         }

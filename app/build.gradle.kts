@@ -98,6 +98,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
     implementation("me.saket.telephoto:zoomable-image-coil:0.8.0")
+    implementation("eu.bambooapps:compose-material3-pullrefresh:1.1.0")
 
     implementation("br.com.devsrsouza.compose.icons:simple-icons:1.1.0")
     implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")

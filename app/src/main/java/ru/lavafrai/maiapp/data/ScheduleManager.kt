@@ -82,12 +82,27 @@ class ScheduleManager(private val context: Context) {
         return hasScheduleDownloaded(settings.currentGroup!!);
     }
 
-    private fun downloadSchedule(groupId: GroupId) {
+    fun downloadSchedule(groupId: GroupId) {
         val schedule = Api.getInstance().getGroupScheduleOrNull(groupId) ?: parseSchedule(groupId)
 
         val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
         Json.encodeToFile(schedule, scheduleFile)
         Thread.sleep(100)
+    }
+
+    fun downloadScheduleOrNull(groupId: GroupId): Schedule? {
+        return try {
+            val schedule =
+                Api.getInstance().getGroupScheduleOrNull(groupId) ?: parseSchedule(groupId)
+
+            val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
+            Json.encodeToFile(schedule, scheduleFile)
+            Thread.sleep(100)
+
+            schedule
+        } catch (e: Exception) {
+            null
+        }
     }
 
     fun getDownloadedSchedulesList(): List<String> {

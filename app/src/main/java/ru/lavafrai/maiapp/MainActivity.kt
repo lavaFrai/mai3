@@ -75,6 +75,10 @@ class MainActivity : ComponentActivity() {
             updateScheduleAsync(schedule)
         }
 
+        setSchedule = {
+            newSchedule -> schedule.value = newSchedule
+        }
+
         setContent {
             val isDarkTheme = remember { mutableStateOf<Boolean?>(Settings.getIsDarkTheme()) }
             val isDynamicColors = rememberSaveable { mutableStateOf(Settings.isDynamicColors()) }
@@ -122,7 +126,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun updateScheduleAsync(schedule: MutableState<Schedule?>) {
+    private fun updateScheduleAsync(schedule: MutableState<Schedule?>, after: (Schedule) -> Unit = {}) {
         // Toast.makeText(this, "updating schedule", Toast.LENGTH_SHORT).show()
         val group = Settings.getCurrentGroup() ?: return
 
@@ -135,6 +139,7 @@ class MainActivity : ComponentActivity() {
                 Log.i("APP", "Schedule updated")
                 val scheduleFile = File(getExternalFilesDir("schedule"), group.name)
                 Json.encodeToFile(schedule.value, scheduleFile)
+                after(schedule.value!!)
             }
         }
 
@@ -188,6 +193,7 @@ class MainActivity : ComponentActivity() {
         // lateinit var instance: MainActivity
 
         var manualRecompose: () -> Unit = {}
+        var setSchedule: (Schedule) -> Unit = {}
 
         lateinit var updateWidget: () -> Unit
     }
