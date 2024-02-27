@@ -22,7 +22,10 @@ import ru.lavafrai.maiapp.R
 import java.io.File
 import java.io.InputStream
 import java.net.URL
+import java.text.DecimalFormat
 import java.time.DayOfWeek
+import kotlin.math.log10
+import kotlin.math.pow
 
 fun String.toURL() : URL {
     return URL(this)
@@ -141,4 +144,14 @@ fun File.copyInputStreamToFile(inputStream: InputStream) {
     this.outputStream().use { fileOut ->
         inputStream.copyTo(fileOut)
     }
+}
+
+
+fun Long.readableFileSize(): String {
+    if (this <= 0) return "0"
+    val units = arrayOf("B", "kB", "MB", "GB", "TB")
+    val digitGroups = (log10(this.toDouble()) / log10(1024.0)).toInt()
+    return DecimalFormat("#,##0.#").format(
+        this / 1024.0.pow(digitGroups.toDouble())
+    ) + " " + units[digitGroups]
 }

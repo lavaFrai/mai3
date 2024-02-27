@@ -78,6 +78,7 @@ import ru.lavafrai.maiapp.data.models.group.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
 import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
+import ru.lavafrai.maiapp.utils.readableFileSize
 import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
 import kotlin.system.exitProcess
 
@@ -587,7 +588,15 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroupId: GroupId)
                     groupsSuggestions = scheduleManager.getDownloadedSchedulesList().filter { it != label }
                     MainActivity.manualRecompose()
                 },
-                    text = {Text(text = label)},
+                    text = {
+                        Row (
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(text = label)
+                            Text(text = scheduleManager.getScheduleSize(GroupId(label)).readableFileSize(), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
+                        }
+                    },
                     trailingIcon = { Icon(Icons.Default.Delete, null, modifier = Modifier.clickable {
                         groupsSuggestions = groupsSuggestions.filter { it != label }
                         Mai3.showToast(context.resources.getString(R.string.group_removed))

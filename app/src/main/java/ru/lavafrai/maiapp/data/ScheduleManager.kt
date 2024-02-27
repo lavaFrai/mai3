@@ -9,6 +9,8 @@ import ru.lavafrai.maiapp.data.parser.parseSchedule
 import ru.lavafrai.maiapp.utils.decodeFromFile
 import ru.lavafrai.maiapp.utils.encodeToFile
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class ScheduleManager(private val context: Context) {
     private fun hasScheduleDownloaded(groupId: GroupId): Boolean {
@@ -20,6 +22,10 @@ class ScheduleManager(private val context: Context) {
         val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
 
         return Json.decodeFromFile<Schedule>(scheduleFile)
+    }
+
+    fun getScheduleSize(group: GroupId): Long {
+        return Files.size( Paths.get( File(context.getExternalFilesDir("schedule"), group.name).path ))
     }
 
     fun getScheduleOrDownload(groupId: GroupId): Schedule? {
