@@ -10,7 +10,7 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val MaiColor = Color(0xff008BD2)
+val MaiColor = Color(0xff148fe6)
 val MaiColorDark = Color(0xFF21325b)
 val MaiColorLight = Color(0xFF7DCCFA)
 

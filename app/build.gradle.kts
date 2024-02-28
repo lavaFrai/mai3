@@ -31,7 +31,7 @@ android {
         targetSdk = 34
         versionCode = 7
         
-        versionName = "0.7.0b"
+        versionName = "0.7.1b"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -103,4 +103,6 @@ dependencies {
     implementation("br.com.devsrsouza.compose.icons:simple-icons:1.1.0")
     implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
     implementation("br.com.devsrsouza.compose.icons:line-awesome:1.1.0")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

@@ -3,7 +3,7 @@
 
     <style name="Theme.MAI30" parent="android:Theme.Material.Light.NoActionBar" >
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/ic_splash</item>
-        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/white</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/DarkBackground</item>
         <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="s">@color/MaiColor</item>
     </style>
 

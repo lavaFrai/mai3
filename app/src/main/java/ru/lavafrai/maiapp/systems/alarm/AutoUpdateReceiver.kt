@@ -12,7 +12,6 @@ import ru.lavafrai.maiapp.BuildConfig
 import ru.lavafrai.maiapp.data.ACTUAL_VERSION_INFO_URL
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.ActualVersionInfo
-import ru.lavafrai.maiapp.notification.getUpgradeNotification
 import kotlin.concurrent.thread
 
 
@@ -52,6 +51,6 @@ class AutoUpdateReceiver: BroadcastReceiver() {
     fun sendUpgradeReadyNotification(context: Context, versionName: String) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        notificationManager.notify(1, getUpgradeNotification(context, versionName))
+        // notificationManager.notify(1, getUpgradeNotification(context, versionName))
     }
 }
