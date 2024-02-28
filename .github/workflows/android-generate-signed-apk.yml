@@ -32,6 +32,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: List secrets
+        run: ls /home/runner/work/mai3/mai3/keystore
+
       - name: Build release artifacts
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file="/home/runner/work/mai3/mai3/lava_frai.keystore" -Pandroid.injected.signing.store.password="{{ secrets.KEYSTORE_PASSWORD }}" -Pandroid.injected.signing.key.alias="{{ secrets.KEYSTORE_KEY_ALIAS }}" -Pandroid.injected.signing.key.password="{{ secrets.KEYSTORE_KEY_PASSWORD }}"
 
