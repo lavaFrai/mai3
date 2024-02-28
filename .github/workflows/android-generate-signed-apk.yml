@@ -3,9 +3,8 @@ name: Generate signed apk
 
 on:
   workflow_run:
-    workflows: [ "Try to build" ]
-    types:
-      - completed
+    workflows: [ Try to build ]
+    types: [ completed ]
 
 jobs:
   build-signed-apk:
