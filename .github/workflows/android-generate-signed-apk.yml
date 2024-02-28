@@ -1,0 +1,30 @@
+name: Generate signed apk
+
+
+on:
+  workflow_run:
+    workflows: [ "Try to build" ]
+    types:
+      - completed
+
+jobs:
+  build-signed-apk:
+    runs-on: ubuntu-latest
+    name: Build signed apk
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Checkout keystore repo
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ secrets.KEYSTORE_GIT_REPOSITORY }}
+          token: ${{ secrets.KEYSTORE_ACCESS_TOKEN }}
+          path: app/keystore
+
+
+      - name: Build release artifacts
+        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file="app/keystore/lava_frai.keystore" -Pandroid.injected.signing.store.password="{{ secrets.KEYSTORE_PASSWORD }}" -Pandroid.injected.signing.key.alias="{{ secrets.KEYSTORE_KEY_ALIAS }}" -Pandroid.injected.signing.key.password="{{ secrets.KEYSTORE_KEY_PASSWORD }}"
+
+      - name: Show apk size
+        run: du -h app\build\outputs\apk\release\app-release.apk
