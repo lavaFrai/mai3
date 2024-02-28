@@ -2,9 +2,10 @@ name: Generate signed apk
 
 
 on:
-  workflow_run:
-    workflows: [ Try to build ]
-    types: [ completed ]
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build-signed-apk:
@@ -21,6 +22,8 @@ jobs:
           token: ${{ secrets.KEYSTORE_ACCESS_TOKEN }}
           path: app/keystore
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Build release artifacts
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file="app/keystore/lava_frai.keystore" -Pandroid.injected.signing.store.password="{{ secrets.KEYSTORE_PASSWORD }}" -Pandroid.injected.signing.key.alias="{{ secrets.KEYSTORE_KEY_ALIAS }}" -Pandroid.injected.signing.key.password="{{ secrets.KEYSTORE_KEY_PASSWORD }}"
