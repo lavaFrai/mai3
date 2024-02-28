@@ -29,7 +29,7 @@ android {
         applicationId = "ru.lavafrai.maiapp"
         minSdk = 26
         targetSdk = 34
-        versionCode = 7
+        versionCode = 7_001
         
         versionName = "0.7.1b"
 
