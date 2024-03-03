@@ -17,6 +17,7 @@ data class Settings (
     var currentGroup: GroupId? = null,
     var isDarkTheme: Boolean? = null,
     var isDynamicColoursEnabled: Boolean = true,
+    var isUseServerCache: Boolean = true,
     var lastNotifiedUpgrade: String? = null
 ) {
     fun save() {
@@ -70,6 +71,16 @@ data class Settings (
             val s = Settings.getInstance()
             s.isDarkTheme = isDarkTheme
             s.save()
+        }
+
+        fun isUseServerCache(): Boolean {
+            return Settings.getInstance().isUseServerCache
+        }
+
+        fun setUseServerCache(value: Boolean) {
+            val settings = Settings.getInstance()
+            settings.isUseServerCache = value
+            settings.save()
         }
 
         fun isDynamicColors(): Boolean {

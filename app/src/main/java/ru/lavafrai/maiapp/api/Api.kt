@@ -4,6 +4,7 @@ import kotlinx.serialization.json.Json
 import org.jsoup.Jsoup
 import ru.lavafrai.maiapp.data.API_URL
 import ru.lavafrai.maiapp.data.COOKIES_CONSTANT
+import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 
@@ -26,6 +27,8 @@ class Api {
     }
 
     private fun getEndpointAsPlainText(endpoint: String): String? {
+        if (!Settings.isUseServerCache()) return null
+
         return try {
             val response = Jsoup
                 .connect("$API_URL/$endpoint")

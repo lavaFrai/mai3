@@ -28,3 +28,7 @@ class GroupNameAnalyzer(val name: String) {
         }
     }
 }
+
+fun GroupId.analyzeName(): GroupNameAnalyzer {
+    return GroupNameAnalyzer(name)
+}

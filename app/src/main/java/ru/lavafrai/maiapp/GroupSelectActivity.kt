@@ -40,6 +40,7 @@ import io.appmetrica.analytics.AppMetrica
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.analyzeName
 import ru.lavafrai.maiapp.data.parser.parseGroupsList
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -152,6 +153,12 @@ class GroupSelectActivity : ComponentActivity() {
                                     foundGroups.forEach {
                                         ListItem(
                                             headlineContent = { Text(text = it.name) },
+                                            supportingContent = {
+                                                Text(text = stringResource(id = R.string.faculty_and_course)
+                                                    .replace("%faculty%", it.analyzeName().faculty.toString())
+                                                    .replace("%course%", it.analyzeName().course.toString())
+                                                )
+                                            },
                                             modifier = Modifier.clickable {
                                                 setSearchBarText(it.name)
                                                 setSelectedGroup(it)

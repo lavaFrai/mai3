@@ -12,11 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import me.saket.telephoto.zoomable.ZoomSpec
 import me.saket.telephoto.zoomable.rememberZoomableState
@@ -32,7 +31,7 @@ class MapViewActivity : ComponentActivity() {
         val resource = intent.extras?.getInt("resource") ?: R.drawable.ic_campus_map
 
         setContent {
-            MainView(if (Settings.isDarkTheme()) R.drawable.ic_campus_map_night else R.drawable.ic_campus_map)
+            MainView(if (Settings.isDarkTheme()) R.drawable.img_campus_map_new else R.drawable.ic_campus_map)
 
         }
     }
@@ -49,11 +48,11 @@ class MapViewActivity : ComponentActivity() {
                 PageHeader(stringResource(id = R.string.campus_map)) { this@MapViewActivity.finish() }
 
                 Image(
-                    ImageVector.vectorResource(resource),
+                    painterResource(resource),
                     null,
                     modifier = Modifier
                         .fillMaxSize()
-                        .zoomable(rememberZoomableState(zoomSpec = ZoomSpec(3f))),
+                        .zoomable(rememberZoomableState(zoomSpec = ZoomSpec(6f))),
                     contentScale = ContentScale.Inside
                 )
             }

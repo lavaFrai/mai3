@@ -179,6 +179,14 @@ fun SettingsSwitchesPage() {
                     enabled = false,
                 )
             }
+
+            if (BuildConfig.BUILD_TYPE == "debug") {
+                var isUseServerCache by remember { mutableStateOf(Settings.isUseServerCache()) }
+                PropertyBoolean(
+                    stringResource(id = R.string.use_server_cache),
+                    isSet = isUseServerCache,
+                ) { Settings.setUseServerCache(it); isUseServerCache = Settings.isUseServerCache() }
+            }
         }
     }
 }

@@ -52,7 +52,7 @@ fun InfoPage() {
     val campusCategories = listOf<Quadtuple<String, ImageVector?, Int?, Class<*>?>>(
 
         Quadtuple(stringResource(id = R.string.campus), null, null, null),
-        Quadtuple(stringResource(id = R.string.campus_map), LineAwesomeIcons.Map, R.drawable.ic_campus_map, MapViewActivity::class.java),
+        Quadtuple(stringResource(id = R.string.campus_map), LineAwesomeIcons.Map, R.drawable.img_campus_map_new, MapViewActivity::class.java),
         Quadtuple(stringResource(id = R.string.canteens_and_buffets), LineAwesomeIcons.CoffeeSolid, R.raw.cafeteries, InfoListViewActivity::class.java),
         Quadtuple(stringResource(id = R.string.libraries), LineAwesomeIcons.BookOpenSolid, R.raw.libraries, InfoListViewActivity::class.java),
         Quadtuple(stringResource(id = R.string.live), null, null, null),

@@ -135,4 +135,6 @@
     <string name="live">Live</string>
     <string name="schedule_updated">Schedule updated</string>
     <string name="schedule_update_failed">Failed to update schedule</string>
+    <string name="use_server_cache">Use cache</string>
+    <string name="faculty_and_course">Faculty %faculty%, course %course%</string>
 </resources>

@@ -16,12 +16,13 @@ import java.time.DayOfWeek
 import java.util.Calendar
 
 
-fun parseSchedule(groupId: GroupId) : Schedule {
+fun parseSchedule(group: GroupId) : Schedule {
+    val groupId = GroupId(group.name)
     val weeks = parseScheduleParseWeeks(groupId)
 
     val schedules = weeks.mapThreaded {
         parseScheduleParseWeek(groupId, it)
-    }
+    }.sortedBy { it.weekId.number }
 
     return Schedule(groupId, schedules);
 }
@@ -48,7 +49,7 @@ fun subParseOneDaySchedule(page: Element): OneDaySchedule {
     }
     val date = day.subSequence(4, day.length) as String
     val lessons = page.select(".step-content > div").map { subParseLesson(it) }
-    val dayMatch = "(\\d+)\\s+(\\S+)".toRegex().find(date)
+    val dayMatch = "(\\d+)[\\s ]+(\\S+)".toRegex().find(date)
 
     val monthStr = dayMatch!!.groups[2]!!.value
     val dayMonth = when {
@@ -82,15 +83,12 @@ fun subParseLesson(page: Element): ScheduleLesson {
     val name = page.child(0).text().removeSuffix(" ${page.select(".badge").text()}")
     val timeRange = page.child(1).child(0).text()
 
-    val teacher: String
-    val location: String
-    if (page.child(1).children().size == 3) {
-        teacher = page.child(1).child(1).text()
-        location = page.child(1).child(2).text()
-    } else {
-        teacher = ""
-        location = page.child(1).child(1).text()
-    }
+    val teacherFinder = "(?>(?>(?!\\d)\\S)+\\s){3}".toRegex()
+    val teacher = teacherFinder.findAll(page.child(1).text()).joinToString(separator = " / ") { it.value.trim().lowercase().capitalizeWords() }
+
+    //println(page.child(1).text())
+
+    val location: String = page.child(1).select(".fa-map-marker-alt").joinToString(separator = " / ") { it.parent().text() }
 
     return ScheduleLesson(name, timeRange, type, teacher, location)
 }
@@ -98,7 +96,9 @@ fun subParseLesson(page: Element): ScheduleLesson {
 fun parseScheduleParseWeeks(groupId: GroupId): List<ScheduleWeekId> {
     val page = getSchedulePage(mapOf("group" to groupId.name))
 
-    return page.select("#collapseWeeks").select(".list-group-item").map { parseScheduleWeek(it.text()) }
+    return page.select("#collapseWeeks").select(".list-group-item").mapThreaded { parseScheduleWeek(it.text()) }
 }
 
+
+fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.capitalize() }
 

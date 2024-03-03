@@ -135,4 +135,6 @@
     <string name="live">Жизнь</string>
     <string name="schedule_updated">Расписание обновлено</string>
     <string name="schedule_update_failed">Ошибка при обновлении расписания</string>
+    <string name="use_server_cache">Использовать кэширование</string>
+    <string name="faculty_and_course">Институт %faculty%, курс %course%</string>
 </resources>
