@@ -107,4 +107,7 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+    implementation("com.github.lavaFrai:maiapi:v1.1.3")
+    implementation("com.github.lavaFrai:exler-maiapi:v1.0.0")
 }

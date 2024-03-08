@@ -1,7 +1,7 @@
 package ru.lavafrai.maiapp.data.parser
 
+import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.maiapp.data.GROUPS_PAGE_URL
-import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.schedule.network.getPage
 import ru.lavafrai.maiapp.utils.mapThreaded
 

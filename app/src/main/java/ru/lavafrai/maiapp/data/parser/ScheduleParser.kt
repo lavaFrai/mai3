@@ -1,8 +1,8 @@
 package ru.lavafrai.maiapp.data.parser
 
 import org.jsoup.nodes.Element
+import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.maiapp.data.models.SerializableDate
-import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule

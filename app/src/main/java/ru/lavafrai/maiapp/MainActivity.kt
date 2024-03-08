@@ -27,10 +27,10 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import ru.lavafrai.exler.mai.Exler
+import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.systems.AppSystemName

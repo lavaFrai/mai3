@@ -3,8 +3,8 @@ package ru.lavafrai.maiapp.data.models.schedule
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import kotlinx.serialization.Serializable
+import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.maiapp.data.models.SerializableDate
-import ru.lavafrai.maiapp.data.models.group.Group
 
 
 @Serializable

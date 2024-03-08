@@ -62,6 +62,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import io.appmetrica.analytics.AppMetrica
 import kotlinx.coroutines.launch
+import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.group.analyzeName
 import ru.lavafrai.maiapp.BuildConfig
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.Mai3
@@ -72,9 +74,7 @@ import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.group.Group
-import ru.lavafrai.maiapp.data.models.group.GroupNameAnalyzer
-import ru.lavafrai.maiapp.data.models.group.localized
+import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
 import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -510,7 +510,7 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
 
                 GroupDropdownList(scheduleManager, group)
 
-                val groupInfo = GroupNameAnalyzer(group.name)
+                val groupInfo = group.analyzeName()
                 UserInfoLine(text = stringResource(R.string.faculty_num) + groupInfo.faculty.toString())
                 UserInfoLine(
                     text = groupInfo.type.localized(context = LocalContext.current).capitalize()

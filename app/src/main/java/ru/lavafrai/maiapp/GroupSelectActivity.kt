@@ -37,10 +37,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.appmetrica.analytics.AppMetrica
+import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.group.analyzeName
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.group.Group
-import ru.lavafrai.maiapp.data.models.group.analyzeName
 import ru.lavafrai.maiapp.data.parser.parseGroupsList
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3

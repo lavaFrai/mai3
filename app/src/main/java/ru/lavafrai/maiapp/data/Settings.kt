@@ -5,8 +5,8 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.utils.decodeFromFile
 import ru.lavafrai.maiapp.utils.encodeToFile
 import java.io.File
