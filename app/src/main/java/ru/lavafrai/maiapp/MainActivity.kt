@@ -26,10 +26,11 @@ import androidx.glance.appwidget.updateAll
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.systems.AppSystemName
@@ -149,13 +150,14 @@ class MainActivity : ComponentActivity() {
     fun MainView(
         isDarkTheme: Boolean,
         isDynamicColors: Boolean,
-        currentGroup: MutableState<GroupId?>,
+        currentGroup: MutableState<Group?>,
         schedule: Schedule?,
         scheduleLoaded: Boolean?,
         subSchedule: MutableState<OneWeekSchedule?>
     ) {
         val permissionSystem = Mai3.getSystem(AppSystemName.PERMISSIONS) as PermissionsSystem
         permissionSystem.requestRequired(this)
+        val exler = Exler()
 
         var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
         //var selectedWeek by rememberSaveable {  }
@@ -179,7 +181,7 @@ class MainActivity : ComponentActivity() {
 
                 ) {
                     when (selectedPage) {
-                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded, subSchedule, )
+                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded, subSchedule, exler, )
                         MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
                         MainNavigationVariants.INFO -> InfoPage()
                         else -> {}

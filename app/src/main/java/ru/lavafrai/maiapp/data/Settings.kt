@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.utils.decodeFromFile
 import ru.lavafrai.maiapp.utils.encodeToFile
 import java.io.File
@@ -14,7 +14,7 @@ import java.io.File
 
 @Serializable
 data class Settings (
-    var currentGroup: GroupId? = null,
+    var currentGroup: Group? = null,
     var isDarkTheme: Boolean? = null,
     var isDynamicColoursEnabled: Boolean = true,
     var isUseServerCache: Boolean = true,
@@ -47,12 +47,12 @@ data class Settings (
         }
 
 
-        fun getCurrentGroup(): GroupId? {
+        fun getCurrentGroup(): Group? {
             return Settings.getInstance().currentGroup
         }
 
 
-        fun setCurrentGroup(newGroup: GroupId?) {
+        fun setCurrentGroup(newGroup: Group?) {
             val s = Settings.getInstance()
             s.currentGroup = newGroup
             s.save()

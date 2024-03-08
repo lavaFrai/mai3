@@ -4,14 +4,14 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import kotlinx.serialization.Serializable
 import ru.lavafrai.maiapp.data.models.SerializableDate
-import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.Group
 
 
 @Serializable
 @Immutable
 @Stable
 data class Schedule (
-    val groupId: GroupId,
+    val group: Group,
     val subSchedules: List<OneWeekSchedule>,
 ) {
     fun getWeeks(): List<ScheduleWeekId> {
@@ -36,5 +36,5 @@ data class Schedule (
 
 
 fun getEmptySchedule(): Schedule {
-    return Schedule(GroupId(""), listOf())
+    return Schedule(Group(""), listOf())
 }

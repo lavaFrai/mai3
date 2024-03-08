@@ -29,9 +29,9 @@ android {
         applicationId = "ru.lavafrai.maiapp"
         minSdk = 26
         targetSdk = 34
-        versionCode = 7_001
+        versionCode = 7_002
         
-        versionName = "0.7.1b"
+        versionName = "0.7.2b"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -84,6 +84,7 @@ dependencies {
     implementation("androidx.compose.material3:material3-android:1.2.0")
     implementation("androidx.glance:glance-appwidget:1.0.0")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation("androidx.browser:browser:1.7.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -105,4 +106,5 @@ dependencies {
     implementation("br.com.devsrsouza.compose.icons:line-awesome:1.1.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }

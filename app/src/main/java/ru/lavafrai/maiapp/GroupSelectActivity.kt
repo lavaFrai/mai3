@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import io.appmetrica.analytics.AppMetrica
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.group.analyzeName
 import ru.lavafrai.maiapp.data.parser.parseGroupsList
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
@@ -69,8 +69,8 @@ class GroupSelectActivity : ComponentActivity() {
 
         var groupsError by rememberSaveable { mutableStateOf(false) }
 
-        val groups = rememberSaveable { mutableListOf<GroupId>() }
-        val (selectedGroup, setSelectedGroup) = rememberSaveable { mutableStateOf<GroupId?>(null) }
+        val groups = rememberSaveable { mutableListOf<Group>() }
+        val (selectedGroup, setSelectedGroup) = rememberSaveable { mutableStateOf<Group?>(null) }
 
         val context = LocalContext.current
 

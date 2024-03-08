@@ -2,7 +2,7 @@ package ru.lavafrai.maiapp.data.parser
 
 import org.jsoup.nodes.Element
 import ru.lavafrai.maiapp.data.models.SerializableDate
-import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
@@ -16,20 +16,20 @@ import java.time.DayOfWeek
 import java.util.Calendar
 
 
-fun parseSchedule(group: GroupId) : Schedule {
-    val groupId = GroupId(group.name)
-    val weeks = parseScheduleParseWeeks(groupId)
+fun parseSchedule(group: Group) : Schedule {
+    val group = Group(group.name)
+    val weeks = parseScheduleParseWeeks(group)
 
     val schedules = weeks.mapThreaded {
-        parseScheduleParseWeek(groupId, it)
+        parseScheduleParseWeek(group, it)
     }.sortedBy { it.weekId.number }
 
-    return Schedule(groupId, schedules);
+    return Schedule(group, schedules);
 }
 
 
-fun parseScheduleParseWeek(groupId: GroupId, weekId: ScheduleWeekId): OneWeekSchedule {
-    val page = getSchedulePage(mapOf("group" to groupId.name, "week" to weekId.number.toString()))
+fun parseScheduleParseWeek(group: Group, weekId: ScheduleWeekId): OneWeekSchedule {
+    val page = getSchedulePage(mapOf("group" to group.name, "week" to weekId.number.toString()))
 
     val lessons = page.select(".step").select(".step-content").map { subParseOneDaySchedule(it) }
     return OneWeekSchedule(weekId, lessons)
@@ -93,8 +93,8 @@ fun subParseLesson(page: Element): ScheduleLesson {
     return ScheduleLesson(name, timeRange, type, teacher, location)
 }
 
-fun parseScheduleParseWeeks(groupId: GroupId): List<ScheduleWeekId> {
-    val page = getSchedulePage(mapOf("group" to groupId.name))
+fun parseScheduleParseWeeks(group: Group): List<ScheduleWeekId> {
+    val page = getSchedulePage(mapOf("group" to group.name))
 
     return page.select("#collapseWeeks").select(".list-group-item").mapThreaded { parseScheduleWeek(it.text()) }
 }

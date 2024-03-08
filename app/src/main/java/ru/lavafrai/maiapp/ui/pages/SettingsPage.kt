@@ -72,7 +72,7 @@ import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.group.GroupNameAnalyzer
 import ru.lavafrai.maiapp.data.models.group.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
@@ -84,7 +84,7 @@ import kotlin.system.exitProcess
 
 
 @Composable
-fun SettingsPage(currentGroupId: GroupId) {
+fun SettingsPage(currentGroup: Group) {
     val context = LocalContext.current
     // val activity = LocalContext.current as Activity
     val scheduleManager = ScheduleManager(context)
@@ -94,7 +94,7 @@ fun SettingsPage(currentGroupId: GroupId) {
     ) {
         SettingsHeader()
 
-        SettingsGroupCard(currentGroupId, scheduleManager)
+        SettingsGroupCard(currentGroup, scheduleManager)
 
 
         SettingsThemeControls()
@@ -488,7 +488,7 @@ fun SettingsGroupControls() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsGroupCard(groupId: GroupId = GroupId("М14О-102БВ-23"), scheduleManager: ScheduleManager) {
+fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager: ScheduleManager) {
     val context = LocalContext.current
 
     Card(
@@ -508,9 +508,9 @@ fun SettingsGroupCard(groupId: GroupId = GroupId("М14О-102БВ-23"), scheduleM
                         .padding(bottom = 12.dp)
                 )*/
 
-                GroupDropdownList(scheduleManager, groupId)
+                GroupDropdownList(scheduleManager, group)
 
-                val groupInfo = GroupNameAnalyzer(groupId.name)
+                val groupInfo = GroupNameAnalyzer(group.name)
                 UserInfoLine(text = stringResource(R.string.faculty_num) + groupInfo.faculty.toString())
                 UserInfoLine(
                     text = groupInfo.type.localized(context = LocalContext.current).capitalize()
@@ -529,7 +529,7 @@ fun SettingsGroupCard(groupId: GroupId = GroupId("М14О-102БВ-23"), scheduleM
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {
-                    ScheduleManager(context).deleteSchedule(groupId)
+                    ScheduleManager(context).deleteSchedule(group)
                     Toast.makeText(context, context.getText(R.string.redownload_schedule_set), Toast.LENGTH_LONG).show()
                     MainActivity.manualRecompose()
                 }, modifier = Modifier.fillMaxWidth()) {
@@ -552,10 +552,10 @@ fun SettingsGroupCard(groupId: GroupId = GroupId("М14О-102БВ-23"), scheduleM
 
 
 @Composable
-fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroupId: GroupId) {
+fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroup: Group) {
     val context = LocalContext.current
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val currentGroup = currentGroupId.name
+    val currentGroup = currentGroup.name
     var selectedText by remember { mutableStateOf(currentGroup) }
 
     var groupsSuggestions by remember { mutableStateOf(scheduleManager.getDownloadedSchedulesList().filter { it != currentGroup }) }
@@ -591,7 +591,7 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroupId: GroupId)
                 DropdownMenuItem(onClick = {
                     selectedText = label
                     expanded = false
-                    Settings.setCurrentGroup(GroupId(label))
+                    Settings.setCurrentGroup(Group(label))
                     // Mai3.showToast(context.resources.getString(R.string.group_switched))
                     groupsSuggestions = scheduleManager.getDownloadedSchedulesList().filter { it != label }
                     MainActivity.manualRecompose()
@@ -602,13 +602,13 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroupId: GroupId)
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(text = label)
-                            Text(text = scheduleManager.getScheduleSize(GroupId(label)).readableFileSize(), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
+                            Text(text = scheduleManager.getScheduleSize(Group(label)).readableFileSize(), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
                         }
                     },
                     trailingIcon = { Icon(Icons.Default.Delete, null, modifier = Modifier.clickable {
                         groupsSuggestions = groupsSuggestions.filter { it != label }
                         Mai3.showToast(context.resources.getString(R.string.group_removed))
-                        scheduleManager.deleteSchedule(GroupId(label))
+                        scheduleManager.deleteSchedule(Group(label))
                     }) }
 
                 )

@@ -43,7 +43,7 @@ fun getSampleLessonSchedule(): ScheduleLesson {
                 "Иностранный язык",
                 "14:45 – 16:15",
                 ScheduleLessonType.SEMINAR,
-                "Христофорова Наталья Игоревна",
+                "Христофорова Наталья Игоревна / Сычов Михаил Ебанович",
                 "Орш. В-301"
     )
 }

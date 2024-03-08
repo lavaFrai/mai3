@@ -3,7 +3,7 @@ package ru.lavafrai.maiapp.data
 import android.content.Context
 import kotlinx.serialization.json.Json
 import ru.lavafrai.maiapp.api.Api
-import ru.lavafrai.maiapp.data.models.group.GroupId
+import ru.lavafrai.maiapp.data.models.group.Group
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.parser.parseSchedule
 import ru.lavafrai.maiapp.utils.decodeFromFile
@@ -13,38 +13,38 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 class ScheduleManager(private val context: Context) {
-    private fun hasScheduleDownloaded(groupId: GroupId): Boolean {
-        val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
+    private fun hasScheduleDownloaded(group: Group): Boolean {
+        val scheduleFile = File(context.getExternalFilesDir("schedule"), group.name)
         return scheduleFile.exists()
     }
 
-    private fun getSchedule(groupId: GroupId): Schedule? {
-        val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
+    private fun getSchedule(group: Group): Schedule? {
+        val scheduleFile = File(context.getExternalFilesDir("schedule"), group.name)
 
         return Json.decodeFromFile<Schedule>(scheduleFile)
     }
 
-    fun getScheduleSize(group: GroupId): Long {
+    fun getScheduleSize(group: Group): Long {
         return Files.size( Paths.get( File(context.getExternalFilesDir("schedule"), group.name).path ))
     }
 
-    fun getScheduleOrDownload(groupId: GroupId): Schedule? {
+    fun getScheduleOrDownload(group: Group): Schedule? {
         return try {
-            if (!hasScheduleDownloaded(groupId)) {
-                downloadSchedule(groupId)
+            if (!hasScheduleDownloaded(group)) {
+                downloadSchedule(group)
             }
 
-            getSchedule(groupId)
+            getSchedule(group)
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
 
-    fun deleteSchedule(groupId: GroupId?) {
-        if (groupId == null) return
+    fun deleteSchedule(group: Group?) {
+        if (group == null) return
 
-        val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
+        val scheduleFile = File(context.getExternalFilesDir("schedule"), group.name)
         if (scheduleFile.exists()) {
             scheduleFile.delete()
         }
@@ -82,20 +82,20 @@ class ScheduleManager(private val context: Context) {
         return hasScheduleDownloaded(settings.currentGroup!!);
     }
 
-    fun downloadSchedule(groupId: GroupId) {
-        val schedule = Api.getInstance().getGroupScheduleOrNull(groupId) ?: parseSchedule(groupId)
+    fun downloadSchedule(group: Group) {
+        val schedule = Api.getInstance().getGroupScheduleOrNull(group) ?: parseSchedule(group)
 
-        val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
+        val scheduleFile = File(context.getExternalFilesDir("schedule"), group.name)
         Json.encodeToFile(schedule, scheduleFile)
         Thread.sleep(100)
     }
 
-    fun downloadScheduleOrNull(groupId: GroupId): Schedule? {
+    fun downloadScheduleOrNull(group: Group): Schedule? {
         return try {
             val schedule =
-                Api.getInstance().getGroupScheduleOrNull(groupId) ?: parseSchedule(groupId)
+                Api.getInstance().getGroupScheduleOrNull(group) ?: parseSchedule(group)
 
-            val scheduleFile = File(context.getExternalFilesDir("schedule"), groupId.name)
+            val scheduleFile = File(context.getExternalFilesDir("schedule"), group.name)
             Json.encodeToFile(schedule, scheduleFile)
             Thread.sleep(100)
 

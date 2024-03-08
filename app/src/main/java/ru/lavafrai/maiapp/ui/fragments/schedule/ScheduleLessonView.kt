@@ -4,26 +4,41 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ru.lavafrai.exler.mai.fullNameEquals
+import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.maiapp.data.getSampleLessonSchedule
 import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
 import ru.lavafrai.maiapp.data.models.schedule.localized
 import ru.lavafrai.maiapp.ui.fragments.PairName
+import ru.lavafrai.maiapp.ui.theme.MaiColor
+import ru.lavafrai.maiapp.utils.CustomTabs
+
 
 @Preview
 @Composable
-fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule()) {
+fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule(), exlerTeachers: List<Teacher> = listOf()) {
+    val context = LocalContext.current
+
     Card(modifier = Modifier
         .padding(8.dp)
     ) {
@@ -52,13 +67,37 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule()) {
 
                             )
                     }
+                    /* Teacher name */
+                    Row {
+                        Column {
+                            lesson.teacher.split("/").map { it.trim() }.forEach { teacherName ->
+                                var teacherFound by rememberSaveable { mutableStateOf(false) }
+                                val teacher = exlerTeachers.find { it.fullNameEquals(teacherName) }
+
+                                teacherFound = teacher != null
+                                Text(
+                                    text = teacherName,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = if (teacherFound) MaiColor else Color.Unspecified,
+                                    modifier = if (teacherFound) {
+                                        Modifier.clickable {
+                                            CustomTabs.openTab(context, "https://mai-exler.ru/${teacher?.path}")
+                                        }
+                                    } else {
+                                        Modifier
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    /* End teacher name */
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    /* Lesson time */
                     Row {
                         Text(text = lesson.timeRange, style = MaterialTheme.typography.bodySmall)
                     }
-                    Row {
-                        Text(text = lesson.teacher, style = MaterialTheme.typography.bodySmall)
-                    }
-
+                    /* End lesson time */
                 }
             }
             Row(

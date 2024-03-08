@@ -18,6 +18,8 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
+import ru.lavafrai.exler.mai.types.Teacher
+import ru.lavafrai.exler.mai.types.teacherNameHash
 import ru.lavafrai.maiapp.R
 import java.io.File
 import java.io.InputStream
@@ -154,4 +156,8 @@ fun Long.readableFileSize(): String {
     return DecimalFormat("#,##0.#").format(
         this / 1024.0.pow(digitGroups.toDouble())
     ) + " " + units[digitGroups]
+}
+
+fun Teacher.fullNameEquals(another: String): Boolean {
+    return teacherNameHash(another) == this.nameHash
 }

@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -42,6 +43,8 @@ import eu.bambooapps.material3.pullrefresh.PullRefreshIndicator
 import eu.bambooapps.material3.pullrefresh.pullRefresh
 import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
 import kotlinx.coroutines.launch
+import ru.lavafrai.exler.mai.Exler
+import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.api.Api
@@ -57,7 +60,7 @@ import kotlin.concurrent.thread
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 // @Preview
 @Composable
-fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSchedule?>) {
+fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSchedule?>, exler: Exler) {
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable {
         mutableStateOf(
@@ -66,6 +69,11 @@ fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSched
     }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    var teachersOnExler by remember { mutableStateOf(listOf<Teacher>()) }
+    thread {
+        Thread.sleep(100)
+        teachersOnExler = exler.parseTeachers()
+    }
 
     if (schedule == null) {
         ErrorScheduleView()
@@ -198,7 +206,7 @@ fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSched
                             }
 
                             item {
-                                ScheduleDayView(day = day)
+                                ScheduleDayView(day = day, exlerTeachers = teachersOnExler)
                             }
                         }
                     }

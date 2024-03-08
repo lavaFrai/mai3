@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class GroupId (
+data class Group (
     val name: String
 )
