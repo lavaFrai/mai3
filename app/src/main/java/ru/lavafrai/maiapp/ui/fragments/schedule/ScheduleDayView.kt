@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.lavafrai.exler.mai.types.Teacher
+import ru.lavafrai.mai.api.models.schedule.OneDaySchedule
 import ru.lavafrai.maiapp.data.getSampleDaySchedule
-import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
 
 @Preview
 @Composable

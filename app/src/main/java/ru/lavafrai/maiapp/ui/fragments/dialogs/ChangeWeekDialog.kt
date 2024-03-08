@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleWeekId
 
 
 @OptIn(ExperimentalMaterial3Api::class)

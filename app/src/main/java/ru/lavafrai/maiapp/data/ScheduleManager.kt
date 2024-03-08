@@ -3,9 +3,9 @@ package ru.lavafrai.maiapp.data
 import android.content.Context
 import kotlinx.serialization.json.Json
 import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.schedule.Schedule
+import ru.lavafrai.mai.api.parser.parseSchedule
 import ru.lavafrai.maiapp.api.Api
-import ru.lavafrai.maiapp.data.models.schedule.Schedule
-import ru.lavafrai.maiapp.data.parser.parseSchedule
 import ru.lavafrai.maiapp.utils.decodeFromFile
 import ru.lavafrai.maiapp.utils.encodeToFile
 import java.io.File

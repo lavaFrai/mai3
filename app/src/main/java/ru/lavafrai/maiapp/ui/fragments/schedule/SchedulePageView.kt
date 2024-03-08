@@ -45,13 +45,14 @@ import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
 import kotlinx.coroutines.launch
 import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.exler.mai.types.Teacher
+import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
+import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
-import ru.lavafrai.maiapp.data.models.schedule.Schedule
+import ru.lavafrai.maiapp.data.localizers.toLocalizedDayMonthString
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.localized

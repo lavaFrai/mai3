@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import ru.lavafrai.maiapp.data.models.InfoListItemData
+import ru.lavafrai.mai.api.models.InfoListItemData
 import ru.lavafrai.maiapp.ui.fragments.InfoCard
 import ru.lavafrai.maiapp.ui.fragments.InfoHeader
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3

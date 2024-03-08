@@ -3,10 +3,10 @@ package ru.lavafrai.maiapp.api
 import kotlinx.serialization.json.Json
 import org.jsoup.Jsoup
 import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.maiapp.data.API_URL
 import ru.lavafrai.maiapp.data.COOKIES_CONSTANT
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.models.schedule.Schedule
 
 class Api {
     fun getGroupsListOrNull(): List<Group>? {

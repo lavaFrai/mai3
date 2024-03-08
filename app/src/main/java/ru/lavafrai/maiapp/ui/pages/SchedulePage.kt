@@ -7,10 +7,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
 import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
+import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
-import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
-import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.LoadingPageView
 import ru.lavafrai.maiapp.ui.fragments.schedule.SchedulePageView

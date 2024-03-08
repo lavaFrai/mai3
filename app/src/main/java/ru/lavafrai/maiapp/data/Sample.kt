@@ -1,12 +1,12 @@
 package ru.lavafrai.maiapp.data
 
-import ru.lavafrai.maiapp.data.models.DateRange
-import ru.lavafrai.maiapp.data.models.SerializableDate
-import ru.lavafrai.maiapp.data.models.schedule.OneDaySchedule
-import ru.lavafrai.maiapp.data.models.schedule.OneWeekSchedule
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleLessonType
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleWeekId
+import ru.lavafrai.mai.api.models.DateRange
+import ru.lavafrai.mai.api.models.SerializableDate
+import ru.lavafrai.mai.api.models.schedule.OneDaySchedule
+import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
+import ru.lavafrai.mai.api.models.schedule.ScheduleLesson
+import ru.lavafrai.mai.api.models.schedule.ScheduleLessonType
+import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
 import java.time.DayOfWeek
 
 fun getSampleWeekSchedule(): OneWeekSchedule {

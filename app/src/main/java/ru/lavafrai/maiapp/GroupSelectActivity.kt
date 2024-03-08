@@ -39,9 +39,9 @@ import androidx.compose.ui.unit.dp
 import io.appmetrica.analytics.AppMetrica
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.group.analyzeName
+import ru.lavafrai.mai.api.parser.parseGroupsList
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.data.parser.parseGroupsList
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme

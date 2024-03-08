@@ -22,10 +22,10 @@ import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
+import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.ScheduleManager
-import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetContentList
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetHeader
 import ru.lavafrai.maiapp.widget.fragments.WidgetText

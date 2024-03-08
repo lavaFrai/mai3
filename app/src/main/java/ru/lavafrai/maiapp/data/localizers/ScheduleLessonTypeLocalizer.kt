@@ -1,17 +1,10 @@
-package ru.lavafrai.maiapp.data.models.schedule
+package ru.lavafrai.maiapp.data.localizers
 
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import ru.lavafrai.mai.api.models.schedule.ScheduleLessonType
 import ru.lavafrai.maiapp.R
-
-enum class ScheduleLessonType {
-    LECTURE,
-    LABORATORY,
-    SEMINAR,
-    EXAM,
-    Unknown,
-}
 
 
 @Composable

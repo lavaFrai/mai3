@@ -15,11 +15,11 @@ import androidx.glance.layout.Spacer
 import androidx.glance.layout.height
 import androidx.glance.layout.width
 import androidx.glance.unit.ColorProvider
+import ru.lavafrai.mai.api.models.SerializableDate
+import ru.lavafrai.mai.api.models.schedule.Schedule
+import ru.lavafrai.mai.api.models.schedule.ScheduleLesson
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.data.models.SerializableDate
-import ru.lavafrai.maiapp.data.models.schedule.Schedule
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
-import ru.lavafrai.maiapp.data.models.schedule.localizedShortcut
+import ru.lavafrai.maiapp.data.localizers.localizedShortcut
 import ru.lavafrai.maiapp.utils.toLocalizedDayOfWeekString
 import ru.lavafrai.maiapp.utils.toLocalizedMonthString
 import java.util.Calendar

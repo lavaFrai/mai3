@@ -26,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.lavafrai.exler.mai.fullNameEquals
 import ru.lavafrai.exler.mai.types.Teacher
+import ru.lavafrai.mai.api.models.schedule.ScheduleLesson
 import ru.lavafrai.maiapp.data.getSampleLessonSchedule
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleLesson
-import ru.lavafrai.maiapp.data.models.schedule.localized
+import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.theme.MaiColor
 import ru.lavafrai.maiapp.utils.CustomTabs

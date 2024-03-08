@@ -20,9 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import ru.lavafrai.mai.api.models.SerializableDate
+import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.data.models.SerializableDate
-import ru.lavafrai.maiapp.data.models.schedule.ScheduleWeekId
 import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
