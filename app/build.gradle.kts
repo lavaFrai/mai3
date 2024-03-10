@@ -106,8 +106,11 @@ dependencies {
     implementation("br.com.devsrsouza.compose.icons:line-awesome:1.1.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("com.mohamedrejeb.ksoup:ksoup-html:0.3.1")
+    implementation("org.apache.commons:commons-text:1.11.0")
+    implementation("io.coil-kt:coil-compose:1.4.0")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("com.github.lavaFrai:maiapi:v1.1.3")
-    implementation("com.github.lavaFrai:exler-maiapi:v1.0.0")
+    implementation("com.github.lavaFrai:maiapi:v1.1.2")
+    implementation("com.github.lavaFrai:exler-maiapi:v1.0.6")
 }

@@ -39,6 +39,8 @@
     <string name="special_high">специальное высшее</string>
     <string name="unknown">unknown</string>
     <string name="faculty_num">Институт №</string>
+    <string name="faculty">Институт</string>
+    <string name="department">Кафедра</string>
     <string name="course_num">Курс</string>
     <string name="tour_group">ваша группа</string>
     <string name="redownload_schedule">Обновить расписание</string>
@@ -94,6 +96,7 @@
 
     <string name="network_error">Сетевая ошибка</string>
     <string name="network_error_description">При работе произошла ошибка подключения к сети. Постарайтесь использовать более стабильное подключение по wifi или попробуйте позже. Приложение должно быть перезапущено.</string>
+    <string name="soft_network_error_description">При работе произошла ошибка подключения к сети. Постарайтесь использовать более стабильное подключение по wifi или попробуйте позже.</string>
 
     <string name="properties">Параметры</string>
     <string name="property_dynamic_colors">Динамические цвета</string>
@@ -137,4 +140,7 @@
     <string name="schedule_update_failed">Ошибка при обновлении расписания</string>
     <string name="use_server_cache">Использовать кэширование</string>
     <string name="faculty_and_course">Институт %faculty%, курс %course%</string>
+    <string name="author">Автор</string>
+    <string name="source">Источник</string>
+    <string name="publishTime">Опубликовано</string>
 </resources>

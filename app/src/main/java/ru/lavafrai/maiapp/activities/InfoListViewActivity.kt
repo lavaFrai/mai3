@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp
+package ru.lavafrai.maiapp.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import ru.lavafrai.mai.api.models.InfoListItemData
+import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.ui.fragments.InfoCard
 import ru.lavafrai.maiapp.ui.fragments.InfoHeader
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3

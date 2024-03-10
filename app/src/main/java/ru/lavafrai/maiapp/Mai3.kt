@@ -20,7 +20,7 @@ class Mai3 : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        if (BuildConfig.APP_METRIKA_API_KEY != null && BuildConfig.BUILD_TYPE != "debug") {
+        if (BuildConfig.APP_METRIKA_API_KEY != null) {
             val config = AppMetricaConfig
                 .newConfigBuilder(BuildConfig.APP_METRIKA_API_KEY)
                 .withAppVersion(BuildConfig.VERSION_NAME)

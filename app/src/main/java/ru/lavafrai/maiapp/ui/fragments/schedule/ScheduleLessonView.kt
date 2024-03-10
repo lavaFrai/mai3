@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.ui.fragments.schedule
 
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,14 +25,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.lavafrai.exler.mai.fullNameEquals
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.ScheduleLesson
+import ru.lavafrai.maiapp.activities.TeacherActivity
 import ru.lavafrai.maiapp.data.getSampleLessonSchedule
 import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.theme.MaiColor
-import ru.lavafrai.maiapp.utils.CustomTabs
+import ru.lavafrai.maiapp.utils.fullNameEquals
 
 
 @Preview
@@ -72,7 +75,7 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule(), exler
                         Column {
                             lesson.teacher.split("/").map { it.trim() }.forEach { teacherName ->
                                 var teacherFound by rememberSaveable { mutableStateOf(false) }
-                                val teacher = exlerTeachers.find { it.fullNameEquals(teacherName) }
+                                val teacher = exlerTeachers.find { it.name.fullNameEquals(teacherName) }
 
                                 teacherFound = teacher != null
                                 Text(
@@ -81,7 +84,10 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule(), exler
                                     color = if (teacherFound) MaiColor else Color.Unspecified,
                                     modifier = if (teacherFound) {
                                         Modifier.clickable {
-                                            CustomTabs.openTab(context, "https://mai-exler.ru/${teacher?.path}")
+                                            val intent = Intent(context, TeacherActivity::class.java)
+                                            intent.putExtra("teacher", Json.encodeToString(teacher))
+                                            context.startActivity(intent)
+                                            // CustomTabs.openTab(context, "https://mai-exler.ru/${teacher?.path}")
                                         }
                                     } else {
                                         Modifier

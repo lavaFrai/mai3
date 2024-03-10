@@ -20,7 +20,7 @@
         android:appCategory="productivity">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:theme="@style/Theme.MAI30"
             android:exported="true">
             <intent-filter>
@@ -31,26 +31,32 @@
 
 
         <activity
-            android:name=".GroupSelectActivity"
+            android:name=".activities.GroupSelectActivity"
             android:exported="false"
             android:theme="@style/Theme.MAI30">
         </activity>
 
         <activity
-            android:name=".UpgradeActivity"
+            android:name=".activities.UpgradeActivity"
             android:exported="true"
             android:theme="@style/Theme.MAI30">
         </activity>
 
         <activity
-            android:name=".InfoListViewActivity"
+            android:name=".activities.InfoListViewActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MAI30">
+        </activity>
+
+        <activity
+            android:name=".activities.TeacherActivity"
             android:exported="true"
             android:theme="@style/Theme.MAI30">
         </activity>
 
 
         <activity
-            android:name=".MapViewActivity"
+            android:name=".activities.MapViewActivity"
             android:exported="true"
             android:theme="@style/Theme.MAI30">
         </activity>

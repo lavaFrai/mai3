@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp
+package ru.lavafrai.maiapp.activities
 
 import android.os.Bundle
 import android.os.Looper
@@ -30,6 +30,8 @@ import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
 import ru.lavafrai.mai.api.models.schedule.Schedule
+import ru.lavafrai.maiapp.Mai3
+import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
@@ -157,7 +159,7 @@ class MainActivity : ComponentActivity() {
     ) {
         val permissionSystem = Mai3.getSystem(AppSystemName.PERMISSIONS) as PermissionsSystem
         permissionSystem.requestRequired(this)
-        val exler = Exler()
+        val exler = Exler
 
         var selectedPage by rememberSaveable { mutableStateOf(MainNavigationVariants.SCHEDULE) }
         //var selectedWeek by rememberSaveable {  }

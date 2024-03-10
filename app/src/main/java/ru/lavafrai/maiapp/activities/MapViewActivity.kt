@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp
+package ru.lavafrai.maiapp.activities
 
 import android.app.Activity
 import android.os.Bundle
@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import me.saket.telephoto.zoomable.ZoomSpec
 import me.saket.telephoto.zoomable.rememberZoomableState
 import me.saket.telephoto.zoomable.zoomable
+import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.ui.fragments.PageHeader
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme

@@ -63,12 +63,11 @@ import androidx.glance.appwidget.GlanceAppWidgetManager
 import io.appmetrica.analytics.AppMetrica
 import kotlinx.coroutines.launch
 import ru.lavafrai.mai.api.models.group.Group
-import ru.lavafrai.mai.api.models.group.analyzeName
 import ru.lavafrai.maiapp.BuildConfig
-import ru.lavafrai.maiapp.GroupSelectActivity
 import ru.lavafrai.maiapp.Mai3
-import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.activities.GroupSelectActivity
+import ru.lavafrai.maiapp.activities.MainActivity
 import ru.lavafrai.maiapp.data.PROJECT_DONATION_URL
 import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
@@ -78,6 +77,7 @@ import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
 import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
+import ru.lavafrai.maiapp.utils.analyzeName
 import ru.lavafrai.maiapp.utils.readableFileSize
 import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
 import kotlin.system.exitProcess

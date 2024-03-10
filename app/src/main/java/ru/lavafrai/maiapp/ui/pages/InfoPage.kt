@@ -40,8 +40,8 @@ import compose.icons.lineawesomeicons.CoffeeSolid
 import compose.icons.lineawesomeicons.Map
 import compose.icons.lineawesomeicons.PaletteSolid
 import compose.icons.lineawesomeicons.UserFriendsSolid
-import ru.lavafrai.maiapp.InfoListViewActivity
-import ru.lavafrai.maiapp.MapViewActivity
+import ru.lavafrai.maiapp.activities.InfoListViewActivity
+import ru.lavafrai.maiapp.activities.MapViewActivity
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 

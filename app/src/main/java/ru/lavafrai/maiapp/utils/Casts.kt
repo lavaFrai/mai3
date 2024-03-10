@@ -20,6 +20,8 @@ import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.exler.mai.types.teacherNameHash
+import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.group.GroupNameAnalyzer
 import ru.lavafrai.maiapp.R
 import java.io.File
 import java.io.InputStream
@@ -160,4 +162,12 @@ fun Long.readableFileSize(): String {
 
 fun Teacher.fullNameEquals(another: String): Boolean {
     return teacherNameHash(another) == this.nameHash
+}
+
+fun String.fullNameEquals(another: String): Boolean {
+    return teacherNameHash(another) == teacherNameHash(this)
+}
+
+fun Group.analyzeName(): GroupNameAnalyzer {
+    return GroupNameAnalyzer(this.name)
 }

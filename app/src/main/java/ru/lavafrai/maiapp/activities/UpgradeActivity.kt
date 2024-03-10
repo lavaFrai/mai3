@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp
+package ru.lavafrai.maiapp.activities
 
 import android.content.Intent
 import android.net.Uri
@@ -39,6 +39,9 @@ import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
+import ru.lavafrai.maiapp.BuildConfig
+import ru.lavafrai.maiapp.Mai3
+import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.ACTUAL_VERSION_FILE_URL
 import ru.lavafrai.maiapp.data.ACTUAL_VERSION_INFO_URL
 import ru.lavafrai.maiapp.data.models.ActualVersionInfo

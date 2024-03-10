@@ -47,8 +47,8 @@ import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
 import ru.lavafrai.mai.api.models.schedule.Schedule
-import ru.lavafrai.maiapp.MainActivity
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.activities.MainActivity
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
@@ -73,7 +73,7 @@ fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSched
     var teachersOnExler by remember { mutableStateOf(listOf<Teacher>()) }
     thread {
         Thread.sleep(100)
-        teachersOnExler = exler.parseTeachers()
+        teachersOnExler = Api.getInstance().getTeachers() ?: listOf<Teacher>()
     }
 
     if (schedule == null) {

@@ -41,6 +41,8 @@
     <string name="special_high">special high</string>
     <string name="unknown">unknown</string>
     <string name="faculty_num">Faculty №</string>
+    <string name="faculty">Faculty</string>
+    <string name="department">Department</string>
     <string name="course_num">Course</string>
     <string name="tour_group">Your group</string>
 
@@ -95,6 +97,7 @@
     <string name="open_donation">Make donation</string>
     <string name="network_error">Network error</string>
     <string name="network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later. The application must be restarted.</string>
+    <string name="soft_network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later</string>
     <string name="properties">Properties</string>
     <string name="property_dynamic_colors">Dynamic colors</string>
 
@@ -137,4 +140,7 @@
     <string name="schedule_update_failed">Failed to update schedule</string>
     <string name="use_server_cache">Use cache</string>
     <string name="faculty_and_course">Faculty %faculty%, course %course%</string>
+    <string name="author">Author</string>
+    <string name="source">Source</string>
+    <string name="publishTime">Published at</string>
 </resources>
