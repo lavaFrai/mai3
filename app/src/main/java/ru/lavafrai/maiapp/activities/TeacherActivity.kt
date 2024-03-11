@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,6 +48,7 @@ import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.ui.fragments.NetworkErrorView
 import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
+import ru.lavafrai.maiapp.utils.Hypertext
 import ru.lavafrai.maiapp.utils.toHypertext
 import kotlin.concurrent.thread
 import kotlin.math.absoluteValue
@@ -180,16 +182,18 @@ class TeacherActivity : ComponentActivity() {
 
     @Composable
     fun TeacherReviewView(review: TeacherReview) {
+        val context = LocalContext.current
         val a = "<span>a</span><span>b</span>c<span>d</span>e"
 
         Card (modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()) {
             Column (modifier = Modifier.padding(8.dp)) {
-                if (review.author != null) Text(text = stringResource(id = R.string.author) + ": " + review.author.toHypertext().trim(), color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f))
-                if (review.source != null) Text(text = stringResource(id = R.string.source) + ": " + review.source.toHypertext().trim(), color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f))
+                if (review.author != null) Hypertext(text = stringResource(id = R.string.author) + ": " + review.author.toHypertext().trim(), color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f))
+                if (review.source != null) Hypertext(text = stringResource(id = R.string.source) + ": " + review.source.toHypertext().trim(), color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f))
                 if (review.publishTime != null) Text(text = stringResource(id = R.string.publishTime) + ": " + review.publishTime, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f))
-                if (review.hypertext != null) Text(review.hypertext.toHypertext(), modifier = Modifier.padding(top = 8.dp))
+
+                if (review.hypertext != null) Hypertext(text = review.hypertext!!, modifier = Modifier.padding(top = 8.dp))
             }
         }
     }
