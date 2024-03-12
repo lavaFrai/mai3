@@ -32,6 +32,9 @@ import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.activities.pages.InfoPage
+import ru.lavafrai.maiapp.activities.pages.SchedulePage
+import ru.lavafrai.maiapp.activities.pages.SettingsPage
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
@@ -39,9 +42,6 @@ import ru.lavafrai.maiapp.systems.AppSystemName
 import ru.lavafrai.maiapp.systems.permissions.PermissionsSystem
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
-import ru.lavafrai.maiapp.ui.pages.InfoPage
-import ru.lavafrai.maiapp.ui.pages.SchedulePage
-import ru.lavafrai.maiapp.ui.pages.SettingsPage
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.utils.encodeToFile
 import ru.lavafrai.maiapp.widget.ScheduleWidget

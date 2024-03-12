@@ -29,9 +29,9 @@ android {
         applicationId = "ru.lavafrai.maiapp"
         minSdk = 26
         targetSdk = 34
-        versionCode = 7_002
+        versionCode = 7_003
         
-        versionName = "0.7.2b"
+        versionName = "0.7.3b"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -111,6 +111,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:1.4.0")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("com.github.lavaFrai:maiapi:v1.1.2")
+    implementation("com.github.lavaFrai:maiapi:v1.1.4")
     implementation("com.github.lavaFrai:exler-maiapi:v1.0.6")
 }

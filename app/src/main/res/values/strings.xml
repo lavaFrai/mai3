@@ -143,4 +143,8 @@
     <string name="author">Author</string>
     <string name="source">Source</string>
     <string name="publishTime">Published at</string>
+    <string name="updated">Updated</string>
+    <string name="never">never</string>
+    <string name="schedule_from">Schedule from</string>
+    <string name="by">By</string>
 </resources>

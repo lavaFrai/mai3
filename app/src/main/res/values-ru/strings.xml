@@ -37,7 +37,7 @@
     <string name="special">специалитет</string>
     <string name="base_high">базовое высшее</string>
     <string name="special_high">специальное высшее</string>
-    <string name="unknown">unknown</string>
+    <string name="unknown">неизвестно</string>
     <string name="faculty_num">Институт №</string>
     <string name="faculty">Институт</string>
     <string name="department">Кафедра</string>
@@ -143,4 +143,8 @@
     <string name="author">Автор</string>
     <string name="source">Источник</string>
     <string name="publishTime">Опубликовано</string>
+    <string name="updated">Обновлено</string>
+    <string name="never">никогда</string>
+    <string name="schedule_from">Расписание от</string>
+    <string name="by">От</string>
 </resources>

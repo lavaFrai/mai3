@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.fragments.schedule
+package ru.lavafrai.maiapp.activities.pages
 
 import android.os.Looper
 import android.util.Log
@@ -53,7 +53,10 @@ import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.localizers.toLocalizedDayMonthString
+import ru.lavafrai.maiapp.ui.fragments.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
+import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleDayView
+import ru.lavafrai.maiapp.ui.fragments.schedule.WeekSelector
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.localized
 import kotlin.concurrent.thread
@@ -61,7 +64,11 @@ import kotlin.concurrent.thread
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 // @Preview
 @Composable
-fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSchedule?>, exler: Exler) {
+fun SchedulePageView(
+    schedule: Schedule?,
+    subSchedule: MutableState<OneWeekSchedule?>,
+    exler: Exler
+) {
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable {
         mutableStateOf(
@@ -129,98 +136,107 @@ fun SchedulePageView(schedule: Schedule?, subSchedule: MutableState<OneWeekSched
         )
     }
 
-    if (currentSubSchedule == null) {
-        Column {
-            ScheduleHeader {
-                setChangeWeekDialogOpened(true)
-            }
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(Icons.Outlined.DateRange, null)
-                Spacer(modifier = Modifier.height(32.dp))
-                Text(
-                    text = stringResource(id = R.string.empty_week),
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
-    } else {
-        Column() {
-            ScheduleHeader {
-                setChangeWeekDialogOpened(true)
-            }
-
-            Box {
-                var isRefreshing by rememberSaveable { mutableStateOf(false) }
-                val pullToRefreshState = rememberPullRefreshState(isRefreshing, {
-                    thread {
-                        isRefreshing = true
-
-                        val group = Settings.getCurrentGroup() ?: return@thread
-
-                        thread {
-                            Looper.prepare()
-                            val newSchedule = Api.getInstance().getGroupScheduleOrNull(group) ?: ScheduleManager(context).downloadScheduleOrNull(group)
-
-                            if (newSchedule == null) { Toast.makeText(context, context.getString(R.string.schedule_update_failed), Toast.LENGTH_SHORT).show() }
-                            else {
-                                Log.i("APP", "Schedule updated")
-
-                                MainActivity.setSchedule(newSchedule)
-                            }
-
-                            isRefreshing = false
-                        }
-
-                    }
-                })
-                Box {
-                    LazyColumn(
-                        state = scheduleListState,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .pullRefresh(pullToRefreshState)
-                    ) {
-                        currentSubSchedule.days.forEach { day ->
-                            item {}
-                            stickyHeader {
-                                Row(
-                                    modifier = Modifier
-                                        .background(MaterialTheme.colorScheme.background)
-                                        .fillMaxWidth()
-                                        .padding(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    TextH3(text = day.dayOfWeek.localized().capitalize())
-                                    Spacer(modifier = Modifier.width(16.dp))
-                                    Text(
-                                        text = day.date.toLocalizedDayMonthString(LocalContext.current),
-                                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-                                        fontWeight = FontWeight.Light
-                                    )
-                                }
-                            }
-
-                            item {
-                                ScheduleDayView(day = day, exlerTeachers = teachersOnExler)
-                            }
-                        }
-                    }
-
-                    PullRefreshIndicator(
-                        refreshing = isRefreshing,
-                        state = pullToRefreshState,
-                        modifier = Modifier
-                            .align(Alignment.TopCenter)
+    PageTitle (
+        stringResource(id = R.string.schedule),
+        secondText = Settings.getCurrentGroup()?.name,
+        padded = false,
+        buttonText = stringResource(id = R.string.select_week),
+        onButtonClicked = {setChangeWeekDialogOpened(true)}
+    ) {
+        if (currentSubSchedule == null) {
+            Column {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(Icons.Outlined.DateRange, null)
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = stringResource(id = R.string.empty_week),
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        textAlign = TextAlign.Center
                     )
                 }
             }
+        } else {
+            Column() {
+                Box {
+                    var isRefreshing by rememberSaveable { mutableStateOf(false) }
+                    val pullToRefreshState = rememberPullRefreshState(isRefreshing, {
+                        thread {
+                            isRefreshing = true
+
+                            val group = Settings.getCurrentGroup() ?: return@thread
+
+                            thread {
+                                Looper.prepare()
+                                val newSchedule = Api.getInstance().getGroupScheduleOrNull(group)
+                                    ?: ScheduleManager(context).downloadScheduleOrNull(group)
+
+                                if (newSchedule == null) {
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.schedule_update_failed),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    Log.i("APP", "Schedule updated")
+
+                                    MainActivity.setSchedule(newSchedule)
+                                }
+
+                                isRefreshing = false
+                            }
+
+                        }
+                    })
+                    Box {
+                        LazyColumn(
+                            state = scheduleListState,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .pullRefresh(pullToRefreshState)
+                        ) {
+                            currentSubSchedule.days.forEach { day ->
+                                item {}
+                                stickyHeader {
+                                    Row(
+                                        modifier = Modifier
+                                            .background(MaterialTheme.colorScheme.background)
+                                            .fillMaxWidth()
+                                            .padding(8.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        TextH3(text = day.dayOfWeek.localized().capitalize())
+                                        Spacer(modifier = Modifier.width(16.dp))
+                                        Text(
+                                            text = day.date.toLocalizedDayMonthString(LocalContext.current),
+                                            color = MaterialTheme.colorScheme.onBackground.copy(
+                                                alpha = 0.5f
+                                            ),
+                                            fontWeight = FontWeight.Light
+                                        )
+                                    }
+                                }
+
+                                item {
+                                    ScheduleDayView(day = day, exlerTeachers = teachersOnExler)
+                                }
+                            }
+                        }
+
+                        PullRefreshIndicator(
+                            refreshing = isRefreshing,
+                            state = pullToRefreshState,
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                        )
+                    }
+                }
+            }
         }
+
     }
 }
 

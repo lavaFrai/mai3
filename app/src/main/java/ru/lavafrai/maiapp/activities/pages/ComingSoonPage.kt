@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.pages
+package ru.lavafrai.maiapp.activities.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

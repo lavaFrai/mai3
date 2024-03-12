@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.pages
+package ru.lavafrai.maiapp.activities.pages
 
 import android.app.Activity
 import android.content.Intent
@@ -13,7 +13,6 @@ import ru.lavafrai.maiapp.activities.GroupSelectActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.LoadingPageView
-import ru.lavafrai.maiapp.ui.fragments.schedule.SchedulePageView
 
 
 @Composable

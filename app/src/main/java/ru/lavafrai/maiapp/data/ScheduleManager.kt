@@ -65,6 +65,18 @@ class ScheduleManager(private val context: Context) {
         }
     }
 
+    fun getActualScheduleOrNull(): Schedule? {
+        return try {
+            val settings = getSettings(context)
+            if (!hasActualSchedule()) throw IllegalStateException("Have no actual schedule")
+
+            getSchedule(settings.currentGroup!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
     fun hasActualSchedule(): Boolean {
         val settings = getSettings(context)
         return settings.currentGroup != null;

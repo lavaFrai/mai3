@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.pages
+package ru.lavafrai.maiapp.activities.pages
 
 import android.content.Intent
 import android.net.Uri
@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -75,11 +73,14 @@ import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.ui.fragments.DangerButton
+import ru.lavafrai.maiapp.ui.fragments.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.analyzeName
 import ru.lavafrai.maiapp.utils.readableFileSize
 import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
+import java.text.DateFormat.getDateTimeInstance
+import java.util.Date
 import kotlin.system.exitProcess
 
 
@@ -89,10 +90,7 @@ fun SettingsPage(currentGroup: Group) {
     // val activity = LocalContext.current as Activity
     val scheduleManager = ScheduleManager(context)
 
-    Column(
-        modifier = Modifier.verticalScroll(rememberScrollState())
-    ) {
-        SettingsHeader()
+    PageTitle (title = stringResource(id = R.string.settings), padded = false, scrollable = true) {
 
         SettingsGroupCard(currentGroup, scheduleManager)
 
@@ -128,29 +126,29 @@ fun SettingsPage(currentGroup: Group) {
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
         )
-
     }
-
-    /*
-    Column (
-        Modifier.padding(8.dp)
-    ) {
-
-        Text(text = "Settings not implemented yet")
-        Text(text = "MAI 3 app by. lava_frai")
-        Text(text = "Sources: https://github.com/lavaFrai/mai3")
-        Spacer(modifier = Modifier.height(32.dp))
-        Button(onClick = {
-            activity.startActivity(Intent(
-                context,
-                GroupSelectActivity::class.java
-            ))
-            activity.finish()
-        }) {
-            Text(text = "Change group")
-        }
-    }*/
 }
+
+/*
+Column (
+    Modifier.padding(8.dp)
+) {
+
+    Text(text = "Settings not implemented yet")
+    Text(text = "MAI 3 app by. lava_frai")
+    Text(text = "Sources: https://github.com/lavaFrai/mai3")
+    Spacer(modifier = Modifier.height(32.dp))
+    Button(onClick = {
+        activity.startActivity(Intent(
+            context,
+            GroupSelectActivity::class.java
+        ))
+        activity.finish()
+    }) {
+        Text(text = "Change group")
+    }
+}*/
+
 
 
 @Preview
@@ -171,8 +169,7 @@ fun SettingsSwitchesPage() {
                     stringResource(id = R.string.property_dynamic_colors),
                     Settings.isDynamicColors()
                 ) { Settings.setDynamicColors(it); MainActivity.manualRecompose() }
-            }
-            else {
+            } else {
                 PropertyBoolean(
                     stringResource(id = R.string.property_dynamic_colors),
                     isSet = false,
@@ -510,12 +507,16 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
 
                 GroupDropdownList(scheduleManager, group)
 
+                val created = scheduleManager.getActualScheduleOrNull()?.created
                 val groupInfo = group.analyzeName()
                 UserInfoLine(text = stringResource(R.string.faculty_num) + groupInfo.faculty.toString())
                 UserInfoLine(
                     text = groupInfo.type.localized(context = LocalContext.current).capitalize()
                 )
                 UserInfoLine(text = stringResource(id = R.string.course_num) + " " + groupInfo.course.toString())
+                UserInfoLine(text = stringResource(id = R.string.by) + " " + (if (created != null) getDateTimeInstance().format(Date(created * 1000))  else stringResource(id = R.string.unknown)).toString())
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
                     text = stringResource(id = R.string.tour_group),
@@ -526,11 +527,14 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
                     textAlign = TextAlign.Right
                 )
 
-
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {
                     ScheduleManager(context).deleteSchedule(group)
-                    Toast.makeText(context, context.getText(R.string.redownload_schedule_set), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        context.getText(R.string.redownload_schedule_set),
+                        Toast.LENGTH_LONG
+                    ).show()
                     MainActivity.manualRecompose()
                 }, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Default.Refresh, null)
@@ -558,13 +562,16 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroup: Group) {
     val currentGroup = currentGroup.name
     var selectedText by remember { mutableStateOf(currentGroup) }
 
-    var groupsSuggestions by remember { mutableStateOf(scheduleManager.getDownloadedSchedulesList().filter { it != currentGroup }) }
-    var textFieldSize by remember { mutableStateOf(Size.Zero)}
+    var groupsSuggestions by remember {
+        mutableStateOf(
+            scheduleManager.getDownloadedSchedulesList().filter { it != currentGroup })
+    }
+    var textFieldSize by remember { mutableStateOf(Size.Zero) }
 
     val icon = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
 
 
-    Box (
+    Box(
         Modifier.padding(bottom = 16.dp)
     ) {
         OutlinedTextField(
@@ -576,16 +583,22 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroup: Group) {
                 .onGloballyPositioned { coordinates ->
                     textFieldSize = coordinates.size.toSize()
                 },
-            colors = OutlinedTextFieldDefaults.colors(disabledTextColor = MaterialTheme.colorScheme.onBackground, disabledTrailingIconColor = MaterialTheme.colorScheme.onBackground),
+            colors = OutlinedTextFieldDefaults.colors(
+                disabledTextColor = MaterialTheme.colorScheme.onBackground,
+                disabledTrailingIconColor = MaterialTheme.colorScheme.onBackground
+            ),
             trailingIcon = {
-                if (groupsSuggestions.size > 0) Icon(icon,null, Modifier.clickable { expanded = !expanded })
+                if (groupsSuggestions.size > 0) Icon(
+                    icon,
+                    null,
+                    Modifier.clickable { expanded = !expanded })
             }
         )
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier
-                .width(with(LocalDensity.current){textFieldSize.width.toDp()})
+                .width(with(LocalDensity.current) { textFieldSize.width.toDp() })
         ) {
             groupsSuggestions.forEach { label ->
                 DropdownMenuItem(onClick = {
@@ -593,23 +606,30 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroup: Group) {
                     expanded = false
                     Settings.setCurrentGroup(Group(label))
                     // Mai3.showToast(context.resources.getString(R.string.group_switched))
-                    groupsSuggestions = scheduleManager.getDownloadedSchedulesList().filter { it != label }
+                    groupsSuggestions =
+                        scheduleManager.getDownloadedSchedulesList().filter { it != label }
                     MainActivity.manualRecompose()
                 },
                     text = {
-                        Row (
+                        Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(text = label)
-                            Text(text = scheduleManager.getScheduleSize(Group(label)).readableFileSize(), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
+                            Text(
+                                text = scheduleManager.getScheduleSize(Group(label))
+                                    .readableFileSize(),
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
+                            )
                         }
                     },
-                    trailingIcon = { Icon(Icons.Default.Delete, null, modifier = Modifier.clickable {
-                        groupsSuggestions = groupsSuggestions.filter { it != label }
-                        Mai3.showToast(context.resources.getString(R.string.group_removed))
-                        scheduleManager.deleteSchedule(Group(label))
-                    }) }
+                    trailingIcon = {
+                        Icon(Icons.Default.Delete, null, modifier = Modifier.clickable {
+                            groupsSuggestions = groupsSuggestions.filter { it != label }
+                            Mai3.showToast(context.resources.getString(R.string.group_removed))
+                            scheduleManager.deleteSchedule(Group(label))
+                        })
+                    }
 
                 )
             }

@@ -20,6 +20,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -48,6 +49,7 @@ import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.ui.fragments.NetworkErrorView
 import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
+import ru.lavafrai.maiapp.utils.CustomTabs
 import ru.lavafrai.maiapp.utils.Hypertext
 import ru.lavafrai.maiapp.utils.toHypertext
 import kotlin.concurrent.thread
@@ -69,12 +71,14 @@ class TeacherActivity : ComponentActivity() {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun TeacherView(teacher: Teacher) {
+        val context = LocalContext.current
         var teacherInfo = null as TeacherInfo?
         var downloaded by remember { mutableStateOf(null as Boolean?) }
 
         thread {
+            Thread.sleep(100)
             teacherInfo = Api.getInstance().getTeacherInfo(teacher)
-            downloaded = true
+            downloaded = teacherInfo != null
         }
 
         MAI30Theme {
@@ -171,9 +175,12 @@ class TeacherActivity : ComponentActivity() {
                             teacherInfo?.reviews?.sortedBy { it.publishTime }?.reversed()?.forEach {
                                 TeacherReviewView(it)
                             }
-                            
-                            Spacer(modifier = Modifier.height(16.dp))
+
+                            Spacer(modifier = Modifier.height(8.dp))
+                            AssistChip(onClick = { CustomTabs.openTab(context, "https://mai-exler.ru/") }, label = { Text(text = "При сотрудничестве с МАИ.Экслер.ру") }, Modifier.align(Alignment.End).padding(end = 8.dp))
+                            Spacer(modifier = Modifier.height(42.dp))
                         }
+
                     }
                 }
             }
@@ -182,8 +189,6 @@ class TeacherActivity : ComponentActivity() {
 
     @Composable
     fun TeacherReviewView(review: TeacherReview) {
-        val context = LocalContext.current
-        val a = "<span>a</span><span>b</span>c<span>d</span>e"
 
         Card (modifier = Modifier
             .padding(8.dp)

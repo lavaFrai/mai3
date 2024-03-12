@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
 
+@Deprecated("PageTitle is actual now")
 @Preview
 @Composable
 fun PageHeader(title: String = "Map", onClose: () -> Unit = {}) {

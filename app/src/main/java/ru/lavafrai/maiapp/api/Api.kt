@@ -11,6 +11,8 @@ import ru.lavafrai.maiapp.data.COOKIES_CONSTANT
 import ru.lavafrai.maiapp.data.Settings
 
 class Api {
+    private val jsonParser = Json{ignoreUnknownKeys = true}
+
     fun getGroupsListOrNull(): List<Group>? {
         return getEndpoint("/groups")
     }
@@ -29,7 +31,7 @@ class Api {
 
     private inline fun <reified T>getEndpoint(endpoint: String): T? {
         return try {
-            Json.decodeFromString<T>(getEndpointAsPlainText(endpoint)!!)
+            jsonParser.decodeFromString<T>(getEndpointAsPlainText(endpoint)!!)
         } catch (e: Exception) {
             e.printStackTrace()
             null
