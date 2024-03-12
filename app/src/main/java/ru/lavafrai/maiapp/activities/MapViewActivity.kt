@@ -27,7 +27,7 @@ class MapViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val resource = intent.extras?.getInt("resource") ?: R.drawable.ic_campus_map
+        val resource = intent.extras?.getInt("resource") ?: R.drawable.img_campus_map_new
 
         setContent {
             MainView(if (Settings.isDarkTheme()) R.drawable.img_campus_map_new_night else R.drawable.img_campus_map_new)
@@ -37,7 +37,7 @@ class MapViewActivity : ComponentActivity() {
 
     @Preview
     @Composable
-    fun MainView(resource: Int = R.drawable.ic_campus_map) {
+    fun MainView(resource: Int = R.drawable.img_campus_map_new) {
         val activity = LocalContext.current as Activity
 
         MAI30Theme {

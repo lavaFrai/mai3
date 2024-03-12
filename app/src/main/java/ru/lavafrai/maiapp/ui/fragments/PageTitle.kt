@@ -41,55 +41,61 @@ fun PageTitle(
     content: @Composable (Modifier) -> Unit = {}
 ) {
     val context = LocalContext.current
-
-    Column (
-        if (scrollable) Modifier
-            .padding(top = if (padded) 28.dp else 0.dp)
-            .background(MaterialTheme.colorScheme.background)
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState(), enabled = scrollable)
-        else Modifier
-            .padding(top = if (padded) 28.dp else 0.dp)
-            .background(MaterialTheme.colorScheme.background)
-            .fillMaxSize()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.Absolute.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(8.dp, 16.dp)
-                .fillMaxWidth(),
+    Box(Modifier.background(MaterialTheme.colorScheme.background)) {
+        Column(
+            if (scrollable) Modifier
+                .padding(top = if (padded) 28.dp else 0.dp)
+                .background(MaterialTheme.colorScheme.background)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState(), enabled = scrollable)
+            else Modifier
+                .padding(top = if (padded) 28.dp else 0.dp)
+                .background(MaterialTheme.colorScheme.background)
+                .fillMaxSize()
         ) {
-            Row (verticalAlignment = Alignment.CenterVertically) {0
-                if (backButton) IconButton(onClick = { (context as Activity).finish() }) {
-                    Icon(
-                        Icons.Default.ArrowBack,
-                        null,
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
+            Row(
+                horizontalArrangement = Arrangement.Absolute.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(8.dp, 16.dp)
+                    .fillMaxWidth(),
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    0
+                    if (backButton) IconButton(onClick = { (context as Activity).finish() }) {
+                        Icon(
+                            Icons.Default.ArrowBack,
+                            null,
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+
+                    Column {
+                        TextH3(text = title, color = MaterialTheme.colorScheme.onBackground)
+                        if (secondText != null) Text(
+                            text = secondText,
+                            color = MaterialTheme.colorScheme.secondary,
+                            fontWeight = FontWeight.Light
+                        )
+                    }
                 }
 
-                Column {
-                    TextH3(text = title, color = MaterialTheme.colorScheme.onBackground)
-                    if (secondText != null) Text(text = secondText, color = MaterialTheme.colorScheme.secondary, fontWeight = FontWeight.Light)
+                if (buttonText != null) {
+                    TextButton(onClick = { onButtonClicked() }) {
+                        Text(buttonText)
+                    }
                 }
             }
 
-            if (buttonText != null) {
-                TextButton(onClick = { onButtonClicked() }) {
-                    Text(buttonText)
-                }
-            }
+            Box(
+                modifier = Modifier
+                    .height(0.5.dp)
+                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
+                    .fillMaxWidth(0.8f)
+                    .align(Alignment.CenterHorizontally)
+            )
+
+            content(Modifier)
         }
-
-        Box(
-            modifier = Modifier
-                .height(0.5.dp)
-                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
-                .fillMaxWidth(0.8f)
-                .align(Alignment.CenterHorizontally)
-        )
-
-        content(Modifier)
     }
 }
