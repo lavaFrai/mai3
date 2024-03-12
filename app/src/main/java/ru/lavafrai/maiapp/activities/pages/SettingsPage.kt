@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities.pages
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -79,7 +80,7 @@ import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.analyzeName
 import ru.lavafrai.maiapp.utils.readableFileSize
 import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
-import java.text.DateFormat.getDateTimeInstance
+import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.system.exitProcess
 
@@ -483,6 +484,7 @@ fun SettingsGroupControls() {
 }
 
 
+@SuppressLint("SimpleDateFormat")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager: ScheduleManager) {
@@ -514,7 +516,7 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
                     text = groupInfo.type.localized(context = LocalContext.current).capitalize()
                 )
                 UserInfoLine(text = stringResource(id = R.string.course_num) + " " + groupInfo.course.toString())
-                UserInfoLine(text = stringResource(id = R.string.by) + " " + (if (created != null) getDateTimeInstance().format(Date(created * 1000))  else stringResource(id = R.string.unknown)).toString())
+                UserInfoLine(text = stringResource(id = R.string.updated) + " " + (if (created != null) SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Date(created * 1000))  else stringResource(id = R.string.unknown)).toString())
 
                 Spacer(modifier = Modifier.height(16.dp))
 
