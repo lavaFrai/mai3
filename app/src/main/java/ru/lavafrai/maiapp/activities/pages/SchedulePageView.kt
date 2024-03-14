@@ -69,33 +69,25 @@ fun SchedulePageView(
     subSchedule: MutableState<OneWeekSchedule?>,
     exler: Exler
 ) {
-    val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
-    val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable {
-        mutableStateOf(
-            false
-        )
-    }
-    val scope = rememberCoroutineScope()
     val context = LocalContext.current
+
+    val setCurrentSubSchedule = { value: OneWeekSchedule? -> subSchedule.value = value }
+    val currentSubSchedule = subSchedule.value
+
+    if (schedule == null) { ErrorScheduleView() ; return }
+
+    val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
+    val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable { mutableStateOf(false) }
+    val scheduleListState = rememberLazyListState(initialFirstVisibleItemIndex = if (currentSubSchedule?.weekId?.range?.isNow() == true) getTodayIndex(schedule) else 0)
     var teachersOnExler by remember { mutableStateOf(listOf<Teacher>()) }
+
+    val scope = rememberCoroutineScope()
     thread {
         Thread.sleep(100)
         teachersOnExler = Api.getInstance().getTeachers() ?: listOf<Teacher>()
     }
 
-    if (schedule == null) {
-        ErrorScheduleView()
-        return
-    }
 
-    val currentSubSchedule = subSchedule.value
-    val setCurrentSubSchedule = { value: OneWeekSchedule? -> subSchedule.value = value }
-
-    val scheduleListState = rememberLazyListState(
-        initialFirstVisibleItemIndex = if (currentSubSchedule?.weekId?.range?.isNow() == true) getTodayIndex(
-            schedule
-        ) else 0
-    )
 
     if (weekSelectorOpened) {
         WeekSelector(
@@ -293,4 +285,3 @@ suspend fun scrollToToday(schedule: Schedule, scheduleListState: LazyListState) 
 fun getTodayIndex(schedule: Schedule): Int {
     return (schedule.getCurrentSubScheduleOrNull()?.getTodayNumberOrInf() ?: 0) * 3
 }
-

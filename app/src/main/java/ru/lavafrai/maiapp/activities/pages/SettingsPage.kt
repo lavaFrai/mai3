@@ -100,7 +100,7 @@ fun SettingsPage(currentGroup: Group) {
         Spacer(modifier = Modifier.height(16.dp))
         SettingsWidget()
         SettingsSwitchesPage()
-        SettingsUIDCard()
+        // SettingsUIDCard()
         SettingsTelegram()
         SettingsSourcesCard()
         SettingsDonation()
@@ -561,12 +561,12 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
 fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroup: Group) {
     val context = LocalContext.current
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val currentGroup = currentGroup.name
-    var selectedText by remember { mutableStateOf(currentGroup) }
+    val currentGroupName = currentGroup.name
+    var selectedText by remember { mutableStateOf(currentGroupName) }
 
     var groupsSuggestions by remember {
         mutableStateOf(
-            scheduleManager.getDownloadedSchedulesList().filter { it != currentGroup })
+            scheduleManager.getDownloadedSchedulesList().filter { it != currentGroupName })
     }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
 
@@ -584,16 +584,17 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroup: Group) {
                 .fillMaxWidth()
                 .onGloballyPositioned { coordinates ->
                     textFieldSize = coordinates.size.toSize()
-                },
+                }
+                .clickable { if (groupsSuggestions.isNotEmpty()) expanded = !expanded },
             colors = OutlinedTextFieldDefaults.colors(
                 disabledTextColor = MaterialTheme.colorScheme.onBackground,
                 disabledTrailingIconColor = MaterialTheme.colorScheme.onBackground
             ),
             trailingIcon = {
-                if (groupsSuggestions.size > 0) Icon(
+                if (groupsSuggestions.isNotEmpty()) Icon(
                     icon,
                     null,
-                    Modifier.clickable { expanded = !expanded })
+                    Modifier.clickable { if (groupsSuggestions.isNotEmpty()) expanded = !expanded })
             }
         )
         DropdownMenu(

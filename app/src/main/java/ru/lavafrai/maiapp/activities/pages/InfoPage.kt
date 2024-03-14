@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.BikingSolid
 import compose.icons.lineawesomeicons.BookOpenSolid
+import compose.icons.lineawesomeicons.BookSolid
 import compose.icons.lineawesomeicons.CoffeeSolid
 import compose.icons.lineawesomeicons.Map
 import compose.icons.lineawesomeicons.PaletteSolid
@@ -78,6 +79,12 @@ fun InfoPage() {
             InfoListViewActivity::class.java
         ),
         Quadtuple(
+            stringResource(id = R.string.mai_dictionary),
+            LineAwesomeIcons.BookSolid,
+            R.raw.exlers_dictionary,
+            InfoListViewActivity::class.java
+        ),
+        Quadtuple(
             stringResource(id = R.string.creative_teams),
             LineAwesomeIcons.PaletteSolid,
             R.raw.creative_teams,
@@ -107,6 +114,9 @@ fun InfoPage() {
                         fontWeight = FontWeight.SemiBold
                     )
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }

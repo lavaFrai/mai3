@@ -133,8 +133,8 @@
     <string name="libraries">Библиотеки</string>
     <string name="creative_teams">Творческие коллективы</string>
     <string name="students_organizations">Студенческие организации</string>
-    <string name="campus_map">Карта кампуса</string>
-    <string name="campus">Кампус</string>
+    <string name="campus_map">План студгородка</string>
+    <string name="campus">Студгородок</string>
     <string name="live">Жизнь</string>
     <string name="schedule_updated">Расписание обновлено</string>
     <string name="schedule_update_failed">Ошибка при обновлении расписания</string>
@@ -147,4 +147,5 @@
     <string name="never">никогда</string>
     <string name="schedule_from">Расписание от</string>
     <string name="by">От</string>
+    <string name="mai_dictionary">Маёвский словарик</string>
 </resources>
