@@ -27,7 +27,7 @@ class MapViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val resource = intent.extras?.getInt("resource") ?: R.drawable.img_campus_map_new
+        // val resource = intent.extras?.getInt("resource") ?: R.drawable.img_campus_map_new
 
         setContent {
             MainView(if (Settings.isDarkTheme()) R.drawable.img_campus_map_new_night else R.drawable.img_campus_map_new)

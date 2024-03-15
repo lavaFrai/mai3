@@ -177,7 +177,7 @@ class TeacherActivity : ComponentActivity() {
                             }
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            AssistChip(onClick = { CustomTabs.openTab(context, "https://mai-exler.ru/") }, label = { Text(text = "При сотрудничестве с МАИ.Экслер.ру") }, Modifier.align(Alignment.End).padding(end = 8.dp))
+                            AssistChip(onClick = { CustomTabs.openTab(context, "https://mai-exler.ru" + teacher.path) }, label = { Text(text = "В сотрудничестве с МАИ.Экслер.ру") }, Modifier.align(Alignment.End).padding(end = 8.dp))
                             Spacer(modifier = Modifier.height(42.dp))
                         }
 

@@ -26,6 +26,7 @@ android {
     android.buildFeatures.buildConfig = true
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId = "ru.lavafrai.maiapp"
         minSdk = 26
         targetSdk = 34
@@ -108,7 +109,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.mohamedrejeb.ksoup:ksoup-html:0.3.1")
     implementation("org.apache.commons:commons-text:1.11.0")
-    implementation("io.coil-kt:coil-compose:1.4.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation("com.github.lavaFrai:maiapi:v1.1.4")
