@@ -78,8 +78,8 @@ fun WidgetLessonView(lesson: Lesson, context: Context) {
         Spacer(GlanceModifier.width(8.dp))
         Row {
             Column {
-                WidgetTextCompact(text = lesson.timeStart.time)
-                WidgetTextCompact(text = lesson.timeEnd.time)
+                WidgetTextCompact(text = lesson.timeRange.split(" – ")[0])
+                WidgetTextCompact(text = lesson.timeRange.split(" – ")[1])
             }
             Spacer(GlanceModifier.width(4.dp))
             VerticalSeparator()
@@ -93,7 +93,7 @@ fun WidgetLessonView(lesson: Lesson, context: Context) {
                     Spacer(GlanceModifier.width(4.dp))
                     VerticalSeparatorSized(color = ColorProvider(Color.Gray.copy(alpha = 0.6f)), width = 1.2f.dp, height = 14.dp)
                     Spacer(GlanceModifier.width(4.dp))
-                    WidgetTextCompact(text = lesson.rooms.joinToString(" / "))
+                    WidgetTextCompact(text = lesson.rooms.joinToString(" / ") {it.name})
                 }
             }
         }
