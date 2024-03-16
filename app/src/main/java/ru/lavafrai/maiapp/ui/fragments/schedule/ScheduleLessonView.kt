@@ -22,24 +22,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ru.lavafrai.exler.mai.types.Teacher
-import ru.lavafrai.mai.api.models.schedule.ScheduleLesson
+import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.maiapp.activities.TeacherActivity
-import ru.lavafrai.maiapp.data.getSampleLessonSchedule
 import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.theme.MaiColor
 import ru.lavafrai.maiapp.utils.fullNameEquals
 
 
-@Preview
 @Composable
-fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule(), exlerTeachers: List<Teacher> = listOf()) {
+fun ScheduleLessonView(lesson: Lesson, exlerTeachers: List<Teacher> = listOf()) {
     val context = LocalContext.current
 
     Card(modifier = Modifier
@@ -73,13 +70,13 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule(), exler
                     /* Teacher name */
                     Row {
                         Column {
-                            lesson.teacher.split("/").map { it.trim() }.forEach { teacherName ->
+                            lesson.lectors.forEach { lector ->
                                 var teacherFound by rememberSaveable { mutableStateOf(false) }
-                                val teacher = exlerTeachers.find { it.name.fullNameEquals(teacherName) }
+                                val teacher = exlerTeachers.find { it.name.fullNameEquals(lector.name) }
 
                                 teacherFound = teacher != null
                                 Text(
-                                    text = teacherName,
+                                    text = lector.name,
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = if (teacherFound) MaiColor else Color.Unspecified,
                                     modifier = if (teacherFound) {
@@ -114,7 +111,7 @@ fun ScheduleLessonView(lesson: ScheduleLesson = getSampleLessonSchedule(), exler
                     .padding(8.dp, 0.dp),
             ) {
                 Text(
-                    text = lesson.location,
+                    text = lesson.rooms.joinToString(separator = " / ") {it.name},
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)

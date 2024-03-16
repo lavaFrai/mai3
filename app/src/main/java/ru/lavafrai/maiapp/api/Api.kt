@@ -22,11 +22,11 @@ class Api {
     }
 
     fun getTeachers(): List<Teacher>? {
-        return getEndpoint("/teachers")
+        return getEndpoint("/exler-teachers")
     }
 
     fun getTeacherInfo(teacher: Teacher): TeacherInfo? {
-        return getEndpoint("/teacher/${teacher.name}")
+        return getEndpoint("/exler-teacher/${teacher.name}")
     }
 
     private inline fun <reified T>getEndpoint(endpoint: String): T? {

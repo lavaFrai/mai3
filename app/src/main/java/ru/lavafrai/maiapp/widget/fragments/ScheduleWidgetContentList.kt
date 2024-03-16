@@ -15,9 +15,9 @@ import androidx.glance.layout.Spacer
 import androidx.glance.layout.height
 import androidx.glance.layout.width
 import androidx.glance.unit.ColorProvider
-import ru.lavafrai.mai.api.models.SerializableDate
+import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.mai.api.models.schedule.Schedule
-import ru.lavafrai.mai.api.models.schedule.ScheduleLesson
+import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.localizers.localizedShortcut
 import ru.lavafrai.maiapp.utils.toLocalizedDayOfWeekString
@@ -45,7 +45,7 @@ fun ScheduleWidgetContentList(context: Context, schedule: Schedule) {
 @SuppressLint("DefaultLocale")
 @Composable
 fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
-    val daySchedule = schedule.getScheduleOfDay(SerializableDate.of(date))
+    val daySchedule = schedule.getScheduleOfDay(Date.of(date))
 
     Column () {
         Spacer(modifier = GlanceModifier.height(8.dp))
@@ -73,13 +73,13 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
 }
 
 @Composable
-fun WidgetLessonView(lesson: ScheduleLesson, context: Context) {
+fun WidgetLessonView(lesson: Lesson, context: Context) {
     Column {
         Spacer(GlanceModifier.width(8.dp))
         Row {
             Column {
-                WidgetTextCompact(text = lesson.getStartTime())
-                WidgetTextCompact(text = lesson.getEndTime())
+                WidgetTextCompact(text = lesson.timeStart.time)
+                WidgetTextCompact(text = lesson.timeEnd.time)
             }
             Spacer(GlanceModifier.width(4.dp))
             VerticalSeparator()
@@ -93,7 +93,7 @@ fun WidgetLessonView(lesson: ScheduleLesson, context: Context) {
                     Spacer(GlanceModifier.width(4.dp))
                     VerticalSeparatorSized(color = ColorProvider(Color.Gray.copy(alpha = 0.6f)), width = 1.2f.dp, height = 14.dp)
                     Spacer(GlanceModifier.width(4.dp))
-                    WidgetTextCompact(text = lesson.location)
+                    WidgetTextCompact(text = lesson.rooms.joinToString(" / "))
                 }
             }
         }

@@ -45,20 +45,21 @@ import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
 import kotlinx.coroutines.launch
 import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.exler.mai.types.Teacher
-import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
 import ru.lavafrai.mai.api.models.schedule.Schedule
+import ru.lavafrai.mai.api.models.schedule.ScheduleDay
+import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.MainActivity
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
+import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.data.localizers.toLocalizedDayMonthString
 import ru.lavafrai.maiapp.ui.fragments.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleDayView
 import ru.lavafrai.maiapp.ui.fragments.schedule.WeekSelector
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
-import ru.lavafrai.maiapp.utils.localized
 import kotlin.concurrent.thread
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -66,19 +67,19 @@ import kotlin.concurrent.thread
 @Composable
 fun SchedulePageView(
     schedule: Schedule?,
-    subSchedule: MutableState<OneWeekSchedule?>,
+    weekSchedule: MutableState<List<ScheduleDay>?>,
     exler: Exler
 ) {
     val context = LocalContext.current
 
-    val setCurrentSubSchedule = { value: OneWeekSchedule? -> subSchedule.value = value }
-    val currentSubSchedule = subSchedule.value
+    val setCurrentSubSchedule = { value: List<ScheduleDay>? -> weekSchedule.value = value }
+    val selectedWeekSchedule = weekSchedule.value
 
     if (schedule == null) { ErrorScheduleView() ; return }
 
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable { mutableStateOf(false) }
-    val scheduleListState = rememberLazyListState(initialFirstVisibleItemIndex = if (currentSubSchedule?.weekId?.range?.isNow() == true) getTodayIndex(schedule) else 0)
+    val scheduleListState = rememberLazyListState(initialFirstVisibleItemIndex = if (selectedWeekSchedule?.first()?.date?.getWeek()?.isNow() == true) getTodayIndex(schedule) else 0)
     var teachersOnExler by remember { mutableStateOf(listOf<Teacher>()) }
 
     val scope = rememberCoroutineScope()
@@ -90,20 +91,22 @@ fun SchedulePageView(
 
 
     if (weekSelectorOpened) {
+        val selectedWeek = if (selectedWeekSchedule!!.isNotEmpty()) schedule.getWeeks().find { it.range.contains(selectedWeekSchedule[0].date!!) } else null
+
         WeekSelector(
             onClose = {
                 setWeekSelectorOpened(false)
             },
-            onSelect = { selectedWeek ->
-                setCurrentSubSchedule(schedule.subSchedules.find { it.weekId == selectedWeek })
+            onSelect = { selectedWeekId ->
+                setCurrentSubSchedule(schedule.getWeek(selectedWeekId.number))
 
-                if (selectedWeek.range.isNow()) scope.launch {
+                if (selectedWeekId.range.isNow()) scope.launch {
                     scrollToToday(schedule, scheduleListState)
                 }
                 else scope.launch { scheduleListState.scrollToItem(0) }
             },
             weeks = schedule.getWeeks(),
-            openedWeekId = currentSubSchedule?.weekId
+            openedWeekId = selectedWeek
         )
     }
 
@@ -112,11 +115,11 @@ fun SchedulePageView(
             onClose = {
                 setChangeWeekDialogOpened(false)
             },
-            onSelect = { selectedWeek ->
-                setCurrentSubSchedule(schedule.subSchedules.find { it.weekId == selectedWeek })
-                if (selectedWeek == null) return@ChangeWeekDialog
+            onSelect = { selectedWeekId ->
+                if (selectedWeekId == null) return@ChangeWeekDialog
+                setCurrentSubSchedule(schedule.getWeek(selectedWeekId.number))
 
-                if (selectedWeek.range.isNow()) scope.launch {
+                if (selectedWeekId.range.isNow()) scope.launch {
                     scrollToToday(schedule, scheduleListState)
                 }
                 else scope.launch { scheduleListState.scrollToItem(0) }
@@ -135,7 +138,7 @@ fun SchedulePageView(
         buttonText = stringResource(id = R.string.select_week),
         onButtonClicked = {setChangeWeekDialogOpened(true)}
     ) {
-        if (currentSubSchedule == null) {
+        if (selectedWeekSchedule == null) {
             Column {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -190,7 +193,7 @@ fun SchedulePageView(
                                 .fillMaxSize()
                                 .pullRefresh(pullToRefreshState)
                         ) {
-                            currentSubSchedule.days.forEach { day ->
+                            selectedWeekSchedule.forEach { day ->
                                 item {}
                                 stickyHeader {
                                     Row(
@@ -203,7 +206,7 @@ fun SchedulePageView(
                                         TextH3(text = day.dayOfWeek.localized().capitalize())
                                         Spacer(modifier = Modifier.width(16.dp))
                                         Text(
-                                            text = day.date.toLocalizedDayMonthString(LocalContext.current),
+                                            text = day.date!!.toLocalizedDayMonthString(LocalContext.current),
                                             color = MaterialTheme.colorScheme.onBackground.copy(
                                                 alpha = 0.5f
                                             ),
@@ -283,5 +286,11 @@ suspend fun scrollToToday(schedule: Schedule, scheduleListState: LazyListState) 
 
 
 fun getTodayIndex(schedule: Schedule): Int {
-    return (schedule.getCurrentSubScheduleOrNull()?.getTodayNumberOrInf() ?: 0) * 3
+    val weekschedule = schedule.getCurrentWeekSchedule()
+    if (Date.now().getWeek().contains(Date.now())) {
+        val index = weekschedule.map { it.date }.indexOf(Date.now())
+        return if (index == -1) Int.MAX_VALUE else index * 3
+    }
+
+    return 0
 }

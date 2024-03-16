@@ -7,8 +7,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
 import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.mai.api.models.group.Group
-import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
 import ru.lavafrai.mai.api.models.schedule.Schedule
+import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 import ru.lavafrai.maiapp.activities.GroupSelectActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
@@ -20,7 +20,7 @@ fun SchedulePage(
     currentGroup: Group?,
     schedule: Schedule?,
     scheduleLoaded: Boolean?,
-    subSchedule: MutableState<OneWeekSchedule?>,
+    weekSchedule: MutableState<List<ScheduleDay>?>,
     exler: Exler,
 ) {
     val context = LocalContext.current
@@ -73,7 +73,7 @@ fun SchedulePage(
     }*/
     
     when (scheduleLoaded) {
-        true -> SchedulePageView(schedule = schedule, subSchedule, exler)
+        true -> SchedulePageView(schedule = schedule, weekSchedule, exler)
         null -> LoadingPageView()
         false -> NetworkErrorDialog(dialogShowed = true)
     }
