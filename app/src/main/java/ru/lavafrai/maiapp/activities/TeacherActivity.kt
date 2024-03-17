@@ -160,7 +160,7 @@ class TeacherActivity : ComponentActivity() {
                             //Card {
                                 Column {
                                     if (teacherInfo?.faculty != null) Text(
-                                        text = stringResource(id = R.string.faculty) + ": " + teacherInfo?.faculty,
+                                        text = stringResource(id = R.string.faculty_old) + ": " + teacherInfo?.faculty,
                                         color = MaterialTheme.colorScheme.onBackground,
                                         modifier = Modifier.padding(bottom = 8.dp)
                                     )

@@ -42,6 +42,7 @@
     <string name="unknown">unknown</string>
     <string name="faculty_num">Faculty №</string>
     <string name="faculty">Faculty</string>
+    <string name="faculty_old">Faculty</string>
     <string name="department">Department</string>
     <string name="course_num">Course</string>
     <string name="tour_group">Your group</string>

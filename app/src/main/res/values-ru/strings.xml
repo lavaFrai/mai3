@@ -40,6 +40,7 @@
     <string name="unknown">неизвестно</string>
     <string name="faculty_num">Институт №</string>
     <string name="faculty">Институт</string>
+    <string name="faculty_old">Факультет</string>
     <string name="department">Кафедра</string>
     <string name="course_num">Курс</string>
     <string name="tour_group">ваша группа</string>
