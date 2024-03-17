@@ -4,15 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.lavafrai.exler.mai.types.Teacher
-import ru.lavafrai.mai.api.models.schedule.OneDaySchedule
-import ru.lavafrai.maiapp.data.getSampleDaySchedule
+import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 
-@Preview
+
 @Composable
-fun ScheduleDayView(modifier: Modifier = Modifier, day: OneDaySchedule = getSampleDaySchedule(), exlerTeachers: List<Teacher> = listOf()) {
+fun ScheduleDayView(modifier: Modifier = Modifier, day: ScheduleDay, exlerTeachers: List<Teacher> = listOf()) {
     Column(modifier.padding(8.dp)) {
         day.lessons.forEach { lesson ->
             ScheduleLessonView(lesson, exlerTeachers)

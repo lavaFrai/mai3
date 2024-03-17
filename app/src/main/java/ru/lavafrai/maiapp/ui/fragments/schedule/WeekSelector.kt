@@ -20,8 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ru.lavafrai.mai.api.models.SerializableDate
 import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
+import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -63,7 +63,7 @@ fun WeekSelector(
                     verticalAlignment = Alignment.CenterVertically,
 
                 ) {
-                    if (SerializableDate.now() in week.range)
+                    if (Date.now() in week.range)
                         PairName(text = week.number.toString(), modifier = Modifier.padding(16.dp), background = MaterialTheme.colorScheme.onPrimaryContainer)
                     else
                         PairName(text = week.number.toString(), modifier = Modifier.padding(16.dp))

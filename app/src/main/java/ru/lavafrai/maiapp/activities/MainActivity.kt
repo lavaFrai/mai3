@@ -28,8 +28,8 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.mai.api.models.group.Group
-import ru.lavafrai.mai.api.models.schedule.OneWeekSchedule
 import ru.lavafrai.mai.api.models.schedule.Schedule
+import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.pages.InfoPage
@@ -68,12 +68,12 @@ class MainActivity : ComponentActivity() {
 
         var schedule: MutableState<Schedule?> = mutableStateOf(null as Schedule?)
         val scheduleLoaded = mutableStateOf<Boolean?>(null)
-        var subSchedule = mutableStateOf(null as OneWeekSchedule?)
+        var weekSchedule: MutableState<List<ScheduleDay>?> = mutableStateOf(listOf<ScheduleDay>())
 
         loadSchedule {
             schedule.value = it
             scheduleLoaded.value = schedule.value != null
-            subSchedule.value = schedule.value?.getCurrentSubScheduleOrNull()
+            weekSchedule.value = schedule.value?.getCurrentWeekSchedule()
 
             updateScheduleAsync(schedule)
         }
@@ -96,7 +96,7 @@ class MainActivity : ComponentActivity() {
                 loadSchedule {
                     schedule.value = it
                     scheduleLoaded.value = schedule.value != null
-                    subSchedule.value = schedule.value?.getCurrentSubScheduleOrNull()
+                    weekSchedule.value = schedule.value?.getCurrentWeekSchedule()
                 }
             }
 
@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                 currentGroup,
                 schedule.value,
                 scheduleLoaded.value,
-                subSchedule,
+                weekSchedule,
             )
         }
     }
@@ -155,7 +155,7 @@ class MainActivity : ComponentActivity() {
         currentGroup: MutableState<Group?>,
         schedule: Schedule?,
         scheduleLoaded: Boolean?,
-        subSchedule: MutableState<OneWeekSchedule?>
+        weekSchedule: MutableState<List<ScheduleDay>?>
     ) {
         val permissionSystem = Mai3.getSystem(AppSystemName.PERMISSIONS) as PermissionsSystem
         permissionSystem.requestRequired(this)
@@ -183,7 +183,7 @@ class MainActivity : ComponentActivity() {
 
                 ) {
                     when (selectedPage) {
-                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded, subSchedule, exler, )
+                        MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded, weekSchedule, exler, )
                         MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
                         MainNavigationVariants.INFO -> InfoPage()
                         else -> {}
