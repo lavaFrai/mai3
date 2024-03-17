@@ -21,8 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
+import ru.lavafrai.mai.api.models.time.Date
+import ru.lavafrai.mai.api.models.time.DateRange
 import ru.lavafrai.maiapp.R
 
 
@@ -30,26 +33,32 @@ import ru.lavafrai.maiapp.R
 @Composable
 fun ChangeWeekDialog(
     weeks: List<ScheduleWeekId>,
+    selectedWeek: DateRange,
     onClose: () -> Unit = {},
-    onSelect: (weekId: ScheduleWeekId?) -> Unit = {},
+    onSelect: (weekId: DateRange?) -> Unit = {},
     onOpenWeekSelector: () -> Unit = {}
 ) {
     ModalBottomSheet(
         onDismissRequest = onClose,
         //sheetState = selectorShowed // Disabled cause it break everything by unknown reason
     ) {
+        Text(
+            text = selectedWeek.toString(),
+            modifier = Modifier.padding(8.dp).fillMaxWidth(),
+            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center,
+        )
+
         DialogItem(icon = Icons.Default.ArrowBack, text = stringResource(id = R.string.last_week), modifier = Modifier.clickable {
-            val index = weeks.indexOfFirst { it.range.isNow() }
-            onSelect( weeks.getOrNull(index - 1) )
+            onSelect( selectedWeek.minusDays(7) )
             onClose()
         })
         DialogItem(icon = Icons.Default.Home, text = stringResource(id = R.string.current_week), modifier = Modifier.clickable {
-            onSelect( weeks.find { it.range.isNow() } )
+            onSelect( Date.now().getWeek() )
             onClose()
         })
         DialogItem(icon = Icons.Default.ArrowForward, text = stringResource(id = R.string.next_week), modifier = Modifier.clickable {
-            val index = weeks.indexOfFirst { it.range.isNow() }
-            onSelect( weeks.getOrNull(index + 1) )
+            onSelect( selectedWeek.plusDays(7) )
             onClose()
         })
         DialogItem(icon = Icons.Default.DateRange, text = stringResource(id = R.string.other_week), modifier = Modifier.clickable {

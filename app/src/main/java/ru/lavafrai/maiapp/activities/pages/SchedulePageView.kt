@@ -47,7 +47,9 @@ import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
+import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
 import ru.lavafrai.mai.api.models.time.Date
+import ru.lavafrai.mai.api.models.time.DateRange
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.MainActivity
 import ru.lavafrai.maiapp.api.Api
@@ -71,15 +73,16 @@ fun SchedulePageView(
     exler: Exler
 ) {
     val context = LocalContext.current
+    var selectedWeek by remember { mutableStateOf(Date.now().getWeek()) }
 
-    val setCurrentSubSchedule = { value: List<ScheduleDay>? -> weekSchedule.value = value }
+    val setCurrentSubSchedule = { value: DateRange -> weekSchedule.value = schedule?.days?.filter { it.date!! in value } }
     val selectedWeekSchedule = weekSchedule.value
 
     if (schedule == null) { ErrorScheduleView() ; return }
 
     val (weekSelectorOpened, setWeekSelectorOpened) = rememberSaveable { mutableStateOf(false) }
     val (changeWeekDialogOpened, setChangeWeekDialogOpened) = rememberSaveable { mutableStateOf(false) }
-    val scheduleListState = rememberLazyListState(initialFirstVisibleItemIndex = if (selectedWeekSchedule?.first()?.date?.getWeek()?.isNow() == true) getTodayIndex(schedule) else 0)
+    val scheduleListState = rememberLazyListState(initialFirstVisibleItemIndex = if (selectedWeekSchedule?.firstOrNull()?.date?.getWeek()?.isNow() == true) getTodayIndex(schedule) else 0)
     var teachersOnExler by remember { mutableStateOf(listOf<Teacher>()) }
 
     val scope = rememberCoroutineScope()
@@ -88,17 +91,15 @@ fun SchedulePageView(
         teachersOnExler = Api.getInstance().getTeachers() ?: listOf<Teacher>()
     }
 
-
-
     if (weekSelectorOpened) {
-        val selectedWeek = if (selectedWeekSchedule!!.isNotEmpty()) schedule.getWeeks().find { it.range.contains(selectedWeekSchedule[0].date!!) } else null
 
         WeekSelector(
             onClose = {
                 setWeekSelectorOpened(false)
             },
             onSelect = { selectedWeekId ->
-                setCurrentSubSchedule(schedule.getWeek(selectedWeekId.number))
+                selectedWeek = selectedWeekId.range
+                setCurrentSubSchedule(selectedWeekId.range)
 
                 if (selectedWeekId.range.isNow()) scope.launch {
                     scrollToToday(schedule, scheduleListState)
@@ -106,7 +107,7 @@ fun SchedulePageView(
                 else scope.launch { scheduleListState.scrollToItem(0) }
             },
             weeks = schedule.getWeeks(),
-            openedWeekId = selectedWeek
+            openedWeekId = ScheduleWeekId(0, selectedWeek)
         )
     }
 
@@ -117,14 +118,16 @@ fun SchedulePageView(
             },
             onSelect = { selectedWeekId ->
                 if (selectedWeekId == null) return@ChangeWeekDialog
-                setCurrentSubSchedule(schedule.getWeek(selectedWeekId.number))
+                selectedWeek = selectedWeekId
+                setCurrentSubSchedule(selectedWeek)
 
-                if (selectedWeekId.range.isNow()) scope.launch {
+                if (selectedWeekId.isNow()) scope.launch {
                     scrollToToday(schedule, scheduleListState)
                 }
                 else scope.launch { scheduleListState.scrollToItem(0) }
             },
             weeks = schedule.getWeeks(),
+            selectedWeek = selectedWeek,
             onOpenWeekSelector = {
                 setWeekSelectorOpened(true)
             }
@@ -138,7 +141,7 @@ fun SchedulePageView(
         buttonText = stringResource(id = R.string.select_week),
         onButtonClicked = {setChangeWeekDialogOpened(true)}
     ) {
-        if (selectedWeekSchedule == null) {
+        if (selectedWeekSchedule?.isEmpty() != false) {
             Column {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -147,6 +150,12 @@ fun SchedulePageView(
                 ) {
                     Icon(Icons.Outlined.DateRange, null)
                     Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = selectedWeek.toString(),
+                        modifier = Modifier.padding(8.dp).fillMaxWidth(),
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center,
+                    )
                     Text(
                         text = stringResource(id = R.string.empty_week),
                         modifier = Modifier.fillMaxWidth(0.5f),
@@ -193,7 +202,7 @@ fun SchedulePageView(
                                 .fillMaxSize()
                                 .pullRefresh(pullToRefreshState)
                         ) {
-                            selectedWeekSchedule.forEach { day ->
+                            selectedWeekSchedule?.forEach { day ->
                                 item {}
                                 stickyHeader {
                                     Row(
