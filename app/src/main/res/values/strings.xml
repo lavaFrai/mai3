@@ -97,7 +97,7 @@
     <string name="donation_description">If you use this app and you like it, you might want to support its development. You can do this by making a small donation through the CloudTips service.</string>
     <string name="open_donation">Make donation</string>
     <string name="network_error">Network error</string>
-    <string name="network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later. The application must be restarted.</string>
+    <string name="network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later. The application must be restarted.\nIf you have just updated the app, try wipe the data.</string>
     <string name="soft_network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later</string>
     <string name="properties">Properties</string>
     <string name="property_dynamic_colors">Dynamic colors</string>
@@ -150,4 +150,6 @@
     <string name="by">By</string>
     <string name="mai_dictionary">MAI\'s dictionary</string>
     <string name="selected">Selected</string>
+    <string name="restart">Restart</string>
+    <string name="restart_and_wipe_data">Restart and wipe data</string>
 </resources>
