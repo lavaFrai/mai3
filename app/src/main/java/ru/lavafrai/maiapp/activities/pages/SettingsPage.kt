@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -91,42 +93,44 @@ fun SettingsPage(currentGroup: Group) {
     // val activity = LocalContext.current as Activity
     val scheduleManager = ScheduleManager(context)
 
-    PageTitle (title = stringResource(id = R.string.settings), padded = false, scrollable = true) {
+    PageTitle(title = stringResource(id = R.string.settings), padded = false, scrollable = false) {
+        Column (Modifier.verticalScroll(rememberScrollState())) {
+            SettingsGroupCard(currentGroup, scheduleManager)
 
-        SettingsGroupCard(currentGroup, scheduleManager)
 
+            SettingsThemeControls()
+            Spacer(modifier = Modifier.height(16.dp))
+            SettingsWidget()
+            SettingsSwitchesPage()
+            // SettingsUIDCard()
+            SettingsTelegram()
+            SettingsSourcesCard()
+            SettingsDonation()
 
-        SettingsThemeControls()
-        Spacer(modifier = Modifier.height(16.dp))
-        SettingsWidget()
-        SettingsSwitchesPage()
-        // SettingsUIDCard()
-        SettingsTelegram()
-        SettingsSourcesCard()
-        SettingsDonation()
+            DangerButton(
+                onClick = {
+                    Mai3.wipeData()
+                    exitProcess(0)
+                }, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp), dialogText = stringResource(
+                    id = R.string.data_clear_confirmation
+                )
+            ) {
+                Text(stringResource(id = R.string.wipe_data))
+            }
 
-        DangerButton(
-            onClick = {
-                Mai3.wipeData()
-                exitProcess(0)
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp), dialogText = stringResource(
-                id = R.string.data_clear_confirmation
+            Text(
+                text = "MAI app by. lava_frai\nBuild: ${BuildConfig.BUILD_TYPE}@${BuildConfig.VERSION_NAME}",
+                modifier = Modifier
+                    .padding(16.dp)
+                    .padding(top = 0.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
             )
-        ) {
-            Text(stringResource(id = R.string.wipe_data))
         }
 
-        Text(
-            text = "MAI app by. lava_frai\nBuild: ${BuildConfig.BUILD_TYPE}@${BuildConfig.VERSION_NAME}",
-            modifier = Modifier
-                .padding(16.dp)
-                .padding(top = 0.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
-        )
     }
 }
 
@@ -516,7 +520,11 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
                     text = groupInfo.type.localized(context = LocalContext.current).capitalize()
                 )
                 UserInfoLine(text = stringResource(id = R.string.course_num) + " " + groupInfo.course.toString())
-                UserInfoLine(text = stringResource(id = R.string.updated) + " " + (if (created != null) SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Date(created * 1000))  else stringResource(id = R.string.unknown)).toString())
+                UserInfoLine(
+                    text = stringResource(id = R.string.updated) + " " + (if (created != null) SimpleDateFormat(
+                        "dd.MM.yyyy HH:mm:ss"
+                    ).format(Date(created * 1000)) else stringResource(id = R.string.unknown)).toString()
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
