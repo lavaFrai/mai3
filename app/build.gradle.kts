@@ -30,9 +30,9 @@ android {
         applicationId = "ru.lavafrai.maiapp"
         minSdk = 26
         targetSdk = 34
-        versionCode = 8_001
+        versionCode = 9_000
         
-        versionName = "0.8.1b"
+        versionName = "0.9.0b"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

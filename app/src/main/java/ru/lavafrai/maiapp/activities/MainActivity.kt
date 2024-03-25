@@ -32,6 +32,7 @@ import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.activities.pages.ExamsPage
 import ru.lavafrai.maiapp.activities.pages.InfoPage
 import ru.lavafrai.maiapp.activities.pages.SchedulePage
 import ru.lavafrai.maiapp.activities.pages.SettingsPage
@@ -184,6 +185,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     when (selectedPage) {
                         MainNavigationVariants.SCHEDULE -> SchedulePage(currentGroup.value, schedule, scheduleLoaded, weekSchedule, exler, )
+                        MainNavigationVariants.EXAMS -> ExamsPage(currentGroup.value, schedule, scheduleLoaded, weekSchedule, exler, )
                         MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
                         MainNavigationVariants.INFO -> InfoPage()
                         else -> {}

@@ -1,6 +1,5 @@
 package ru.lavafrai.maiapp.ui.fragments
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
@@ -17,15 +16,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import compose.icons.SimpleIcons
+import compose.icons.simpleicons.Mediafire
 import ru.lavafrai.maiapp.R
 
 
 enum class MainNavigationVariants {
     SCHEDULE,
     SETTINGS,
+    EXAMS,
     INFO,
 }
 
@@ -63,6 +66,17 @@ fun NavigationItemsHorizontal(
                     onSelectionChanged(MainNavigationVariants.INFO)
                 },
                 icon = { Icon(Icons.Default.Info, null) },
+                alwaysShowLabel = false
+            )
+
+            NavigationBarItem(
+                selected = selected.intValue == 4,
+                label = { Text(stringResource(id = R.string.exams)) },
+                onClick = {
+                    selected.intValue = 4
+                    onSelectionChanged(MainNavigationVariants.EXAMS)
+                },
+                icon = { Icon(SimpleIcons.Mediafire, null, modifier = Modifier.rotate(90f)) },
                 alwaysShowLabel = false
             )
 

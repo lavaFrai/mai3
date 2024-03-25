@@ -152,4 +152,6 @@
     <string name="selected">Выбрано</string>
     <string name="restart">Перезапустить</string>
     <string name="restart_and_wipe_data">Очистить данные и перезапустить</string>
+    <string name="exams">Работы</string>
+    <string name="work_type">Типы работ</string>
 </resources>

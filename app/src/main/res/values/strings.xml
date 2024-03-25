@@ -152,4 +152,6 @@
     <string name="selected">Selected</string>
     <string name="restart">Restart</string>
     <string name="restart_and_wipe_data">Restart and wipe data</string>
+    <string name="exams">Exams</string>
+    <string name="work_type">Work type</string>
 </resources>
