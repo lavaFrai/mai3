@@ -154,4 +154,5 @@
     <string name="restart_and_wipe_data">Restart and wipe data</string>
     <string name="exams">Exams</string>
     <string name="work_type">Work type</string>
+    <string name="start_typing">Start typing…</string>
 </resources>

@@ -154,4 +154,5 @@
     <string name="restart_and_wipe_data">Очистить данные и перезапустить</string>
     <string name="exams">Работы</string>
     <string name="work_type">Типы работ</string>
+    <string name="start_typing">Начните печатать…</string>
 </resources>

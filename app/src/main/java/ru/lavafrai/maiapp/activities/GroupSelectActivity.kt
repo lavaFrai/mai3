@@ -1,211 +1,71 @@
 package ru.lavafrai.maiapp.activities
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.traversalIndex
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import io.appmetrica.analytics.AppMetrica
 import ru.lavafrai.mai.api.models.group.Group
-import ru.lavafrai.mai.api.parser.parseGroupsList
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.api.Api
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
-import ru.lavafrai.maiapp.ui.fragments.text.TextH3
-import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.utils.analyzeName
-import ru.lavafrai.maiapp.utils.safeSubList
-import kotlin.concurrent.thread
 
-class GroupSelectActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        // enableEdgeToEdge()
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            GroupSelectView()
+class GroupSelectActivity : SearchActivity<Group>() {
+    class ReturnType {
+        companion object {
+            const val AddNewGroupAndOpenMainActivity = 0
         }
     }
 
+    override fun onFound(selected: Group) {
+        val target = intent.extras!!.getInt(ExtraKeys.Target, ReturnType.AddNewGroupAndOpenMainActivity)
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Preview
+        when (target) {
+            ReturnType.AddNewGroupAndOpenMainActivity -> {
+                Settings.setCurrentGroup(selected)
+
+                startActivity(
+                    Intent(
+                        this@GroupSelectActivity,
+                        MainActivity::class.java
+                    )
+                )
+            }
+        }
+        finish()
+    }
+
+    override fun getName(selected: Group): String {
+        return selected.name
+    }
+
+    override fun getList(): List<Group>? {
+        return Api.getInstance().getGroupsListOrNull()
+    }
+
     @Composable
-    fun GroupSelectView() {
-        val (searchBarText, setSearchBarText) = rememberSaveable { mutableStateOf("") }
-        val (searchBarActive, setSearchBarActive) = rememberSaveable { mutableStateOf(false) }
-        val (groupsLoaded, setGroupsLoaded) = rememberSaveable { mutableStateOf(false) }
-
-        var groupsError by rememberSaveable { mutableStateOf(false) }
-
-        val groups = rememberSaveable { mutableListOf<Group>() }
-        val (selectedGroup, setSelectedGroup) = rememberSaveable { mutableStateOf<Group?>(null) }
-
-        thread {
-            Thread.sleep(100)
-            try {
-                if (!groupsLoaded) {
-                    groups.addAll(Api.getInstance().getGroupsListOrNull() ?: parseGroupsList())
-                    val tmp = groups.distinctBy { it.name }
-                    groups.clear()
-                    groups.addAll(tmp)
-                    setGroupsLoaded(true)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                groupsError = true
-                AppMetrica.reportError("Group activity network error", e)
+    override fun DrawListItem(data: Group) {
+        ListItem(
+            headlineContent = { Text(text = data.name) },
+            supportingContent = {
+                Text(
+                    text = stringResource(id = R.string.faculty_and_course)
+                        .replace("%faculty%", data.analyzeName().faculty.toString())
+                        .replace("%course%", data.analyzeName().course.toString())
+                )
+            },
+            modifier = Modifier.clickable {
+                select(data)
             }
-        }
+        )
+    }
 
-        MAI30Theme (edgeToEdge = false) {
-            NetworkErrorDialog(groupsError)
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(8.dp, 16.dp),
-                    //.verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-
-                ) {
-                Card (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Column (
-                        Modifier.padding(8.dp),
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        TextH3(
-                            stringResource(id = R.string.lets_chose_group_title),
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-
-                        SearchBar(
-                            modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
-                                .semantics { traversalIndex = -1f }
-                                .fillMaxWidth(),
-                            query = searchBarText,
-                            onQueryChange = { setSearchBarText(it) },
-                            onSearch = { setSearchBarActive(false) },
-                            active = searchBarActive,
-                            onActiveChange = {
-                                setSearchBarActive(it)
-                            },
-                            placeholder = { Text(stringResource(id = R.string.group_hint)) },
-                            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                            trailingIcon = {  },
-                        ) {
-                            if (searchBarText.isEmpty()) {
-                                Text(
-                                    text = stringResource(id = R.string.group_eg),
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
-
-                            if (groupsLoaded) {
-                                var foundGroups = groups.filter {
-                                    it.name.contains(searchBarText, ignoreCase = true)
-                                }.safeSubList(0, 12)
-
-                                foundGroups = foundGroups.sortedBy { it.name }
-
-                                if (foundGroups.isNotEmpty()) {
-                                    foundGroups.forEach {
-                                        ListItem(
-                                            headlineContent = { Text(text = it.name) },
-                                            supportingContent = {
-                                                Text(text = stringResource(id = R.string.faculty_and_course)
-                                                    .replace("%faculty%", it.analyzeName().faculty.toString())
-                                                    .replace("%course%", it.analyzeName().course.toString())
-                                                )
-                                            },
-                                            modifier = Modifier.clickable {
-                                                setSearchBarText(it.name)
-                                                setSelectedGroup(it)
-                                                setSearchBarActive(false)
-                                            }
-                                        )
-                                    }
-                                } else {
-                                    Text(text = stringResource(id = R.string.group_not_found))
-                                }
-                            } else {
-                                Column (
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-
-                                ) {
-                                    Text(
-                                        stringResource(id = R.string.groups_loading),
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(8.dp),
-                                        textAlign = TextAlign.Center,
-                                    )
-
-                                    CircularProgressIndicator(
-                                        modifier = Modifier.padding(16.dp)
-                                    )
-                                }
-                            }
-                        }
-
-                        Button(
-                            onClick = {
-                                Settings.setCurrentGroup(selectedGroup)
-
-                                startActivity(Intent(
-                                    this@GroupSelectActivity,
-                                    MainActivity::class.java
-                                ))
-                                finish()
-                            },
-                            enabled = selectedGroup != null,
-                            modifier = Modifier.padding(top = 16.dp)
-
-                        ) {
-                            Text(text = stringResource(R.string.next))
-                        }
-                    }
-                }
-            }
-        }
+    override fun search(list: List<Group>, query: String): List<Group> {
+        return list
+            .filter { it.name.contains(query, ignoreCase = true) && it.name.isNotBlank() }
+            .sortedBy { it.name }
     }
 }

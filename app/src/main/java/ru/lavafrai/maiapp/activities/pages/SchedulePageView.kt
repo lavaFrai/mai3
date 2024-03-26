@@ -75,7 +75,7 @@ fun SchedulePageView(
     val scope = rememberCoroutineScope()
     thread {
         Thread.sleep(100)
-        teachersOnExler = Api.getInstance().getTeachers() ?: listOf<Teacher>()
+        teachersOnExler = Api.getInstance().getExlerTeachers() ?: listOf<Teacher>()
     }
 
     if (weekSelectorOpened) {

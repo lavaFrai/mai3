@@ -6,6 +6,7 @@ import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.exler.mai.types.TeacherInfo
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.Schedule
+import ru.lavafrai.mai.api.models.schedule.TeacherId
 import ru.lavafrai.maiapp.data.API_URL
 import ru.lavafrai.maiapp.data.COOKIES_CONSTANT
 import ru.lavafrai.maiapp.data.Settings
@@ -21,8 +22,12 @@ class Api {
         return getEndpoint("/schedule/${group.name}")
     }
 
-    fun getTeachers(): List<Teacher>? {
+    fun getExlerTeachers(): List<Teacher>? {
         return getEndpoint("/exler-teachers")
+    }
+
+    fun getTeachers(): List<TeacherId>? {
+        return getEndpoint("/teachers")
     }
 
     fun getTeacherInfo(teacher: Teacher): TeacherInfo? {

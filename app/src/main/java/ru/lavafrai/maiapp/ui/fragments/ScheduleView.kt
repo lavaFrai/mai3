@@ -53,7 +53,7 @@ fun ScheduleView(schedule: List<ScheduleDay>?) {
     var teachersOnExler by remember { mutableStateOf<List<Teacher>>(listOf()) }
 
     thread {
-        teachersOnExler = Api.getInstance().getTeachers() ?: listOf()
+        teachersOnExler = Api.getInstance().getExlerTeachers() ?: listOf()
     }
 
     Column() {
