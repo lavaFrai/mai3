@@ -32,9 +32,6 @@ import androidx.compose.ui.unit.dp
 import eu.bambooapps.material3.pullrefresh.PullRefreshIndicator
 import eu.bambooapps.material3.pullrefresh.pullRefresh
 import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 import ru.lavafrai.maiapp.R
@@ -46,6 +43,7 @@ import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.data.localizers.toLocalizedDayMonthString
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleDayView
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
+import ru.lavafrai.maiapp.utils.withMainContext
 import kotlin.concurrent.thread
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -56,12 +54,8 @@ fun ScheduleView(schedule: List<ScheduleDay>?) {
     var teachersOnExler by remember { mutableStateOf<List<Teacher>>(listOf()) }
 
     thread {
-        val tempTeachersOnExler = Api.getInstance().getExlerTeachers() ?: listOf()
-
-        runBlocking {
-            withContext(Dispatchers.Main) {
-                teachersOnExler = tempTeachersOnExler
-            }
+        withMainContext(Api.getInstance().getExlerTeachers() ?: listOf()) {
+            teachersOnExler = it
         }
     }
 
@@ -105,7 +99,7 @@ fun ScheduleView(schedule: List<ScheduleDay>?) {
                 ) {
                     schedule?.forEach { day ->
                         item {}
-                        stickyHeader {
+                        stickyHeader (key = day.date.toString() + ".header") {
                             Row(
                                 modifier = Modifier
                                     .background(MaterialTheme.colorScheme.background)
@@ -125,7 +119,7 @@ fun ScheduleView(schedule: List<ScheduleDay>?) {
                             }
                         }
 
-                        item {
+                        item (key = day.date.toString()) {
                             ScheduleDayView(day = day, exlerTeachers = teachersOnExler)
                         }
                     }
