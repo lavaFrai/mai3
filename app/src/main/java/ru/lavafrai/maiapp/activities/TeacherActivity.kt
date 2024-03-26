@@ -1,6 +1,5 @@
 package ru.lavafrai.maiapp.activities
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -154,11 +152,7 @@ class TeacherActivity : ComponentActivity() {
                                             ),
                                             null,
                                             contentScale = ContentScale.Crop,
-                                            modifier = Modifier.fillMaxHeight().clickable {
-                                                val intent = Intent(this@TeacherActivity, ImageViewActivity::class.java)
-                                                intent.putExtra("image", teacherInfo!!.photo?.get(page))
-                                                startActivity(intent)
-                                            }
+                                            modifier = Modifier.fillMaxHeight().viewable(teacherInfo!!.photo?.get(page)!!)
                                         )
                                     }
                                 }
