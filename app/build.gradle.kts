@@ -112,6 +112,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("com.github.lavaFrai:maiapi:v2.0.6")
+    implementation("com.github.lavaFrai:maiapi:v2.0.7")
     implementation("com.github.lavaFrai:exler-maiapi:v1.0.6")
 }

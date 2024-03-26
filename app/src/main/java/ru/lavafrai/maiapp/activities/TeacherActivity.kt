@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -96,7 +98,6 @@ class TeacherActivity : ComponentActivity() {
                     true -> {
                         Column(
                             Modifier
-                                .padding(8.dp)
                                 .verticalScroll(rememberScrollState()),
                         ) {
                             val pagerState =
@@ -109,15 +110,15 @@ class TeacherActivity : ComponentActivity() {
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(bottom = 8.dp)
+                                    .padding(8.dp)
                             )
 
                             HorizontalPager(
                                 state = pagerState,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(8.dp),
-                                contentPadding = PaddingValues(horizontal = 32.dp)
+                                    .padding(vertical = 8.dp),
+                                contentPadding = PaddingValues(horizontal = 64.dp)
                             ) { page ->
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -153,14 +154,18 @@ class TeacherActivity : ComponentActivity() {
                                             ),
                                             null,
                                             contentScale = ContentScale.Crop,
-                                            modifier = Modifier.fillMaxHeight()
+                                            modifier = Modifier.fillMaxHeight().clickable {
+                                                val intent = Intent(this@TeacherActivity, ImageViewActivity::class.java)
+                                                intent.putExtra("image", teacherInfo!!.photo?.get(page))
+                                                startActivity(intent)
+                                            }
                                         )
                                     }
                                 }
                             }
 
                             //Card {
-                                Column {
+                                Column (Modifier.padding(horizontal = 8.dp)) {
                                     if (teacherInfo?.faculty != null) Text(
                                         text = stringResource(id = R.string.faculty_old) + ": " + teacherInfo?.faculty,
                                         color = MaterialTheme.colorScheme.onBackground,
@@ -174,12 +179,17 @@ class TeacherActivity : ComponentActivity() {
                                 }
                             //}
 
-                            teacherInfo?.reviews?.sortedBy { it.publishTime }?.reversed()?.forEach {
-                                TeacherReviewView(it)
+                            Column (Modifier.padding(horizontal = 8.dp)) {
+                                teacherInfo?.reviews?.sortedBy { it.publishTime }?.reversed()?.forEach {
+                                    TeacherReviewView(it)
+                                }
                             }
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            AssistChip(onClick = { CustomTabs.openTab(context, "https://mai-exler.ru" + teacher.path) }, label = { Text(text = "В сотрудничестве с МАИ.Экслер.ру") }, Modifier.align(Alignment.End).padding(end = 8.dp))
+                            AssistChip(onClick = { CustomTabs.openTab(context, "https://mai-exler.ru" + teacher.path) }, label = { Text(text = "В сотрудничестве с МАИ.Экслер.ру") },
+                                Modifier
+                                    .align(Alignment.End)
+                                    .padding(end = 8.dp))
                             Spacer(modifier = Modifier.height(42.dp))
                         }
 

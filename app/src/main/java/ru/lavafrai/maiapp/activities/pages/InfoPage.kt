@@ -33,11 +33,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.icons.LineAwesomeIcons
-import compose.icons.lineawesomeicons.AccessibleIcon
 import compose.icons.lineawesomeicons.BikingSolid
 import compose.icons.lineawesomeicons.BookOpenSolid
 import compose.icons.lineawesomeicons.BookSolid
 import compose.icons.lineawesomeicons.CoffeeSolid
+import compose.icons.lineawesomeicons.Comments
 import compose.icons.lineawesomeicons.Map
 import compose.icons.lineawesomeicons.PaletteSolid
 import compose.icons.lineawesomeicons.UserFriendsSolid
@@ -76,7 +76,7 @@ fun InfoPage() {
         Quadtuple(stringResource(id = R.string.live), null, null, null),
         Quadtuple(
             stringResource(id = R.string.teacher_reviews),
-            LineAwesomeIcons.AccessibleIcon,
+            LineAwesomeIcons.Comments,
             ExlerTeacherSelectActivity.ReturnType.OpenTeacherInfoActivity,
             ExlerTeacherSelectActivity::class.java
         ),

@@ -69,6 +69,7 @@ import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.GroupSelectActivity
 import ru.lavafrai.maiapp.activities.MainActivity
+import ru.lavafrai.maiapp.activities.SearchActivity
 import ru.lavafrai.maiapp.data.PROJECT_DONATION_URL
 import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
@@ -554,6 +555,7 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(onClick = {
                     val intent = Intent(context, GroupSelectActivity::class.java)
+                    intent.putExtra(SearchActivity.ExtraKeys.Target, GroupSelectActivity.ReturnType.AddNewGroupAndOpenMainActivity)
                     context.startActivity(intent, null)
                 }, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Default.Add, null)
