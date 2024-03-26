@@ -10,6 +10,7 @@ import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 import ru.lavafrai.maiapp.activities.GroupSelectActivity
+import ru.lavafrai.maiapp.activities.SearchActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.LoadingPageView
@@ -27,50 +28,19 @@ fun SchedulePage(
     val activity = LocalContext.current as Activity
 
     val scheduleManager = ScheduleManager(LocalContext.current)
-    // val (scheduleLoaded, setScheduleLoaded) = remember { mutableStateOf(false) }
-    // var schedule by remember{ mutableStateOf<Schedule?>(getEmptySchedule()) }
     val networkError = scheduleLoaded == false
 
 
     if (!scheduleManager.hasActualSchedule()) {
-        activity.startActivity(Intent(context, GroupSelectActivity::class.java))
+        val intent = Intent(context, GroupSelectActivity::class.java)
+        intent.putExtra(SearchActivity.ExtraKeys.Target, GroupSelectActivity.ReturnType.AddNewGroupAndOpenMainActivity)
+        activity.startActivity(intent)
         activity.finish()
 
         return
     }
 
-
-/*
-    thread {
-        Thread.sleep(10)
-
-        try {
-            schedule = (scheduleManager.getScheduleOrDownload(currentGroup!!))
-            setScheduleLoaded(true)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            networkError = true
-            AppMetrica.reportError("Main activity network error", e)
-        }
-    }*/
-
     NetworkErrorDialog(dialogShowed = networkError)
-
-    /*
-    AnimatedVisibility(
-        visible = scheduleLoaded == true,
-        enter = expandVertically(),
-        exit = shrinkVertically(),
-    ) {
-        SchedulePageView(schedule)
-    }
-    AnimatedVisibility(
-        visible = scheduleLoaded == null,
-        enter = expandVertically(),
-        exit = shrinkVertically(),
-    ) {
-        LoadingPageView()
-    }*/
     
     when (scheduleLoaded) {
         true -> SchedulePageView(schedule = schedule, weekSchedule, exler)

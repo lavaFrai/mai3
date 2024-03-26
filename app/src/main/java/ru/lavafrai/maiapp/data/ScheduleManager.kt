@@ -99,7 +99,6 @@ class ScheduleManager(private val context: Context) {
 
         val scheduleFile = File(context.getExternalFilesDir("schedule"), group.name)
         Json.encodeToFile(schedule, scheduleFile)
-        Thread.sleep(100)
     }
 
     fun downloadScheduleOrNull(group: Group): Schedule? {
@@ -109,7 +108,6 @@ class ScheduleManager(private val context: Context) {
 
             val scheduleFile = File(context.getExternalFilesDir("schedule"), group.name)
             Json.encodeToFile(schedule, scheduleFile)
-            Thread.sleep(100)
 
             schedule
         } catch (e: Exception) {

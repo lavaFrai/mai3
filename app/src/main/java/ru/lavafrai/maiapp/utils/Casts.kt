@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.Dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -170,4 +171,12 @@ fun String.fullNameEquals(another: String): Boolean {
 
 fun Group.analyzeName(): GroupNameAnalyzer {
     return GroupNameAnalyzer(this.name)
+}
+
+fun <T>withMainContext(value: T, func: (T) -> Unit) {
+    runBlocking {
+        withContext(Dispatchers.Main) {
+            func(value)
+        }
+    }
 }

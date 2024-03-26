@@ -21,7 +21,7 @@ class GroupSelectActivity : SearchActivity<Group>() {
     }
 
     override fun onFound(selected: Group) {
-        val target = intent.extras!!.getInt(ExtraKeys.Target, ReturnType.AddNewGroupAndOpenMainActivity)
+        val target = intent.extras?.getInt(ExtraKeys.Target, ReturnType.AddNewGroupAndOpenMainActivity)
 
         when (target) {
             ReturnType.AddNewGroupAndOpenMainActivity -> {

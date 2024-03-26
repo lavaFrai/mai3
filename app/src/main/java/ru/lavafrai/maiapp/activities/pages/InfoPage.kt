@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.AccessibleIcon
 import compose.icons.lineawesomeicons.BikingSolid
 import compose.icons.lineawesomeicons.BookOpenSolid
 import compose.icons.lineawesomeicons.BookSolid
@@ -41,6 +42,7 @@ import compose.icons.lineawesomeicons.Map
 import compose.icons.lineawesomeicons.PaletteSolid
 import compose.icons.lineawesomeicons.UserFriendsSolid
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.activities.ExlerTeacherSelectActivity
 import ru.lavafrai.maiapp.activities.InfoListViewActivity
 import ru.lavafrai.maiapp.activities.MapViewActivity
 import ru.lavafrai.maiapp.ui.fragments.PageTitle
@@ -72,6 +74,12 @@ fun InfoPage() {
             InfoListViewActivity::class.java
         ),
         Quadtuple(stringResource(id = R.string.live), null, null, null),
+        Quadtuple(
+            stringResource(id = R.string.teacher_reviews),
+            LineAwesomeIcons.AccessibleIcon,
+            ExlerTeacherSelectActivity.ReturnType.OpenTeacherInfoActivity,
+            ExlerTeacherSelectActivity::class.java
+        ),
         Quadtuple(
             stringResource(id = R.string.sport_sections),
             LineAwesomeIcons.BikingSolid,

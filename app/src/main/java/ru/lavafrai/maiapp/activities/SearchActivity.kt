@@ -38,6 +38,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.ui.fragments.NetworkErrorView
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
@@ -83,6 +84,7 @@ abstract class SearchActivity<T> : ComponentActivity() {
                 label = ""
             )
             var teachersList by remember { mutableStateOf<List<T>?>(listOf()) }
+
             select = {
                 finalQuery = it
                 isActive = false
@@ -92,7 +94,8 @@ abstract class SearchActivity<T> : ComponentActivity() {
             NetworkErrorDialog(dialogShowed = error)
 
             thread {
-                runBlocking{
+                val needed = runBlocking { withContext(Dispatchers.Main) { teachersList?.isEmpty() == true } }
+                if (needed) runBlocking{
                     val tempTeacherList = getList()
                     withContext(Dispatchers.Main) {
                         teachersList = tempTeacherList
@@ -116,7 +119,9 @@ abstract class SearchActivity<T> : ComponentActivity() {
                 }
 
                 if (teachersList == null) {
-                    error = true
+                    setContent {
+                        NetworkErrorView()
+                    }
                     return@SearchBar
                 }
 

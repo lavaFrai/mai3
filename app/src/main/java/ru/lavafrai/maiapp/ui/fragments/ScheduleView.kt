@@ -32,6 +32,9 @@ import androidx.compose.ui.unit.dp
 import eu.bambooapps.material3.pullrefresh.PullRefreshIndicator
 import eu.bambooapps.material3.pullrefresh.pullRefresh
 import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 import ru.lavafrai.maiapp.R
@@ -53,7 +56,13 @@ fun ScheduleView(schedule: List<ScheduleDay>?) {
     var teachersOnExler by remember { mutableStateOf<List<Teacher>>(listOf()) }
 
     thread {
-        teachersOnExler = Api.getInstance().getExlerTeachers() ?: listOf()
+        val tempTeachersOnExler = Api.getInstance().getExlerTeachers() ?: listOf()
+
+        runBlocking {
+            withContext(Dispatchers.Main) {
+                teachersOnExler = tempTeachersOnExler
+            }
+        }
     }
 
     Column() {

@@ -52,6 +52,7 @@ import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.utils.CustomTabs
 import ru.lavafrai.maiapp.utils.Hypertext
 import ru.lavafrai.maiapp.utils.toHypertext
+import ru.lavafrai.maiapp.utils.withMainContext
 import kotlin.concurrent.thread
 import kotlin.math.absoluteValue
 
@@ -76,8 +77,9 @@ class TeacherActivity : ComponentActivity() {
         var downloaded by remember { mutableStateOf(null as Boolean?) }
 
         thread {
-            Thread.sleep(100)
-            teacherInfo = Api.getInstance().getTeacherInfo(teacher)
+            withMainContext(Api.getInstance().getTeacherInfo(teacher)) {
+                teacherInfo = it
+            }
             downloaded = teacherInfo != null
         }
 

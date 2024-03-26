@@ -49,6 +49,7 @@ import ru.lavafrai.maiapp.ui.fragments.ScheduleView
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.WeekSelector
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
+import ru.lavafrai.maiapp.utils.withMainContext
 import kotlin.concurrent.thread
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -74,8 +75,9 @@ fun SchedulePageView(
 
     val scope = rememberCoroutineScope()
     thread {
-        Thread.sleep(100)
-        teachersOnExler = Api.getInstance().getExlerTeachers() ?: listOf<Teacher>()
+        withMainContext (Api.getInstance().getExlerTeachers() ?: listOf()) {
+            teachersOnExler = it
+        }
     }
 
     if (weekSelectorOpened) {

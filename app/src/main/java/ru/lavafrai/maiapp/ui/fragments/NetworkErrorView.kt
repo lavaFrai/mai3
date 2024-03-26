@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.ui.fragments
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +29,8 @@ fun NetworkErrorView() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.Center
     ) {
         Icon(Icons.Default.Warning, null, tint = MaterialTheme.colorScheme.onBackground)

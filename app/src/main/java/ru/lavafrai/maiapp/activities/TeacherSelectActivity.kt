@@ -1,28 +1,27 @@
 package ru.lavafrai.maiapp.activities
 
-import android.content.Intent
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import ru.lavafrai.mai.api.models.schedule.TeacherId
 import ru.lavafrai.maiapp.api.Api
 
 class TeacherSelectActivity : SearchActivity<TeacherId>() {
     class ReturnType {
         companion object {
-            const val OpenTeacherInfoActivity = 1
+
         }
     }
 
 
     override fun onFound(selected: TeacherId) {
-        val target = intent.extras!!.getInt(ExtraKeys.Target, ReturnType.OpenTeacherInfoActivity)
+        var target = intent.extras!!.getInt(ExtraKeys.Target, -1)
+        if (target == -1) target = intent.extras!!.getInt("resource", 0)
 
         when (target) {
-            ReturnType.OpenTeacherInfoActivity -> {
-                val intent = Intent(this, TeacherActivity::class.java)
-                startActivity(intent)
-            }
+
         }
 
         finish()
@@ -44,6 +43,9 @@ class TeacherSelectActivity : SearchActivity<TeacherId>() {
 
     @Composable
     override fun DrawListItem(data: TeacherId) {
-        ListItem(headlineContent = { Text(text = data.name) })
+        ListItem(
+            headlineContent = { Text(text = data.name) },
+            modifier = Modifier.clickable { select(data) }
+        )
     }
 }
