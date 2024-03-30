@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
 import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
 
@@ -64,9 +63,9 @@ fun WeekSelector(
 
                 ) {
                     if (Date.now() in week.range)
-                        PairName(text = week.number.toString(), modifier = Modifier.padding(16.dp), background = MaterialTheme.colorScheme.onPrimaryContainer)
+                        PairNumber(text = week.number.toString(), modifier = Modifier.padding(16.dp), background = MaterialTheme.colorScheme.onPrimaryContainer)
                     else
-                        PairName(text = week.number.toString(), modifier = Modifier.padding(16.dp))
+                        PairNumber(text = week.number.toString(), modifier = Modifier.padding(16.dp))
 
                     Text(text = week.range.toString())
                 }

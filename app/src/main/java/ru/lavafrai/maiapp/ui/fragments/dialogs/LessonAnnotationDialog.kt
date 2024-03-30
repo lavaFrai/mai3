@@ -50,10 +50,13 @@ fun LessonAnnotationDialog(
             Modifier.clip(RoundedCornerShape(16.dp))
         ) {
             Column (
-                Modifier.padding(16.dp).fillMaxWidth(),
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = title, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(text = stringResource(id = R.string.annotate_as), fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 AnnotationToggle(annotations, lesson, LessonAnnotationTypes.ControlWork, onSave)

@@ -4,11 +4,13 @@ import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +24,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.serialization.encodeToString
@@ -32,8 +36,8 @@ import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.maiapp.activities.TeacherActivity
 import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.data.models.LessonAnnotation
+import ru.lavafrai.maiapp.data.models.View
 import ru.lavafrai.maiapp.data.models.modifyByAnnotations
-import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.theme.MaiColor
 import ru.lavafrai.maiapp.utils.fullNameEquals
 import ru.lavafrai.maiapp.utils.longClickable
@@ -48,6 +52,7 @@ fun ScheduleLessonView(
     onOpenAnnotationControls: (Int) -> Unit
 ) {
     val context = LocalContext.current
+    val haptic = LocalHapticFeedback.current
 
     Card(
         modifier = Modifier
@@ -55,14 +60,21 @@ fun ScheduleLessonView(
     ) {
         Column(
             modifier = Modifier
-                .longClickable { onOpenAnnotationControls(lesson.getPairNumber()) }
+                .longClickable {
+                    onOpenAnnotationControls(lesson.getPairNumber())
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                }
                 .modifyByAnnotations(annotations)
         ) {
             Row() {
-                PairName(
-                    modifier = Modifier.padding(8.dp),
-                    text = lesson.getPairNumber().toString()
-                )
+                Column {
+                    PairNumber(
+                        modifier = Modifier.padding(8.dp),
+                        text = lesson.getPairNumber().toString()
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    LessonAnnotationsView(annotations) { onOpenAnnotationControls(lesson.getPairNumber()) }
+                }
                 Column(
                     modifier = Modifier
                         .padding(8.dp)
@@ -141,6 +153,16 @@ fun ScheduleLessonView(
                     onClick = {},
                     label = { Text(text = lesson.type.localized().uppercase()) })
             }
+        }
+    }
+}
+
+
+@Composable
+fun LessonAnnotationsView(annotations: List<LessonAnnotation>, onClick: () -> Unit) {
+    Box (Modifier.padding(start = 8.dp)) {
+        annotations.sortedBy { it.type.priority }.forEachIndexed { index, lessonAnnotation ->
+            lessonAnnotation.View(Modifier.offset(0.dp, (index * 8).dp).clickable(onClick=onClick))
         }
     }
 }

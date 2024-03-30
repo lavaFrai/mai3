@@ -71,7 +71,7 @@ fun NavigationItemsHorizontal(
 
             NavigationBarItem(
                 selected = selected.intValue == 4,
-                label = { Text(stringResource(id = R.string.exams)) },
+                label = { Text(stringResource(id = R.string.important)) },
                 onClick = {
                     selected.intValue = 4
                     onSelectionChanged(MainNavigationVariants.EXAMS)

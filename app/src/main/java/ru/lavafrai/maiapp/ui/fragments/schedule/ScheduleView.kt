@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.fragments
+package ru.lavafrai.maiapp.ui.fragments.schedule
 
 import android.os.Looper
 import android.util.Log
@@ -46,7 +46,6 @@ import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.data.localizers.toLocalizedDayMonthString
 import ru.lavafrai.maiapp.data.models.LessonAnnotation
 import ru.lavafrai.maiapp.ui.fragments.dialogs.LessonAnnotationDialog
-import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleDayView
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.withMainContext
 import kotlin.concurrent.thread
@@ -151,7 +150,7 @@ fun ScheduleView(
                                 exlerTeachers = teachersOnExler,
                                 annotations = lessonAnnotations,
                                 onOpenAnnotationControls = { day, lesson ->
-                                    Toast.makeText(context, "Annotating $day, $lesson", Toast.LENGTH_SHORT).show()
+                                    // Toast.makeText(context, "Annotating $day, $lesson", Toast.LENGTH_SHORT).show()
                                     // lessonAnnotations = LocalApi.addLessonAnnotation(context, Settings.getCurrentGroup()!!, day, lesson, LessonAnnotationTypes.ControlWork)
                                     annotatingDay = day
                                     annotatingLesson = lesson

@@ -42,14 +42,13 @@ import ru.lavafrai.maiapp.data.models.LessonAnnotationTypes
 import ru.lavafrai.maiapp.data.models.isAnnotatedBy
 import ru.lavafrai.maiapp.ui.fragments.ModalBottomDialog
 import ru.lavafrai.maiapp.ui.fragments.PageTitle
-import ru.lavafrai.maiapp.ui.fragments.ScheduleView
+import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
 import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
 
 private val work_type_filterers = listOf<Triple<(Lesson, List<LessonAnnotation>) -> Boolean, Int, MutableState<Boolean>>>(
     Triple({ lesson, _ -> lesson.type == LessonType.EXAM }, R.string.exam, mutableStateOf(true)),
-    Triple({ lesson, _ -> lesson.type == LessonType.LABORATORY }, R.string.laboratory, mutableStateOf(true)),
     Triple({ lesson, _ -> lesson.type == LessonType.LABORATORY }, R.string.laboratory, mutableStateOf(true)),
     Triple({ lesson, annotations -> annotations.isAnnotatedBy(lesson, LessonAnnotationTypes.ControlWork) }, R.string.control_work, mutableStateOf(true)),
 )

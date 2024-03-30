@@ -158,4 +158,6 @@
     <string name="teacher_reviews">Обзоры преподавателей</string>
     <string name="save">Сохранить</string>
     <string name="control_work">Контрольная</string>
+    <string name="important">Важное</string>
+    <string name="annotate_as">Пометить как…</string>
 </resources>
