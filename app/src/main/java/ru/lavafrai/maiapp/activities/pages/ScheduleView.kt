@@ -42,7 +42,7 @@ import ru.lavafrai.mai.api.models.schedule.ScheduleWeekId
 import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.mai.api.models.time.DateRange
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.ui.fragments.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.ScheduleView
@@ -55,7 +55,7 @@ import kotlin.concurrent.thread
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 // @Preview
 @Composable
-fun SchedulePageView(
+fun ScheduleView(
     schedule: Schedule?,
     weekSchedule: MutableState<List<ScheduleDay>?>,
     exler: Exler
@@ -75,7 +75,7 @@ fun SchedulePageView(
 
     val scope = rememberCoroutineScope()
     thread {
-        withMainContext (Api.getInstance().getExlerTeachers() ?: listOf()) {
+        withMainContext (LocalApi.getExlerTeachers() ?: listOf()) {
             teachersOnExler = it
         }
     }
@@ -155,9 +155,8 @@ fun SchedulePageView(
                 }
             }
         } else {
-            ScheduleView(schedule = selectedWeekSchedule)
+            ScheduleView(schedule = selectedWeekSchedule, scheduleListState)
         }
-
     }
 }
 

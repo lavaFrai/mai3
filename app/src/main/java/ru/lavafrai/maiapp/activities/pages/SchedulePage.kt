@@ -43,7 +43,7 @@ fun SchedulePage(
     NetworkErrorDialog(dialogShowed = networkError)
     
     when (scheduleLoaded) {
-        true -> SchedulePageView(schedule = schedule, weekSchedule, exler)
+        true -> ScheduleView(schedule = schedule, weekSchedule, exler)
         null -> LoadingPageView()
         false -> NetworkErrorDialog(dialogShowed = true)
     }

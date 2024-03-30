@@ -45,7 +45,7 @@ import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.exler.mai.types.TeacherInfo
 import ru.lavafrai.exler.mai.types.TeacherReview
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.ui.fragments.NetworkErrorView
 import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
@@ -77,7 +77,7 @@ class TeacherActivity : ComponentActivity() {
         var downloaded by remember { mutableStateOf(null as Boolean?) }
 
         thread {
-            withMainContext(Api.getInstance().getTeacherInfo(teacher)) {
+            withMainContext(LocalApi.getTeacherInfo(teacher)) {
                 teacherInfo = it
             }
             downloaded = teacherInfo != null

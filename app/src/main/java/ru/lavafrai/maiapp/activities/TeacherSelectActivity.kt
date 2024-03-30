@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ru.lavafrai.mai.api.models.schedule.TeacherId
-import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.api.LocalApi
 
 class TeacherSelectActivity : SearchActivity<TeacherId>() {
     class ReturnType {
@@ -32,7 +32,7 @@ class TeacherSelectActivity : SearchActivity<TeacherId>() {
     }
 
     override fun getList(): List<TeacherId>? {
-        return Api.getInstance().getTeachers()
+        return LocalApi.getTeachers()
     }
 
     override fun search(list: List<TeacherId>, query: String): List<TeacherId> {

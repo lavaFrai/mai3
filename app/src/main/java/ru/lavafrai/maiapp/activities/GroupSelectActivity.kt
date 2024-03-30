@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.utils.analyzeName
 
@@ -43,7 +43,7 @@ class GroupSelectActivity : SearchActivity<Group>() {
     }
 
     override fun getList(): List<Group>? {
-        return Api.getInstance().getGroupsListOrNull()
+        return LocalApi.getGroupsListOrNull()
     }
 
     @Composable

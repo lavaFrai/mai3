@@ -10,7 +10,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.exler.mai.types.teacherNameHash
-import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.utils.mapThreaded
 import kotlin.concurrent.thread
 
@@ -44,10 +44,10 @@ class ExlerTeacherSelectActivity : SearchActivity<Teacher>() {
     }
 
     override fun getList(): List<Teacher>? {
-        val teachers = Api.getInstance().getTeachers()
+        val teachers = LocalApi.getTeachers()
         val knownTeacherHashes = teachers?.mapThreaded { teacherNameHash(it.name) }
 
-        return Api.getInstance().getExlerTeachers()?.filter { knownTeacherHashes?.contains(it.nameHash) == true }
+        return LocalApi.getExlerTeachers()?.filter { knownTeacherHashes?.contains(it.nameHash) == true }
     }
 
     override fun search(list: List<Teacher>, query: String): List<Teacher> {

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -33,14 +34,18 @@ import eu.bambooapps.material3.pullrefresh.PullRefreshIndicator
 import eu.bambooapps.material3.pullrefresh.pullRefresh
 import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
 import ru.lavafrai.exler.mai.types.Teacher
+import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
+import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.MainActivity
-import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.data.localizers.toLocalizedDayMonthString
+import ru.lavafrai.maiapp.data.models.LessonAnnotation
+import ru.lavafrai.maiapp.ui.fragments.dialogs.LessonAnnotationDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleDayView
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.withMainContext
@@ -48,15 +53,36 @@ import kotlin.concurrent.thread
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun ScheduleView(schedule: List<ScheduleDay>?) {
-    val scheduleListState = rememberLazyListState()
+fun ScheduleView(
+    schedule: List<ScheduleDay>?,
+    scheduleListState: LazyListState = rememberLazyListState()
+) {
     val context = LocalContext.current
     var teachersOnExler by remember { mutableStateOf<List<Teacher>>(listOf()) }
+    var lessonAnnotations by remember { mutableStateOf<List<LessonAnnotation>>(listOf()) }
+    val lessonAnnotationDialogOpened = rememberSaveable { mutableStateOf(false) }
 
     thread {
-        withMainContext(Api.getInstance().getExlerTeachers() ?: listOf()) {
+        withMainContext(LocalApi.getLessonAnnotations(context, Settings.getCurrentGroup()!!)) {
+            lessonAnnotations = it
+        }
+
+        withMainContext(LocalApi.getExlerTeachers() ?: listOf()) {
             teachersOnExler = it
         }
+    }
+
+    var annotatingLesson by remember { mutableStateOf(null as Lesson?) }
+    var annotatingDay by remember { mutableStateOf(null as Date?) }
+
+    if (lessonAnnotationDialogOpened.value) LessonAnnotationDialog(
+        lessonAnnotationDialogOpened,
+        lessonAnnotations,
+        annotatingDay!!,
+        annotatingLesson!!,
+    ) {
+        LocalApi.saveLessonAnnotations(context, Settings.getCurrentGroup()!!, it)
+        lessonAnnotations = it
     }
 
     Column() {
@@ -70,7 +96,7 @@ fun ScheduleView(schedule: List<ScheduleDay>?) {
 
                     thread {
                         Looper.prepare()
-                        val newSchedule = Api.getInstance().getGroupScheduleOrNull(group)
+                        val newSchedule = LocalApi.getGroupScheduleOrNull(group)
                             ?: ScheduleManager(context).downloadScheduleOrNull(group)
 
                         if (newSchedule == null) {
@@ -120,7 +146,18 @@ fun ScheduleView(schedule: List<ScheduleDay>?) {
                         }
 
                         item (key = day.date.toString()) {
-                            ScheduleDayView(day = day, exlerTeachers = teachersOnExler)
+                            ScheduleDayView(
+                                day = day,
+                                exlerTeachers = teachersOnExler,
+                                annotations = lessonAnnotations,
+                                onOpenAnnotationControls = { day, lesson ->
+                                    Toast.makeText(context, "Annotating $day, $lesson", Toast.LENGTH_SHORT).show()
+                                    // lessonAnnotations = LocalApi.addLessonAnnotation(context, Settings.getCurrentGroup()!!, day, lesson, LessonAnnotationTypes.ControlWork)
+                                    annotatingDay = day
+                                    annotatingLesson = lesson
+
+                                    lessonAnnotationDialogOpened.value = true
+                            })
                         }
                     }
                 }

@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities.pages
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,23 +29,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.mai.api.models.schedule.LessonType
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
 import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.Settings
+import ru.lavafrai.maiapp.data.models.LessonAnnotation
+import ru.lavafrai.maiapp.data.models.LessonAnnotationTypes
+import ru.lavafrai.maiapp.data.models.isAnnotatedBy
 import ru.lavafrai.maiapp.ui.fragments.ModalBottomDialog
 import ru.lavafrai.maiapp.ui.fragments.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.ScheduleView
 import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
-import ru.lavafrai.maiapp.utils.filterer
 
 
-private val work_type_filterers = listOf(
-    Triple(filterer<LessonType> { it == LessonType.EXAM }, R.string.exam, mutableStateOf(true)),
-    Triple(filterer<LessonType> { it == LessonType.LABORATORY }, R.string.laboratory, mutableStateOf(true)),
+private val work_type_filterers = listOf<Triple<(Lesson, List<LessonAnnotation>) -> Boolean, Int, MutableState<Boolean>>>(
+    Triple({ lesson, _ -> lesson.type == LessonType.EXAM }, R.string.exam, mutableStateOf(true)),
+    Triple({ lesson, _ -> lesson.type == LessonType.LABORATORY }, R.string.laboratory, mutableStateOf(true)),
+    Triple({ lesson, _ -> lesson.type == LessonType.LABORATORY }, R.string.laboratory, mutableStateOf(true)),
+    Triple({ lesson, annotations -> annotations.isAnnotatedBy(lesson, LessonAnnotationTypes.ControlWork) }, R.string.control_work, mutableStateOf(true)),
 )
 
 
@@ -57,8 +64,10 @@ fun ExamsPage(
     weekSchedule: MutableState<List<ScheduleDay>?>,
     exler: Exler,
 ) {
+    val context = LocalContext.current
     val filterDialogState = rememberSaveable { mutableStateOf(false) }
-    var examsSchedule by remember { mutableStateOf(filterExamsSchedule(schedule)) }
+    var examsSchedule by remember { mutableStateOf(filterExamsSchedule(context, schedule)) }
+    val annotations = remember { LocalApi.getLessonAnnotations(context, Settings.getCurrentGroup()!!) }
 
     ModalBottomDialog (filterDialogState) {
         LazyColumn () {
@@ -77,7 +86,7 @@ fun ExamsPage(
                     modifier = Modifier
                         .clickable {
                             week.third.value = !week.third.value; examsSchedule =
-                            filterExamsSchedule(schedule)
+                            filterExamsSchedule(context, schedule)
                         }
                         .fillMaxWidth()
                         .padding(0.dp),
@@ -100,7 +109,7 @@ fun ExamsPage(
                     ) {
                         Checkbox(
                             checked = week.third.value,
-                            onCheckedChange = {week.third.value = !week.third.value; examsSchedule = filterExamsSchedule(schedule)},
+                            onCheckedChange = {week.third.value = !week.third.value; examsSchedule = filterExamsSchedule(context, schedule)},
                         )
                     }
 
@@ -127,12 +136,14 @@ fun ExamsPage(
     }
 }
 
-fun filterExamsSchedule(schedule: Schedule?): List<ScheduleDay>? {
+fun filterExamsSchedule(context: Context, schedule: Schedule?): List<ScheduleDay>? {
+    val annotations = LocalApi.getLessonAnnotations(context, Settings.getCurrentGroup()!!)
+
     return schedule?.days?.map {
         it.copy(lessons = it.lessons.filter { lesson ->
-            work_type_filterers.any { if (it.third.value) it.first.filter(lesson.type) else false }
+            work_type_filterers.any { if (it.third.value) it.first(lesson, annotations) else false }
         })
     }?.filter {
-        it.date?.isLaterThan(Date.now()) ?: true && it.lessons.isNotEmpty()
+        it.date?.isEarlierThan(Date.now())?.not() ?: true && it.lessons.isNotEmpty()
     }
 }

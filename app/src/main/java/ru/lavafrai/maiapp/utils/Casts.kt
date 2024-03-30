@@ -2,6 +2,8 @@ package ru.lavafrai.maiapp.utils
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -179,4 +181,9 @@ fun <T>withMainContext(value: T, func: (T) -> Unit) {
             func(value)
         }
     }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.longClickable(onLongClick: () -> Unit): Modifier {
+    return this.combinedClickable(onLongClick = onLongClick) {}
 }

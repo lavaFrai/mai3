@@ -36,7 +36,7 @@ import ru.lavafrai.maiapp.activities.pages.ExamsPage
 import ru.lavafrai.maiapp.activities.pages.InfoPage
 import ru.lavafrai.maiapp.activities.pages.SchedulePage
 import ru.lavafrai.maiapp.activities.pages.SettingsPage
-import ru.lavafrai.maiapp.api.Api
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.systems.AppSystemName
@@ -136,7 +136,7 @@ class MainActivity : ComponentActivity() {
 
         thread {
             Looper.prepare()
-            val newSchedule = Api.getInstance().getGroupScheduleOrNull(group)
+            val newSchedule = LocalApi.getGroupScheduleOrNull(group)
             schedule.value = newSchedule ?: schedule.value
             if (newSchedule == null) { Toast.makeText(this, getString(R.string.schedule_update_failed), Toast.LENGTH_SHORT).show() }
             else {

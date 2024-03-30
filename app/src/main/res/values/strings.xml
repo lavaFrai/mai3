@@ -156,4 +156,6 @@
     <string name="work_type">Work type</string>
     <string name="start_typing">Start typing…</string>
     <string name="teacher_reviews">Teacher reviews</string>
+    <string name="save">Save</string>
+    <string name="control_work">Control work</string>
 </resources>

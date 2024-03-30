@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.api
 
+import android.content.Context
 import kotlinx.serialization.json.Json
 import org.jsoup.Jsoup
 import ru.lavafrai.exler.mai.types.Teacher
@@ -7,12 +8,20 @@ import ru.lavafrai.exler.mai.types.TeacherInfo
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.TeacherId
+import ru.lavafrai.mai.api.models.time.Date
+import ru.lavafrai.mai.api.network.TolerantJson
 import ru.lavafrai.maiapp.data.API_URL
 import ru.lavafrai.maiapp.data.COOKIES_CONSTANT
 import ru.lavafrai.maiapp.data.Settings
+import ru.lavafrai.maiapp.data.models.LessonAnnotation
+import ru.lavafrai.maiapp.data.models.LessonAnnotationType
+import ru.lavafrai.maiapp.utils.decodeFromFile
+import ru.lavafrai.maiapp.utils.encodeToFile
+import java.io.File
 
-class Api {
+object LocalApi {
     private val jsonParser = Json{ignoreUnknownKeys = true}
+    private const val annotationFilePostfix = ".annotations"
 
     fun getGroupsListOrNull(): List<Group>? {
         return getEndpoint("/groups")
@@ -28,6 +37,25 @@ class Api {
 
     fun getTeachers(): List<TeacherId>? {
         return getEndpoint("/teachers")
+    }
+
+    fun getLessonAnnotations(context: Context, group: Group): List<LessonAnnotation> {
+        val file = File(context.getExternalFilesDir("schedule"), group.name + annotationFilePostfix)
+        if (!file.exists()) return listOf()
+
+        return TolerantJson.decodeFromFile(file)
+    }
+
+    fun saveLessonAnnotations(context: Context, group: Group, annotations: List<LessonAnnotation>) {
+        val file = File(context.getExternalFilesDir("schedule"), group.name + annotationFilePostfix)
+        Json.encodeToFile(annotations, file)
+    }
+
+    fun addLessonAnnotation(context: Context, group: Group, day: Date, lesson: Int, type: LessonAnnotationType): MutableList<LessonAnnotation> {
+        val annotations = getLessonAnnotations(context, group).toMutableList()
+        annotations.add(LessonAnnotation(type, lesson))
+        saveLessonAnnotations(context, group, annotations)
+        return annotations
     }
 
     fun getTeacherInfo(teacher: Teacher): TeacherInfo? {
@@ -59,18 +87,6 @@ class Api {
         } catch (e: Exception) {
             e.printStackTrace()
             null;
-        }
-    }
-
-    companion object {
-        private var instance: Api? = null
-
-        fun getInstance(): Api {
-            if (instance == null) {
-                instance = Api()
-            }
-
-            return instance!!
         }
     }
 }

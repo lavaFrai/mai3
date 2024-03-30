@@ -1,6 +1,7 @@
 package ru.lavafrai.maiapp.ui.fragments.schedule
 
 import android.content.Intent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,20 +31,33 @@ import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.maiapp.activities.TeacherActivity
 import ru.lavafrai.maiapp.data.localizers.localized
+import ru.lavafrai.maiapp.data.models.LessonAnnotation
+import ru.lavafrai.maiapp.data.models.modifyByAnnotations
 import ru.lavafrai.maiapp.ui.fragments.PairName
 import ru.lavafrai.maiapp.ui.theme.MaiColor
 import ru.lavafrai.maiapp.utils.fullNameEquals
+import ru.lavafrai.maiapp.utils.longClickable
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ScheduleLessonView(lesson: Lesson, exlerTeachers: List<Teacher> = listOf()) {
+fun ScheduleLessonView(
+    lesson: Lesson,
+    exlerTeachers: List<Teacher> = listOf(),
+    annotations: List<LessonAnnotation> = listOf(),
+    onOpenAnnotationControls: (Int) -> Unit
+) {
     val context = LocalContext.current
 
-    Card(modifier = Modifier
-        .padding(8.dp)
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
     ) {
-        Column (modifier = Modifier.clickable {  }) {
-
+        Column(
+            modifier = Modifier
+                .longClickable { onOpenAnnotationControls(lesson.getPairNumber()) }
+                .modifyByAnnotations(annotations)
+        ) {
             Row() {
                 PairName(
                     modifier = Modifier.padding(8.dp),
@@ -72,7 +86,8 @@ fun ScheduleLessonView(lesson: Lesson, exlerTeachers: List<Teacher> = listOf()) 
                         Column {
                             lesson.lectors.forEach { lector ->
                                 var teacherFound by rememberSaveable { mutableStateOf(false) }
-                                val teacher = exlerTeachers.find { it.name.fullNameEquals(lector.name) }
+                                val teacher =
+                                    exlerTeachers.find { it.name.fullNameEquals(lector.name) }
 
                                 teacherFound = teacher != null
                                 Text(
@@ -81,7 +96,8 @@ fun ScheduleLessonView(lesson: Lesson, exlerTeachers: List<Teacher> = listOf()) 
                                     color = if (teacherFound) MaiColor else Color.Unspecified,
                                     modifier = if (teacherFound) {
                                         Modifier.clickable {
-                                            val intent = Intent(context, TeacherActivity::class.java)
+                                            val intent =
+                                                Intent(context, TeacherActivity::class.java)
                                             intent.putExtra("teacher", Json.encodeToString(teacher))
                                             context.startActivity(intent)
                                             // CustomTabs.openTab(context, "https://mai-exler.ru/${teacher?.path}")
@@ -111,7 +127,7 @@ fun ScheduleLessonView(lesson: Lesson, exlerTeachers: List<Teacher> = listOf()) 
                     .padding(8.dp, 0.dp),
             ) {
                 Text(
-                    text = lesson.rooms.joinToString(separator = " / ") {it.name},
+                    text = lesson.rooms.joinToString(separator = " / ") { it.name },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)

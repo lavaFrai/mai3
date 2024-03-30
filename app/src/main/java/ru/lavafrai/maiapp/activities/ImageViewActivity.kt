@@ -52,11 +52,9 @@ class ImageViewActivity: ComponentActivity() {
 fun Modifier.viewable(res: String): Modifier {
     val context = LocalContext.current
 
-    this.clickable {
+    return this.clickable {
         val intent = Intent(context, ImageViewActivity::class.java)
         intent.putExtra("image", res)
         context.startActivity(intent)
     }
-
-    return this
 }
