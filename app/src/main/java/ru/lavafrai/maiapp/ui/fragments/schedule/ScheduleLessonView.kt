@@ -157,7 +157,6 @@ fun ScheduleLessonView(
     }
 }
 
-
 @Composable
 fun LessonAnnotationsView(annotations: List<LessonAnnotation>, onClick: () -> Unit) {
     Box (Modifier.padding(start = 8.dp)) {
