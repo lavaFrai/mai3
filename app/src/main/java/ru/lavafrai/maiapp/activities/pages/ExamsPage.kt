@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -50,6 +51,8 @@ private val work_type_filterers = listOf<Triple<(Lesson, List<LessonAnnotation>)
     Triple({ lesson, _ -> lesson.type == LessonType.EXAM }, R.string.exam, mutableStateOf(true)),
     Triple({ lesson, _ -> lesson.type == LessonType.LABORATORY }, R.string.laboratory, mutableStateOf(true)),
     Triple({ lesson, annotations -> annotations.isAnnotatedBy(lesson, LessonAnnotation.ControlWork) }, R.string.control_work, mutableStateOf(true)),
+    Triple({ lesson, annotations -> annotations.isAnnotatedBy(lesson, LessonAnnotation.FinalTest) }, R.string.final_test, mutableStateOf(true)),
+    Triple({ lesson, annotations -> annotations.isAnnotatedBy(lesson, LessonAnnotation.Colloquium) }, R.string.сolloquium, mutableStateOf(true)),
 )
 
 
@@ -115,6 +118,7 @@ fun ExamsPage(
                 }
             }
         }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 
     PageTitle (

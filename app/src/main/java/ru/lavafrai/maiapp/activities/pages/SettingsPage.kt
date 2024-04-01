@@ -70,6 +70,7 @@ import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.GroupSelectActivity
 import ru.lavafrai.maiapp.activities.MainActivity
 import ru.lavafrai.maiapp.activities.SearchActivity
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.PROJECT_DONATION_URL
 import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
@@ -576,7 +577,8 @@ fun GroupDropdownList(scheduleManager: ScheduleManager, currentGroup: Group) {
 
     var groupsSuggestions by remember {
         mutableStateOf(
-            scheduleManager.getDownloadedSchedulesList().filter { it != currentGroupName })
+            scheduleManager.getDownloadedSchedulesList().filter { it != currentGroupName }
+        )
     }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
 

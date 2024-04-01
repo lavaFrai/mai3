@@ -117,6 +117,6 @@ class ScheduleManager(private val context: Context) {
 
     fun getDownloadedSchedulesList(): List<String> {
         val scheduleFile = context.getExternalFilesDir("schedule")
-        return scheduleFile!!.listFiles()!!.map { it.name }
+        return scheduleFile!!.listFiles()!!.map { it.name }.filter { !it.endsWith(LocalApi.annotationFilePostfix) }
     }
 }

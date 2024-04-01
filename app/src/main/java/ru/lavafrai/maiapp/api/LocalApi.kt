@@ -21,7 +21,7 @@ import java.io.File
 
 object LocalApi {
     private val jsonParser = Json{ignoreUnknownKeys = true}
-    private const val annotationFilePostfix = ".annotations"
+    const val annotationFilePostfix = ".annotations"
 
     fun getGroupsListOrNull(): List<Group>? {
         return getEndpoint("/groups")
