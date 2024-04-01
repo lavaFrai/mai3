@@ -161,4 +161,7 @@
     <string name="important">Важное</string>
     <string name="annotate_as">Пометить как…</string>
     <string name="home_work">Домашняя работа</string>
+    <string name="сolloquium">Коллоквиум</string>
+    <string name="comment">Комментарий</string>
+    <string name="final_test">Зачёт</string>
 </resources>

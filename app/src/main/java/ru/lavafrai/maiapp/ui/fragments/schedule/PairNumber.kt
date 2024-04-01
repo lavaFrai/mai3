@@ -27,7 +27,7 @@ fun PairNumber(
     text: String = "1",
     background: Color = MaterialTheme.colorScheme.primary,
     color: Color = MaterialTheme.colorScheme.onPrimary,
-    borderWidth: Dp = 0.dp,
+    borderWidth: Dp = 1.dp,
     borderColor: Color = Color.Transparent,
     bold: Boolean = false
 ) {

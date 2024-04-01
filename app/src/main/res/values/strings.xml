@@ -161,4 +161,7 @@
     <string name="important">Important</string>
     <string name="annotate_as">Annotate as…</string>
     <string name="home_work">Home work</string>
+    <string name="сolloquium">Colloquium</string>
+    <string name="comment">Comment</string>
+    <string name="final_test">Final test</string>
 </resources>

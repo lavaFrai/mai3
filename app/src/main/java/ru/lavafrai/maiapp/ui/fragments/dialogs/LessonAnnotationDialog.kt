@@ -66,16 +66,19 @@ fun LessonAnnotationDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.annotate_as),
+                    text = title,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(text = stringResource(id = R.string.annotate_as), maxLines = 1, overflow = TextOverflow.Ellipsis)
                 Spacer(modifier = Modifier.height(8.dp))
 
+                AnnotationToggle(annotations, lesson, LessonAnnotation.FinalTest, onSave)
                 AnnotationToggle(annotations, lesson, LessonAnnotation.ControlWork, onSave)
+                AnnotationToggle(annotations, lesson, LessonAnnotation.Colloquium, onSave)
                 AnnotationToggle(annotations, lesson, LessonAnnotation.HomeWork, onSave)
+                AnnotationToggle(annotations, lesson, LessonAnnotation.Comment, onSave)
 
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {

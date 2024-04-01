@@ -72,8 +72,9 @@ fun ScheduleLessonView(
                         modifier = Modifier.padding(8.dp),
                         text = lesson.getPairNumber().toString()
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
+                    //Spacer(modifier = Modifier.height(4.dp))
                     LessonAnnotationsView(annotations) { onOpenAnnotationControls(lesson.getPairNumber()) }
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
                 Column(
                     modifier = Modifier
@@ -159,9 +160,9 @@ fun ScheduleLessonView(
 
 @Composable
 fun LessonAnnotationsView(annotations: List<LessonAnnotation>, onClick: () -> Unit) {
-    Box (Modifier.padding(start = 8.dp)) {
+    Box (Modifier.padding(start = 8.dp).height((32 + 8 * annotations.size - 8).dp)) {
         annotations.sortedBy { it.type.priority }.forEachIndexed { index, lessonAnnotation ->
-            lessonAnnotation.View(Modifier.offset(0.dp, (index * 8).dp).clickable(onClick=onClick))
+            lessonAnnotation.View(Modifier.offset(0.dp, (annotations.size * 8 - index * 8 - 8).dp).clickable(onClick=onClick))
         }
     }
 }
