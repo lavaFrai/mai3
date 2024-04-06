@@ -44,7 +44,7 @@ import ru.lavafrai.mai.api.models.time.DateRange
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.ui.fragments.PageTitle
+import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
 import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.WeekSelector

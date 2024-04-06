@@ -70,15 +70,14 @@ import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.GroupSelectActivity
 import ru.lavafrai.maiapp.activities.MainActivity
 import ru.lavafrai.maiapp.activities.SearchActivity
-import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.PROJECT_DONATION_URL
 import ru.lavafrai.maiapp.data.PROJECT_GITHUB_URL
 import ru.lavafrai.maiapp.data.PROJECT_TELEGRAM_URL
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.localizers.localized
-import ru.lavafrai.maiapp.ui.fragments.DangerButton
-import ru.lavafrai.maiapp.ui.fragments.PageTitle
+import ru.lavafrai.maiapp.ui.fragments.button.DangerButton
+import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.analyzeName

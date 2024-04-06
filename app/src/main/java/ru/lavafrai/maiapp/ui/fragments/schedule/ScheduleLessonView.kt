@@ -45,8 +45,7 @@ import ru.lavafrai.maiapp.utils.longClickable
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ScheduleLessonView(
-    lesson: Lesson,
+fun Lesson.View(
     exlerTeachers: List<Teacher> = listOf(),
     annotations: List<LessonAnnotation> = listOf(),
     onOpenAnnotationControls: (Int) -> Unit
@@ -61,7 +60,7 @@ fun ScheduleLessonView(
         Column(
             modifier = Modifier
                 .longClickable {
-                    onOpenAnnotationControls(lesson.getPairNumber())
+                    onOpenAnnotationControls(getPairNumber())
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 }
                 .modifyByAnnotations(annotations)
@@ -70,10 +69,10 @@ fun ScheduleLessonView(
                 Column {
                     PairNumber(
                         modifier = Modifier.padding(8.dp),
-                        text = lesson.getPairNumber().toString()
+                        text = getPairNumber().toString()
                     )
                     //Spacer(modifier = Modifier.height(4.dp))
-                    LessonAnnotationsView(annotations) { onOpenAnnotationControls(lesson.getPairNumber()) }
+                    LessonAnnotationsView(annotations) { onOpenAnnotationControls(getPairNumber()) }
                     Spacer(modifier = Modifier.height(8.dp))
                 }
                 Column(
@@ -83,7 +82,7 @@ fun ScheduleLessonView(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            lesson.name,
+                            name,
                             modifier = Modifier
                                 .weight(1f)
                                 .padding(bottom = 8.dp),
@@ -97,7 +96,7 @@ fun ScheduleLessonView(
                     /* Teacher name */
                     Row {
                         Column {
-                            lesson.lectors.forEach { lector ->
+                            lectors.forEach { lector ->
                                 var teacherFound by rememberSaveable { mutableStateOf(false) }
                                 val teacher =
                                     exlerTeachers.find { it.name.fullNameEquals(lector.name) }
@@ -127,7 +126,7 @@ fun ScheduleLessonView(
 
                     /* Lesson time */
                     Row {
-                        Text(text = lesson.timeRange, style = MaterialTheme.typography.bodySmall)
+                        Text(text = timeRange, style = MaterialTheme.typography.bodySmall)
                     }
                     /* End lesson time */
                 }
@@ -140,7 +139,7 @@ fun ScheduleLessonView(
                     .padding(8.dp, 0.dp),
             ) {
                 Text(
-                    text = lesson.rooms.joinToString(separator = " / ") { it.name },
+                    text = rooms.joinToString(separator = " / ") { it.name },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)
@@ -152,7 +151,7 @@ fun ScheduleLessonView(
                     })*/
                 SuggestionChip(
                     onClick = {},
-                    label = { Text(text = lesson.type.localized().uppercase()) })
+                    label = { Text(text = type.localized().uppercase()) })
             }
         }
     }

@@ -25,8 +25,7 @@ fun ScheduleDayView(
 
     Column(modifier.padding(8.dp)) {
         day.lessons.forEach { lesson ->
-            ScheduleLessonView(
-                lesson,
+            lesson.View(
                 exlerTeachers,
                 dayAnnotations.filter { it.lessonUid == lesson.getUid() },
                 onOpenAnnotationControls = {onOpenAnnotationControls(day.date!!, lesson)}

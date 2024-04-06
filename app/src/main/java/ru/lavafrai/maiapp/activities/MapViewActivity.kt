@@ -20,7 +20,7 @@ import me.saket.telephoto.zoomable.rememberZoomableState
 import me.saket.telephoto.zoomable.zoomable
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.Settings
-import ru.lavafrai.maiapp.ui.fragments.PageTitle
+import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 
 class MapViewActivity : ComponentActivity() {

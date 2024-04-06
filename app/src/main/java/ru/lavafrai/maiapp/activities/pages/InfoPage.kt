@@ -45,7 +45,8 @@ import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.ExlerTeacherSelectActivity
 import ru.lavafrai.maiapp.activities.InfoListViewActivity
 import ru.lavafrai.maiapp.activities.MapViewActivity
-import ru.lavafrai.maiapp.ui.fragments.PageTitle
+import ru.lavafrai.maiapp.lavamarkup.renderer.LavamarkupRendererActivity
+import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
 
@@ -75,7 +76,7 @@ fun InfoPage() {
         ),
         Quadtuple(stringResource(id = R.string.live), null, null, null),
         Quadtuple(
-            stringResource(id = R.string.teacher_reviews),
+            stringResource(id = R.string.about_teachers),
             LineAwesomeIcons.Comments,
             ExlerTeacherSelectActivity.ReturnType.OpenTeacherInfoActivity,
             ExlerTeacherSelectActivity::class.java
@@ -89,8 +90,8 @@ fun InfoPage() {
         Quadtuple(
             stringResource(id = R.string.mai_dictionary),
             LineAwesomeIcons.BookSolid,
-            R.raw.exlers_dictionary,
-            InfoListViewActivity::class.java
+            R.raw.exlers_dictionary_new,
+            LavamarkupRendererActivity::class.java
         ),
         Quadtuple(
             stringResource(id = R.string.creative_teams),

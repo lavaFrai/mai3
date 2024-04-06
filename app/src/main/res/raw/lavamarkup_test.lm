@@ -1,0 +1,29 @@
+<body>
+    <header>Hello, World!</header>
+    this is simple test text on LavaMarkup language
+
+    <button>And simple button</button>
+    <space></space>
+    <rich>
+        And some
+        <b>
+            <s>worst</s>
+            <i>RICH!</i>
+        </b>
+        text for example
+    </rich>
+    <rich>
+        Also rich text supports
+        <a href="https://google.com/">links</a>
+    </rich>
+
+    <br height="8"/>
+
+    <card>
+        <header>Bit more features:</header>
+
+        Even line
+        <br/>
+        breaks works good
+    </card>
+</body>

@@ -1,0 +1,13 @@
+<body>
+    <header>Test info header</header>
+
+    <card>
+        <rich>
+            <f size="18">Альфа</f>
+        </rich>
+        <br height="8" />
+        <rich>
+            <c color="secondary70">см. Шо то</c>
+        </rich>
+    </card>
+</body>

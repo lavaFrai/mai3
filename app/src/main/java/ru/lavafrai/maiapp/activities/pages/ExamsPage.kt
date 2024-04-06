@@ -41,9 +41,9 @@ import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.LessonAnnotation
 import ru.lavafrai.maiapp.data.models.isAnnotatedBy
 import ru.lavafrai.maiapp.ui.fragments.ModalBottomDialog
-import ru.lavafrai.maiapp.ui.fragments.PageTitle
+import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
-import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
+import ru.lavafrai.maiapp.ui.fragments.network.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
 

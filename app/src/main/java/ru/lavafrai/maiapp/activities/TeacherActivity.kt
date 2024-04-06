@@ -46,8 +46,8 @@ import ru.lavafrai.exler.mai.types.TeacherInfo
 import ru.lavafrai.exler.mai.types.TeacherReview
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.api.LocalApi
-import ru.lavafrai.maiapp.ui.fragments.NetworkErrorView
-import ru.lavafrai.maiapp.ui.fragments.text.NetworkLoadingView
+import ru.lavafrai.maiapp.ui.fragments.network.NetworkErrorView
+import ru.lavafrai.maiapp.ui.fragments.network.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.utils.CustomTabs
 import ru.lavafrai.maiapp.utils.Hypertext

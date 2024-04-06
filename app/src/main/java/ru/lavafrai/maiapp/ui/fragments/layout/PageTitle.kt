@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.fragments
+package ru.lavafrai.maiapp.ui.fragments.layout
 
 import android.app.Activity
 import androidx.compose.foundation.background

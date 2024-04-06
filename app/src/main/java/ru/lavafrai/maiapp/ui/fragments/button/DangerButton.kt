@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.fragments
+package ru.lavafrai.maiapp.ui.fragments.button
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource

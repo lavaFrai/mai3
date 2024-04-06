@@ -1,4 +1,4 @@
-package ru.lavafrai.maiapp.ui.fragments.text
+package ru.lavafrai.maiapp.ui.fragments.network
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
