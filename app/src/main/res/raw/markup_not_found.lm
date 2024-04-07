@@ -1,0 +1,12 @@
+<body>
+    <column width="fill" height="fill" vertical="center" horizontal="center">
+        <icon type="warning" />
+        <header>Ошибка</header>
+        <space/>
+        При загрузке LavaMarkup<br/>
+        страницы произошла ошибка.<br/>
+        Возможно, указан некорректный путь<br/>
+        или нет дотупа в сеть интернет.<br/>
+        <space/>
+    </column>
+</body>

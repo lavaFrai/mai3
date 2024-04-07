@@ -9,8 +9,9 @@ import ru.lavafrai.maiapp.lavamarkup.renderer.tags.Header
 import ru.lavafrai.maiapp.lavamarkup.renderer.tags.Hr
 import ru.lavafrai.maiapp.lavamarkup.renderer.tags.Icon
 import ru.lavafrai.maiapp.lavamarkup.renderer.tags.RichText
-import ru.lavafrai.maiapp.lavamarkup.renderer.tags.Row
 import ru.lavafrai.maiapp.lavamarkup.renderer.tags.Space
+import ru.lavafrai.maiapp.lavamarkup.renderer.tags.layout.Column
+import ru.lavafrai.maiapp.lavamarkup.renderer.tags.layout.Row
 
 val Tags = listOf(
     BaseText,
@@ -22,6 +23,7 @@ val Tags = listOf(
     Card,
     Hr,
     Row,
+    Column,
     Icon,
     Action,
 )
