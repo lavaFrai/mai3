@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.lavafrai.maiapp.BuildConfig
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.ui.theme.MaiColor
 import ru.lavafrai.maiapp.utils.LockScreenOrientation
@@ -38,6 +39,8 @@ class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
+        if (Settings.isApplicantMode()) { openApplicantMode() ; return }
 
         setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -112,7 +115,8 @@ class StartActivity : ComponentActivity() {
 
                             LocalButton(
                                 onClick = {
-
+                                    Settings.setApplicantMode(true)
+                                    openApplicantMode()
                                 },
                                 text = stringResource(id = R.string.applicant)
                             )
@@ -145,5 +149,9 @@ class StartActivity : ComponentActivity() {
                 Text(text = text, color = Color.White, fontSize = 20.sp)
             }
         }
+    }
+
+    private fun openApplicantMode() {
+        /* TODO: open applicant mode */
     }
 }
