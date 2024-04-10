@@ -4,12 +4,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.BookSolid
+import compose.icons.lineawesomeicons.Comment
+import compose.icons.lineawesomeicons.TimesCircle
+import compose.icons.lineawesomeicons.TimesSolid
 import kotlinx.serialization.Serializable
 import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.maiapp.R
-import ru.lavafrai.maiapp.ui.fragments.schedule.PairNumber
+import ru.lavafrai.maiapp.ui.fragments.IconBadge
+import ru.lavafrai.maiapp.utils.LocalIcons
 
 
 @Serializable
@@ -83,21 +90,33 @@ fun LessonAnnotation.letter(): String {
 
 fun LessonAnnotation.color(): Color {
     return when(type) {
-        LessonAnnotation.FinalTest -> Color(0xFF60d394)
+        LessonAnnotation.FinalTest -> Color(0xFFFF3F3F)
         LessonAnnotation.ControlWork -> Color(0xFFff5c5c)
-        LessonAnnotation.HomeWork -> Color(0xFF7fc8f8)
         LessonAnnotation.Colloquium -> Color(0xffff8fab)
-        LessonAnnotation.Comment -> Color(0xffe5cdb0)
+        LessonAnnotation.HomeWork -> Color(0xFFa594f9)
+        LessonAnnotation.Comment -> Color(0xffbda88e)
         LessonAnnotation.Skipped -> Color(0xffccdad1)
         else -> Color(0xFFa594f9)
+    }
+}
+
+fun LessonAnnotation.icon(): ImageVector {
+    return when(type) {
+        LessonAnnotation.FinalTest -> LocalIcons.FireWorkIcon
+        LessonAnnotation.ControlWork -> LocalIcons.FireWorkIcon
+        LessonAnnotation.Colloquium -> LocalIcons.FireWorkIcon
+        LessonAnnotation.HomeWork -> LineAwesomeIcons.BookSolid
+        LessonAnnotation.Comment -> LineAwesomeIcons.Comment
+        LessonAnnotation.Skipped -> LineAwesomeIcons.TimesCircle
+        else -> LineAwesomeIcons.TimesSolid
     }
 }
 
 
 @Composable
 fun LessonAnnotation.View(modifier: Modifier = Modifier) {
-    PairNumber(
-        text = letter(),
+    IconBadge(
+        icon = this.icon(),
         background = color(),
         modifier = modifier,
         borderWidth = 1.dp,

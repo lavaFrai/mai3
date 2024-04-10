@@ -20,12 +20,15 @@ import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.localizers.localizedShortcut
+import ru.lavafrai.maiapp.data.models.LessonAnnotation
+import ru.lavafrai.maiapp.data.models.color
 import ru.lavafrai.maiapp.utils.toLocalizedDayOfWeekString
 import ru.lavafrai.maiapp.utils.toLocalizedMonthString
+import ru.lavafrai.maiapp.widget.WidgetColors
 import java.util.Calendar
 
 @Composable
-fun ScheduleWidgetContentList(context: Context, schedule: Schedule) {
+fun ScheduleWidgetContentList(context: Context, schedule: Schedule, annotations: List<LessonAnnotation>) {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_YEAR, -1)
 
@@ -36,7 +39,7 @@ fun ScheduleWidgetContentList(context: Context, schedule: Schedule) {
 
     LazyColumn () {
         items(dates) { date ->
-            WidgetContentDay(date, context, schedule)
+            WidgetContentDay(date, context, schedule, annotations)
         }
     }
 }
@@ -44,7 +47,7 @@ fun ScheduleWidgetContentList(context: Context, schedule: Schedule) {
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
+fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule, annotations: List<LessonAnnotation>) {
     val daySchedule = schedule.getScheduleOfDay(Date.of(date))
 
     Column () {
@@ -63,7 +66,7 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
 
         Column {
             daySchedule.lessons.forEach { lesson ->
-                WidgetLessonView(lesson, context)
+                WidgetLessonView(lesson, context, annotations.filter { it.lessonUid == lesson.getUid() })
             }
             if (daySchedule.lessons.isEmpty()) {
                 WidgetEmptyDayView(context)
@@ -73,7 +76,7 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule) {
 }
 
 @Composable
-fun WidgetLessonView(lesson: Lesson, context: Context) {
+fun WidgetLessonView(lesson: Lesson, context: Context, lessonAnnotations: List<LessonAnnotation>) {
     Column {
         Spacer(GlanceModifier.width(8.dp))
         Row {
@@ -82,7 +85,7 @@ fun WidgetLessonView(lesson: Lesson, context: Context) {
                 WidgetTextCompact(text = lesson.timeRange.split(" – ")[1])
             }
             Spacer(GlanceModifier.width(4.dp))
-            VerticalSeparator()
+            VerticalSeparator(color = lessonAnnotations.maxByOrNull { it.type.priority }?.color() ?: WidgetColors.PRIMARY.getColor(context))
             Spacer(GlanceModifier.width(4.dp))
             Column {
                 WidgetTextCompact(text = lesson.name, maxLines = 1)

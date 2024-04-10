@@ -123,7 +123,7 @@ fun ScheduleView(
                         .pullRefresh(pullToRefreshState)
                 ) {
                     schedule?.forEach { day ->
-                        item {}
+                        item (key = day.date.toString() + ".filler") {}
                         stickyHeader (key = day.date.toString() + ".header") {
                             Row(
                                 modifier = Modifier

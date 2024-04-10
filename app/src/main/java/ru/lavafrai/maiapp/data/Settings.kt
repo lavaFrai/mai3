@@ -18,7 +18,7 @@ data class Settings (
     var isDarkTheme: Boolean? = null,
     var isDynamicColoursEnabled: Boolean = true,
     var isUseServerCache: Boolean = true,
-    var lastNotifiedUpgrade: String? = null
+    var lastNotifiedUpgrade: String? = null,
 ) {
     fun save() {
         val settingsFile = File(filesPath, settingsFileName)

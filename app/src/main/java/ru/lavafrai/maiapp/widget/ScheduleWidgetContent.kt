@@ -23,9 +23,12 @@ import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import ru.lavafrai.mai.api.models.schedule.Schedule
-import ru.lavafrai.maiapp.activities.MainActivity
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.activities.MainActivity
+import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.ScheduleManager
+import ru.lavafrai.maiapp.data.Settings
+import ru.lavafrai.maiapp.data.models.LessonAnnotation
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetContentList
 import ru.lavafrai.maiapp.widget.fragments.ScheduleWidgetHeader
 import ru.lavafrai.maiapp.widget.fragments.WidgetText
@@ -43,7 +46,9 @@ fun ScheduleWidgetContent(context: Context) {
     ) {
         if (scheduleManager.hasActualScheduleDownloaded()) {
             val schedule = scheduleManager.getActualSchedule()!!
-            WidgetScheduleView(context, schedule)
+            val annotations = LocalApi.getLessonAnnotations(context, Settings.getCurrentGroup()!!)
+
+            WidgetScheduleView(context, schedule, annotations)
         } else {
             WidgetScheduleNotDownloaded(context)
         }
@@ -52,11 +57,11 @@ fun ScheduleWidgetContent(context: Context) {
 
 
 @Composable
-fun WidgetScheduleView(context: Context, schedule: Schedule) {
+fun WidgetScheduleView(context: Context, schedule: Schedule, annotations: List<LessonAnnotation>) {
     Column {
         ScheduleWidgetHeader(context)
         Spacer(GlanceModifier.height(8.dp))
-        ScheduleWidgetContentList(context, schedule)
+        ScheduleWidgetContentList(context, schedule, annotations)
     }
 }
 
