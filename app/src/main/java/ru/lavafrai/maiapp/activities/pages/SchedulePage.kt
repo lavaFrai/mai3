@@ -9,8 +9,7 @@ import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
-import ru.lavafrai.maiapp.activities.GroupSelectActivity
-import ru.lavafrai.maiapp.activities.SearchActivity
+import ru.lavafrai.maiapp.activities.StartActivity
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.LoadingPageView
@@ -32,8 +31,8 @@ fun SchedulePage(
 
 
     if (!scheduleManager.hasActualSchedule()) {
-        val intent = Intent(context, GroupSelectActivity::class.java)
-        intent.putExtra(SearchActivity.ExtraKeys.Target, GroupSelectActivity.ReturnType.AddNewGroupAndOpenMainActivity)
+        val intent = Intent(context, StartActivity::class.java)
+        // intent.putExtra(SearchActivity.ExtraKeys.Target, GroupSelectActivity.ReturnType.AddNewGroupAndOpenMainActivity)
         activity.startActivity(intent)
         activity.finish()
 

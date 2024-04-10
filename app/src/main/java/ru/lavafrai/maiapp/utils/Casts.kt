@@ -172,7 +172,11 @@ fun String.fullNameEquals(another: String): Boolean {
 }
 
 fun Group.analyzeName(): GroupNameAnalyzer {
-    return GroupNameAnalyzer(this.name)
+    return try {
+        GroupNameAnalyzer(this.name)
+    } catch (e: java.security.InvalidParameterException) {
+        GroupNameAnalyzer("М0О-000С-70")
+    }
 }
 
 fun <T>withMainContext(value: T, func: (T) -> Unit) {

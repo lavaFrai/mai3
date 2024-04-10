@@ -165,4 +165,9 @@
     <string name="comment">Comment</string>
     <string name="final_test">Final test</string>
     <string name="about_teachers">About teachers</string>
+
+    <string name="enter_as">Enter as…</string>
+    <string name="student">Student</string>
+    <string name="teacher">Teacher</string>
+    <string name="applicant">Applicant</string>
 </resources>

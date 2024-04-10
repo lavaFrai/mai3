@@ -96,7 +96,7 @@ fun SettingsPage(currentGroup: Group) {
 
     PageTitle(title = stringResource(id = R.string.settings), padded = false, scrollable = false) {
         Column (Modifier.verticalScroll(rememberScrollState())) {
-            SettingsGroupCard(currentGroup, scheduleManager)
+            if (!Settings.isTeacherMode()) SettingsGroupCard(currentGroup, scheduleManager)
 
 
             SettingsThemeControls()

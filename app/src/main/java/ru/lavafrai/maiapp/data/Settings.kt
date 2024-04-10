@@ -19,6 +19,7 @@ data class Settings (
     var isDynamicColoursEnabled: Boolean = true,
     var isUseServerCache: Boolean = true,
     var lastNotifiedUpgrade: String? = null,
+    var isTeacherMode: Boolean = false
 ) {
     fun save() {
         val settingsFile = File(filesPath, settingsFileName)
@@ -80,6 +81,16 @@ data class Settings (
         fun setUseServerCache(value: Boolean) {
             val settings = Settings.getInstance()
             settings.isUseServerCache = value
+            settings.save()
+        }
+
+        fun isTeacherMode(): Boolean {
+            return Settings.getInstance().isTeacherMode
+        }
+
+        fun setTeacherMode(value: Boolean) {
+            val settings = Settings.getInstance()
+            settings.isTeacherMode = value
             settings.save()
         }
 

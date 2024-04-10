@@ -29,6 +29,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activities.StartActivity"
+            android:theme="@style/Theme.MAI30"
+            android:exported="true">
+        </activity>
+
 
         <activity
             android:name=".activities.GroupSelectActivity"

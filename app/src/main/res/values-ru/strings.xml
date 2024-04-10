@@ -165,4 +165,9 @@
     <string name="comment">Комментарий</string>
     <string name="final_test">Зачёт</string>
     <string name="about_teachers">О преподавателях</string>
+
+    <string name="enter_as">Войти как…</string>
+    <string name="student">Студент</string>
+    <string name="teacher">Преподаватель</string>
+    <string name="applicant">Абитуриент</string>
 </resources>
