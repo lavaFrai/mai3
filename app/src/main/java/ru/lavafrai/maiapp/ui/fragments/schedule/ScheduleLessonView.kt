@@ -33,7 +33,9 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.Lesson
+import ru.lavafrai.mai.api.models.schedule.TeacherId
 import ru.lavafrai.maiapp.activities.TeacherActivity
+import ru.lavafrai.maiapp.activities.TeacherScheduleActivity
 import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.data.models.LessonAnnotation
 import ru.lavafrai.maiapp.data.models.View
@@ -47,6 +49,7 @@ import ru.lavafrai.maiapp.utils.longClickable
 @Composable
 fun Lesson.View(
     exlerTeachers: List<Teacher> = listOf(),
+    knownTeachers: List<TeacherId> = listOf(),
     annotations: List<LessonAnnotation> = listOf(),
     onOpenAnnotationControls: (Int) -> Unit
 ) {
@@ -98,19 +101,31 @@ fun Lesson.View(
                         Column {
                             lectors.forEach { lector ->
                                 var teacherFound by rememberSaveable { mutableStateOf(false) }
+                                var teacherScheduleFound by rememberSaveable { mutableStateOf(false) }
                                 val teacher =
                                     exlerTeachers.find { it.name.fullNameEquals(lector.name) }
 
                                 teacherFound = teacher != null
+                                teacherScheduleFound = knownTeachers.count { it.name == lector.name } > 0
                                 Text(
                                     text = lector.name,
                                     style = MaterialTheme.typography.bodyMedium,
-                                    color = if (teacherFound) MaiColor else Color.Unspecified,
+                                    color = if (teacherFound || teacherScheduleFound) MaiColor else Color.Unspecified,
                                     modifier = if (teacherFound) {
                                         Modifier.clickable {
                                             val intent =
                                                 Intent(context, TeacherActivity::class.java)
                                             intent.putExtra("teacher", Json.encodeToString(teacher))
+                                            context.startActivity(intent)
+                                            // CustomTabs.openTab(context, "https://mai-exler.ru/${teacher?.path}")
+                                        }
+                                    } else if (teacherScheduleFound) {
+                                        Modifier.clickable {
+                                            val intent = Intent(context, TeacherScheduleActivity::class.java)
+                                            intent.putExtra(
+                                                TeacherScheduleActivity.Companion.ExtraKeys.Teacher,
+                                                lector.name
+                                            )
                                             context.startActivity(intent)
                                             // CustomTabs.openTab(context, "https://mai-exler.ru/${teacher?.path}")
                                         }
@@ -159,9 +174,16 @@ fun Lesson.View(
 
 @Composable
 fun LessonAnnotationsView(annotations: List<LessonAnnotation>, onClick: () -> Unit) {
-    Box (Modifier.padding(start = 8.dp).height((32 + 8 * annotations.size - 8).dp)) {
+    Box(
+        Modifier
+            .padding(start = 8.dp)
+            .height((32 + 8 * annotations.size - 8).dp)) {
         annotations.sortedBy { it.type.priority }.forEachIndexed { index, lessonAnnotation ->
-            lessonAnnotation.View(Modifier.offset(0.dp, (annotations.size * 8 - index * 8 - 8).dp).clickable(onClick=onClick))
+            lessonAnnotation.View(
+                Modifier
+                    .offset(0.dp, (annotations.size * 8 - index * 8 - 8).dp)
+                    .clickable(onClick = onClick)
+            )
         }
     }
 }

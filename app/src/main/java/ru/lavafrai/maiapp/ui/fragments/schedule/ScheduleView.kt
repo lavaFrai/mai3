@@ -36,6 +36,7 @@ import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
 import ru.lavafrai.exler.mai.types.Teacher
 import ru.lavafrai.mai.api.models.schedule.Lesson
 import ru.lavafrai.mai.api.models.schedule.ScheduleDay
+import ru.lavafrai.mai.api.models.schedule.TeacherId
 import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.MainActivity
@@ -58,6 +59,7 @@ fun ScheduleView(
 ) {
     val context = LocalContext.current
     var teachersOnExler by remember { mutableStateOf<List<Teacher>>(listOf()) }
+    var knownTeachers by remember { mutableStateOf<List<TeacherId>>(listOf()) }
     var lessonAnnotations by remember { mutableStateOf<List<LessonAnnotation>>(listOf()) }
     val lessonAnnotationDialogOpened = rememberSaveable { mutableStateOf(false) }
 
@@ -68,6 +70,10 @@ fun ScheduleView(
 
         withMainContext(LocalApi.getExlerTeachers() ?: listOf()) {
             teachersOnExler = it
+        }
+
+        withMainContext(LocalApi.getTeachers() ?: listOf()) {
+            knownTeachers = it
         }
     }
 
@@ -148,6 +154,7 @@ fun ScheduleView(
                             ScheduleDayView(
                                 day = day,
                                 exlerTeachers = teachersOnExler,
+                                knownTeachers = knownTeachers,
                                 annotations = lessonAnnotations,
                                 onOpenAnnotationControls = { day, lesson ->
                                     // Toast.makeText(context, "Annotating $day, $lesson", Toast.LENGTH_SHORT).show()

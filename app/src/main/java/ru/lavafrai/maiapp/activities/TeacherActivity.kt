@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,8 +21,12 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -152,7 +157,9 @@ class TeacherActivity : ComponentActivity() {
                                             ),
                                             null,
                                             contentScale = ContentScale.Crop,
-                                            modifier = Modifier.fillMaxHeight().viewable(teacherInfo!!.photo?.get(page)!!)
+                                            modifier = Modifier
+                                                .fillMaxHeight()
+                                                .viewable(teacherInfo!!.photo?.get(page)!!)
                                         )
                                     }
                                 }
@@ -172,6 +179,19 @@ class TeacherActivity : ComponentActivity() {
                                     )
                                 }
                             //}
+
+                            Button(onClick = {
+                                val intent = Intent(context, TeacherScheduleActivity::class.java)
+                                intent.putExtra(TeacherScheduleActivity.Companion.ExtraKeys.Teacher, teacher.name)
+                                startActivity(intent)
+                             }, modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                                .padding(top = 4.dp)
+                            ) {
+                                Icon(Icons.Default.DateRange, null)
+                                Text(text = stringResource(id = R.string.schedule))
+                            }
 
                             Column (Modifier.padding(horizontal = 8.dp)) {
                                 teacherInfo?.reviews?.sortedBy { it.publishTime }?.reversed()?.forEach {

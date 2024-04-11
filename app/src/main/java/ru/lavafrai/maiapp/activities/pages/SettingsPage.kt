@@ -85,7 +85,6 @@ import ru.lavafrai.maiapp.utils.readableFileSize
 import ru.lavafrai.maiapp.widget.ScheduleWidgetReceiver
 import java.text.SimpleDateFormat
 import java.util.Date
-import kotlin.system.exitProcess
 
 
 @Composable
@@ -111,7 +110,7 @@ fun SettingsPage(currentGroup: Group) {
             DangerButton(
                 onClick = {
                     Mai3.wipeData()
-                    exitProcess(0)
+                    Mai3.restart(context)
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp), dialogText = stringResource(

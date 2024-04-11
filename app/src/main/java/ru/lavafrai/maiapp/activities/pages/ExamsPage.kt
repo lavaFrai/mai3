@@ -17,11 +17,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -42,8 +40,8 @@ import ru.lavafrai.maiapp.data.models.LessonAnnotation
 import ru.lavafrai.maiapp.data.models.isAnnotatedBy
 import ru.lavafrai.maiapp.ui.fragments.ModalBottomDialog
 import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
-import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
 import ru.lavafrai.maiapp.ui.fragments.network.NetworkLoadingView
+import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
 
@@ -67,7 +65,7 @@ fun ExamsPage(
 ) {
     val context = LocalContext.current
     val filterDialogState = rememberSaveable { mutableStateOf(false) }
-    var examsSchedule by remember { mutableStateOf(filterExamsSchedule(context, schedule)) }
+    var examsSchedule = filterExamsSchedule(context, schedule)
     val annotations = remember { LocalApi.getLessonAnnotations(context, Settings.getCurrentGroup()!!) }
 
     ModalBottomDialog (filterDialogState) {

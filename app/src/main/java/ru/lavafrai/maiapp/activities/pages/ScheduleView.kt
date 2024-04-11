@@ -44,9 +44,9 @@ import ru.lavafrai.mai.api.models.time.DateRange
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.Settings
+import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
-import ru.lavafrai.maiapp.ui.fragments.dialogs.ChangeWeekDialog
 import ru.lavafrai.maiapp.ui.fragments.schedule.WeekSelector
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.withMainContext
@@ -123,9 +123,11 @@ fun ScheduleView(
         )
     }
 
+    val shortedName = Settings.getCurrentGroup()?.name
+
     PageTitle (
         stringResource(id = R.string.schedule),
-        secondText = Settings.getCurrentGroup()?.name,
+        secondText = shortedName,
         padded = false,
         buttonText = stringResource(id = R.string.select_week),
         onButtonClicked = {setChangeWeekDialogOpened(true)}

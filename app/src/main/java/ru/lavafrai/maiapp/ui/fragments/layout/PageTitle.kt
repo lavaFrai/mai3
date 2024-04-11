@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -60,8 +62,7 @@ fun PageTitle(
                     .padding(8.dp, 16.dp)
                     .fillMaxWidth(),
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    0
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f, true)) {
                     if (backButton) IconButton(onClick = { (context as Activity).finish() }) {
                         Icon(
                             Icons.Default.ArrowBack,
@@ -70,18 +71,25 @@ fun PageTitle(
                         )
                     }
 
-                    Column {
-                        TextH3(text = title, color = MaterialTheme.colorScheme.onBackground)
+                    Column () {
+                        TextH3(
+                            text = title,
+                            color = MaterialTheme.colorScheme.onBackground,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                         if (secondText != null) Text(
                             text = secondText,
                             color = MaterialTheme.colorScheme.secondary,
-                            fontWeight = FontWeight.Light
+                            fontWeight = FontWeight.Light,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                     }
                 }
 
                 if (buttonText != null) {
-                    TextButton(onClick = { onButtonClicked() }) {
+                    TextButton(onClick = { onButtonClicked() }, modifier = Modifier.width(128.dp)) {
                         Text(buttonText)
                     }
                 }

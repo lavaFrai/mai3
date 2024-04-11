@@ -109,7 +109,7 @@ abstract class SearchActivity<T> : ComponentActivity() {
                 active = isActive,
                 onActiveChange = {isActive = it},
                 onSearch = {},
-                modifier = Modifier.padding(searchPadding.dp),
+                modifier = Modifier.padding(searchPadding.dp).fillMaxWidth(),
                 placeholder = { Text(stringResource(id = R.string.start_typing)) },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
             ) {

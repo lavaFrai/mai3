@@ -10,13 +10,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ru.lavafrai.maiapp.Mai3
 import ru.lavafrai.maiapp.R
-import kotlin.system.exitProcess
 
 @Composable
 fun NetworkErrorDialog(dialogShowed: Boolean) {
+    val context = LocalContext.current
+
     if (dialogShowed) AlertDialog(
         icon = {
             Icon(Icons.Default.Warning, null)
@@ -30,14 +32,14 @@ fun NetworkErrorDialog(dialogShowed: Boolean) {
                     containerColor = MaterialTheme.colorScheme.error,
                     contentColor = MaterialTheme.colorScheme.onError
                 ),
-                onClick = { exitProcess(0) }
+                onClick = { Mai3.restart(context) }
             ) {
                 Text(stringResource(id = R.string.restart), color = MaterialTheme.colorScheme.onError)
             }
         },
         dismissButton = {
             TextButton(
-                onClick = { Mai3.wipeData() ; exitProcess(0) }
+                onClick = { Mai3.wipeData() ; Mai3.restart(context) }
             ) {
                 Text(stringResource(id = R.string.restart_and_wipe_data), color = MaterialTheme.colorScheme.error)
             }

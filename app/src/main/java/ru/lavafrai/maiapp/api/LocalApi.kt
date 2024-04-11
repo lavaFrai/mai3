@@ -31,6 +31,10 @@ object LocalApi {
         return getEndpoint("/schedule/${group.name}")
     }
 
+    fun getTeacherScheduleOrNull(group: Group): Schedule? {
+        return getEndpoint("/teacher/schedule/${group.name}")
+    }
+
     fun getExlerTeachers(): List<Teacher>? {
         return getEndpoint("/exler-teachers")
     }

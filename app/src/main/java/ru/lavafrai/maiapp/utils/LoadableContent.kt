@@ -34,7 +34,10 @@ class LoadableContent<T> (
 
     @Composable
     fun View() {
-        when (state.value) {
+        if (result == null && state.value != State.Loading) {
+            onFailView(NullPointerException("Result is null"))
+        }
+        else when (state.value) {
             State.Failed -> onFailView(failCause!!)
             State.Loading -> onLoadingView()
             State.Loaded -> onLoadedView(result!!)

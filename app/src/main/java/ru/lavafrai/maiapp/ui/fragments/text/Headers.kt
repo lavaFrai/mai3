@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 
 
 @Composable
@@ -48,7 +49,9 @@ fun TextH3(
     textAlign: TextAlign = TextAlign.Left,
     style: TextStyle = LocalTextStyle.current,
     color: Color = style.color.takeOrElse { LocalContentColor.current },
-    fontWeight: FontWeight? = null
+    fontWeight: FontWeight? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Clip,
 ) {
     Text(
         text = text,
@@ -57,5 +60,7 @@ fun TextH3(
         textAlign = textAlign,
         color = color,
         fontWeight = fontWeight,
+        maxLines = maxLines,
+        overflow = overflow,
     )
 }

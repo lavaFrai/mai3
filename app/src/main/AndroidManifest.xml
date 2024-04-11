@@ -42,6 +42,13 @@
             android:theme="@style/Theme.MAI30">
         </activity>
 
+
+        <activity
+            android:name=".activities.TeacherScheduleActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MAI30">
+        </activity>
+
         <activity
             android:name=".activities.UpgradeActivity"
             android:exported="true"
