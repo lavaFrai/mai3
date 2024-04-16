@@ -2,11 +2,8 @@ package ru.lavafrai.maiapp.activities.pages
 
 import Quadtuple
 import android.content.Intent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,15 +42,15 @@ import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.activities.ExlerTeacherSelectActivity
 import ru.lavafrai.maiapp.activities.InfoListViewActivity
 import ru.lavafrai.maiapp.activities.MapViewActivity
+import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.lavamarkup.renderer.LavamarkupRendererActivity
 import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
-import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 
 
 @Preview
 @Composable
 fun InfoPage() {
-    val campusCategories = listOf<Quadtuple<String, ImageVector?, Int?, Class<*>?>>(
+    val campusCategories = listOf<Quadtuple<String, ImageVector?, Any?, Class<*>?>>(
 
         Quadtuple(stringResource(id = R.string.campus), null, null, null),
         Quadtuple(
@@ -84,13 +81,13 @@ fun InfoPage() {
         Quadtuple(
             stringResource(id = R.string.sport_sections),
             LineAwesomeIcons.BikingSolid,
-            R.raw.sport_sections,
-            InfoListViewActivity::class.java
+            "sport_sections",
+            LavamarkupRendererActivity::class.java
         ),
         Quadtuple(
             stringResource(id = R.string.mai_dictionary),
             LineAwesomeIcons.BookSolid,
-            R.raw.exlers_dictionary_new,
+            "exlers_dictionary",
             LavamarkupRendererActivity::class.java
         ),
         Quadtuple(
@@ -113,15 +110,7 @@ fun InfoPage() {
                 if (item.second != null && item.third != null) {
                     InfoCategory(item.first, item.second, item.third, item.fourth!!)
                 } else {
-                    Text(
-                        text = item.first,
-                        fontSize = 24.sp,
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .padding(top = 16.dp, bottom = 8.dp)
-                            .fillMaxWidth(),
-                        fontWeight = FontWeight.SemiBold
-                    )
+                    InfoHeader(item.first)
                 }
             }
             item {
@@ -133,26 +122,16 @@ fun InfoPage() {
 
 
 @Composable
-fun InfoHeader() {
-    Column {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(8.dp, 16.dp)
-                .fillMaxWidth(),
-        ) {
-            TextH3(text = stringResource(id = R.string.information))
-        }
-
-        Box(
-            modifier = Modifier
-                .height(0.5.dp)
-                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
-                .fillMaxWidth(0.8f)
-                .align(Alignment.CenterHorizontally)
-        )
-    }
+fun InfoHeader(text: String) {
+    Text(
+        text = text,
+        fontSize = 24.sp,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp, bottom = 8.dp)
+            .fillMaxWidth(),
+        fontWeight = FontWeight.SemiBold
+    )
 }
 
 
@@ -161,7 +140,7 @@ fun InfoHeader() {
 fun InfoCategory(
     name: String = "Category",
     icon: ImageVector = Icons.Default.Settings,
-    resource: Int = 0,
+    resource: Any = 0,
     activity: Class<*> = InfoListViewActivity::class.java
 ) {
     val context = LocalContext.current
@@ -175,7 +154,13 @@ fun InfoCategory(
             Modifier.clickable {
                 val intent = Intent(context, activity)
                 intent.putExtra("title", name)
-                intent.putExtra("resource", resource)
+
+                if (resource is Int) intent.putExtra("resource", resource as Int)
+                if (resource is String) {
+                    val url = Settings.getApiUrl() ?: "https://mai3.lavafrai.ru/"
+                    intent.putExtra(LavamarkupRendererActivity.Companion.ExtraKeys.url, "$url/data/${resource as String}")
+                }
+
                 context.startActivity(intent)
             }
         ) {

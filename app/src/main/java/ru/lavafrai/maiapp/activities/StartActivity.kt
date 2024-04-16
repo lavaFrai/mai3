@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import ru.lavafrai.maiapp.BuildConfig
 import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.data.Settings
@@ -43,6 +44,9 @@ class StartActivity : ComponentActivity() {
         if (Settings.isApplicantMode()) { openApplicantMode() ; return }
 
         setContent {
+            val systemUiController = rememberSystemUiController()
+            systemUiController.setSystemBarsColor(Color.Transparent, false)
+            systemUiController.setNavigationBarColor(Color.Transparent, true)
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
             Surface(

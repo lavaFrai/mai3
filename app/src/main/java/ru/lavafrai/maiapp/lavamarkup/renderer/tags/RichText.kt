@@ -68,7 +68,7 @@ object RichText : Base() {
         val colorScheme = MaterialTheme.colorScheme
 
         return buildAnnotatedString {
-            if (node is TextNode) append(node.text())
+            if (node is TextNode) append(node.text().ifBlank { "" })
 
             else when (node.nodeName()) {
                 "i" -> {
@@ -79,6 +79,12 @@ object RichText : Base() {
 
                 "b" -> {
                     pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
+                    append(buildRichText(node.childNodes()))
+                    pop()
+                }
+
+                "l" -> {
+                    pushStyle(SpanStyle(fontWeight = FontWeight.Light))
                     append(buildRichText(node.childNodes()))
                     pop()
                 }
@@ -162,5 +168,9 @@ object RichTextLinkProcessor {
                 startActivity(context, browserIntent, null)
             }
         }
+    }
+    fun process(context: Context, url: Uri) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()))
+        startActivity(context, browserIntent, null)
     }
 }

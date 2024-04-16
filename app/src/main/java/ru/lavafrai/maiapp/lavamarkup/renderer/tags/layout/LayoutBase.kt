@@ -4,11 +4,13 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import org.jsoup.nodes.Node
 import ru.lavafrai.maiapp.lavamarkup.renderer.tags.Base
 
@@ -29,6 +31,7 @@ abstract class LayoutBase : Base() {
 
         if (node.hasAttr("scroll") && type == LayoutBaseType.Horizontal) modifier = modifier.horizontalScroll(rememberScrollState())
         if (node.hasAttr("scroll") && type == LayoutBaseType.Vertical) modifier = modifier.verticalScroll(rememberScrollState())
+        if (node.hasAttr("padding")) modifier = modifier.padding((node.attr("padding").toIntOrNull() ?: 0).dp)
 
         return modifier
     }

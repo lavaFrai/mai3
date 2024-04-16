@@ -21,6 +21,7 @@ data class Settings (
     var lastNotifiedUpgrade: String? = null,
     var isTeacherMode: Boolean = false,
     var isApplicantMode: Boolean = false,
+    var apiUrl: String? = null,
 ) {
     fun save() {
         val settingsFile = File(filesPath, settingsFileName)
@@ -122,6 +123,16 @@ data class Settings (
         fun setLastNotifiedUpgrade(value: String) {
             val settings = Settings.getInstance()
             settings.lastNotifiedUpgrade = value
+            settings.save()
+        }
+
+        fun getApiUrl(): String? {
+            return Settings.getInstance().apiUrl
+        }
+
+        fun setApiUrl(value: String) {
+            val settings = Settings.getInstance()
+            settings.apiUrl = value
             settings.save()
         }
     }

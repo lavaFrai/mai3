@@ -79,6 +79,7 @@ import ru.lavafrai.maiapp.data.localizers.localized
 import ru.lavafrai.maiapp.ui.fragments.button.DangerButton
 import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.properties.PropertyBoolean
+import ru.lavafrai.maiapp.ui.fragments.properties.PropertyString
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.utils.analyzeName
 import ru.lavafrai.maiapp.utils.readableFileSize
@@ -188,6 +189,12 @@ fun SettingsSwitchesPage() {
                     stringResource(id = R.string.use_server_cache),
                     isSet = isUseServerCache,
                 ) { Settings.setUseServerCache(it); isUseServerCache = Settings.isUseServerCache() }
+
+                var apiUrl by remember { mutableStateOf(Settings.getApiUrl() ?: "https://mai3.lavafrai.ru/") }
+                PropertyString(
+                    stringResource(id = R.string.api_url),
+                    value = apiUrl
+                ) { Settings.setApiUrl(it) ; apiUrl = it }
             }
         }
     }

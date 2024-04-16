@@ -10,7 +10,6 @@ import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.TeacherId
 import ru.lavafrai.mai.api.models.time.Date
 import ru.lavafrai.mai.api.network.TolerantJson
-import ru.lavafrai.maiapp.data.API_URL
 import ru.lavafrai.maiapp.data.COOKIES_CONSTANT
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.data.models.LessonAnnotation
@@ -77,10 +76,11 @@ object LocalApi {
 
     private fun getEndpointAsPlainText(endpoint: String): String? {
         if (!Settings.isUseServerCache()) return null
+        val apiUrl = Settings.getApiUrl() ?: "https://mai3.lavafrai.ru/"
 
         return try {
             val response = Jsoup
-                .connect("$API_URL/$endpoint")
+                .connect("$apiUrl/$endpoint")
                 .timeout(600 * 1000)
                 .header("Cookie", COOKIES_CONSTANT)
                 .validateTLSCertificates(false)

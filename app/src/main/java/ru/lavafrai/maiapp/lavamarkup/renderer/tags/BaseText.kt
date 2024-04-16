@@ -12,6 +12,6 @@ object BaseText : Base() {
 
     @Composable
     override fun View(node: Node) {
-        if ((node as TextNode).text().isNotBlank()) Text((node as TextNode).text())
+        if ((node as TextNode).text().isNotBlank()) Text((node as TextNode).text().ifBlank { "" })
     }
 }

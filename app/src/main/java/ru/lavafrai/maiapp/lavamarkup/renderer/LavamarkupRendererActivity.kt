@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import ru.lavafrai.mai.api.network.getPage
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
-import ru.lavafrai.maiapp.utils.LoadableContentView
+import ru.lavafrai.maiapp.ui.utils.LoadableContentView
 
 class LavamarkupRendererActivity : ComponentActivity() {
     companion object {
@@ -46,12 +46,10 @@ class LavamarkupRendererActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val localResource = intent.extras?.getInt(ExtraKeys.resource)
+        val localResource = intent.extras?.getInt(ExtraKeys.resource).takeIf { it != 0 }
         val urlResource = intent.extras?.getString(ExtraKeys.url)
 
         setContent {
-            //
-
             MAI30Theme {
                 Surface(
                     modifier = Modifier

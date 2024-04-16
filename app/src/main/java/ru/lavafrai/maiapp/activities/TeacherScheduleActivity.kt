@@ -19,7 +19,7 @@ import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
-import ru.lavafrai.maiapp.utils.LoadableContent
+import ru.lavafrai.maiapp.ui.utils.LoadableContent
 
 class TeacherScheduleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

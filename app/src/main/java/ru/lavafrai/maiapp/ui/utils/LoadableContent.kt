@@ -1,9 +1,10 @@
-package ru.lavafrai.maiapp.utils
+package ru.lavafrai.maiapp.ui.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import ru.lavafrai.maiapp.ui.fragments.network.NetworkErrorView
 import ru.lavafrai.maiapp.ui.fragments.network.NetworkLoadingView
+import ru.lavafrai.maiapp.utils.withMainContext
 import kotlin.concurrent.thread
 
 class LoadableContent<T> (

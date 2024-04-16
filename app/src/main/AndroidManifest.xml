@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MAI30"
         tools:targetApi="30"
-        android:appCategory="productivity">
+        android:appCategory="productivity"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".activities.MainActivity"

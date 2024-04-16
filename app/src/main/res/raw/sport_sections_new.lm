@@ -1,0 +1,631 @@
+<body>
+    <space height="56" />
+    <row>
+        <space height="16" />
+        <action type="close">
+            <icon type="arrowback" />
+        </action>
+        <space />
+        <header>Спортивные секции</header>
+    </row>
+    <space height="16" />
+    <hr />
+
+    <column scroll="true">
+        <space height="8" />
+
+        <column padding="8">
+            <rich>
+                <f size="20">Спорткомплекс МАИ №4</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="secondary70">
+                    <f size="18">Зал тяжёлой атлетики<br />ул. Дубосековская, д.5
+                    </f>
+                </c>
+            </rich>
+            <space />
+        </column>
+
+        <card>
+            <rich>
+                <f size="18">Пауэрлифтинг, жим лежа, силовая подготовка</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Сергей Митрофанович Косарев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 903 176-56-09">
+                <icon type="phone" />
+                +7 903 176-56-09
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Тяжелая атлетика, силовая подготовка</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Олег Юрьевич Зайцев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 499 158-44-75">
+                <icon type="phone" />
+                +7 499 158-44-75
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Гиревой спорт, силовая подготовка</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Александр Иванович Тарасов</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 906 762-04-23">
+                <icon type="phone" />
+                +7 906 762-04-23
+            </button>
+        </card>
+
+        <space height="16" />
+
+        <space height="8" />
+
+        <column padding="8">
+            <rich>
+                <f size="20">Спорткомплекс МАИ №2</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="secondary70">
+                    <f size="18">ул. Константина Царева, д. 10а</f>
+                </c>
+            </rich>
+            <space />
+        </column>
+
+        <card>
+            <rich>
+                <f size="18">Перетягивание каната</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Алексей Александрович Мерзликин</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 903 664-93-14">
+                <icon type="phone" />
+                +7 903 664-93-14
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Мини-футбол, футбол (м, ж)</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Сергей Евгеньевич Исаев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 587-46-74">
+                <icon type="phone" />
+                +7 916 587-46-74
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Шахматы</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Иван Владимирович Ильичев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 977 283-22-63">
+                <icon type="phone" />
+                +7 977 283-22-63
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Гандбол</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Михаил Сергеевич Чаусов</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 910 434-58-77">
+                <icon type="phone" />
+                +7 910 434-58-77
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Теннис</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Юрий Валерьевич Краев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 499 158-57-58">
+                <icon type="phone" />
+                +7 499 158-57-58
+            </button>
+        </card>
+
+        <space height="16" />
+
+        <space height="8" />
+
+        <column padding="8">
+            <rich>
+                <f size="20">Прочие секции</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="secondary70">
+                    <f size="18">---</f>
+                </c>
+            </rich>
+            <space />
+        </column>
+
+        <card>
+            <rich>
+                <f size="18">Баскетбол</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Светлана Викторовна Волохова</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 903 926-14-94">
+                <icon type="phone" />
+                +7 903 926-14-94
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Легкая атлетика</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Марина Игоревна Филатова</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 335-19-27">
+                <icon type="phone" />
+                +7 916 335-19-27
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Спортивное ориентирование</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Алексей Вениаминович Огрызков</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 518-89-03">
+                <icon type="phone" />
+                +7 916 518-89-03
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Специальная медицинская группа (для студентов с ограничениями по
+                    физнагрузке)
+                </f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Наталья Юрьевна Тарабрина</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 915 045-45-42">
+                <icon type="phone" />
+                +7 915 045-45-42
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Плавание</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Наталья Владимировна Изюмова</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 903 748-45-43">
+                <icon type="phone" />
+                +7 903 748-45-43
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Регби, регби-7</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Валерий Петрович Хроменков</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 905 739-33-88">
+                <icon type="phone" />
+                +7 905 739-33-88
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Хоккей</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Александр Сергеевич Фомин</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 903 119-93-62">
+                <icon type="phone" />
+                +7 903 119-93-62
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Авиамодельный спорт</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Игорь Витальевич Трифонов</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 477-77-10">
+                <icon type="phone" />
+                +7 916 477-77-10
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Киберспорт</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Артем Смоляков</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 910 262-69-33">
+                <icon type="phone" />
+                +7 910 262-69-33
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Студия танца "TESTA": брейкданс и современный эстрадный танец</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Ирина Викторовна Беда</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 985 275-88-11">
+                <icon type="phone" />
+                +7 985 275-88-11
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Подводное плавание</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Сергей Петрович Царёв</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 425-65-24">
+                <icon type="phone" />
+                +7 916 425-65-24
+            </button>
+        </card>
+
+        <space height="16" />
+
+        <space height="8" />
+
+        <column padding="8">
+            <rich>
+                <f size="20">"Черепаха" МАИ</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="secondary70">
+                    <f size="18">Спортивный комплекс МАИ №1, корпус №12</f>
+                </c>
+            </rich>
+            <space />
+        </column>
+
+        <card>
+            <rich>
+                <f size="18">MMA, карате, рукопашный бой</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Сергей Вячеславович Шатунов</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 656-41-62">
+                <icon type="phone" />
+                +7 916 656-41-62
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Академическая гребля</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Виталий Михайлович Елисеев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 063-45-55">
+                <icon type="phone" />
+                +7 916 063-45-55
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Волейбол</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Анатолий Всильевич Тихонов</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 903 120-51-16">
+                <icon type="phone" />
+                +7 903 120-51-16
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Бадминтон</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Борис Валентинович Казбеков</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 916 705-10-30">
+                <icon type="phone" />
+                +7 916 705-10-30
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Аэробика</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Настольный теннис</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 985 721-30-54">
+                <icon type="phone" />
+                +7 985 721-30-54
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Чирлидинг</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Ольга Тарасовна Кравец</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 929 520-66-40">
+                <icon type="phone" />
+                +7 929 520-66-40
+            </button>
+        </card>
+
+        <space height="16" />
+
+        <space height="8" />
+
+        <column padding="8">
+            <rich>
+                <f size="20">Спорткомплекс МАИ №3</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="secondary70">
+                    <f size="18">Универсальный спортивный зал, зал бокса, тир, корпус №3</f>
+                </c>
+            </rich>
+            <space />
+        </column>
+
+        <card>
+            <rich>
+                <f size="18">Бокс</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Анатолий Сергеевич Шпилев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 929 512-88-20">
+                <icon type="phone" />
+                +7 929 512-88-20
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Пулевая стрельба</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Светлана Михайловна Воробьева</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 499 158-06-03">
+                <icon type="phone" />
+                +7 499 158-06-03
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Спортивный туризм</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Андрей Александрович Лебедев</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 926 626-47-54">
+                <icon type="phone" />
+                +7 926 626-47-54
+            </button>
+        </card>
+
+        <card>
+            <rich>
+                <f size="18">Вольная, греко-римская борьба, дзюдо, самбо</f>
+            </rich>
+            <space />
+
+            <rich>
+                <c color="primary">Евгений Яковлевич Крупник</c>
+            </rich>
+            <space />
+            <space />
+
+            <button href="tel: +7 910 431-86-88">
+                <icon type="phone" />
+                +7 910 431-86-88
+            </button>
+        </card>
+
+        <space height="42"/>
+
+    </column>
+</body>
