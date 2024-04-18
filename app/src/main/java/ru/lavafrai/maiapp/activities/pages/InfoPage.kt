@@ -104,10 +104,12 @@ fun InfoPage() {
         ),
     )
 
+    val isTeacher = Settings.isTeacherMode()
     PageTitle (title = stringResource(id = R.string.information), padded = false) {
         LazyColumn {
             items(campusCategories) { item ->
                 if (item.second != null && item.third != null) {
+                    if (item.first == stringResource(id = R.string.about_teachers) && isTeacher) return@items
                     InfoCategory(item.first, item.second, item.third, item.fourth!!)
                 } else {
                     InfoHeader(item.first)
