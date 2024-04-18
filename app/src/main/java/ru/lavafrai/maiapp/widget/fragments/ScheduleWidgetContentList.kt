@@ -65,7 +65,7 @@ fun WidgetContentDay(date: Calendar, context: Context, schedule: Schedule, annot
         Spacer(GlanceModifier.height(8.dp))
 
         Column {
-            daySchedule.lessons.forEach { lesson ->
+            daySchedule.lessons.sortedBy { it.getPairNumber() }.forEach { lesson ->
                 WidgetLessonView(lesson, context, annotations.filter { it.lessonUid == lesson.getUid() })
             }
             if (daySchedule.lessons.isEmpty()) {

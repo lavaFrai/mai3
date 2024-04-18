@@ -1,6 +1,7 @@
 package ru.lavafrai.maiapp.activities
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -56,6 +57,7 @@ import ru.lavafrai.maiapp.ui.fragments.network.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.utils.CustomTabs
 import ru.lavafrai.maiapp.utils.Hypertext
+import ru.lavafrai.maiapp.utils.LockScreenOrientation
 import ru.lavafrai.maiapp.utils.toHypertext
 import ru.lavafrai.maiapp.utils.withMainContext
 import kotlin.concurrent.thread
@@ -70,6 +72,7 @@ class TeacherActivity : ComponentActivity() {
         teacher = Json.decodeFromString(intent.extras?.getString("teacher")!!)
 
         setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TeacherView(teacher)
         }
     }

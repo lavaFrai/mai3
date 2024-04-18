@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,6 +43,7 @@ import ru.lavafrai.maiapp.ui.fragments.dialogs.NetworkErrorDialog
 import ru.lavafrai.maiapp.ui.fragments.network.NetworkErrorView
 import ru.lavafrai.maiapp.ui.fragments.network.NetworkLoadingView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
+import ru.lavafrai.maiapp.utils.LockScreenOrientation
 import ru.lavafrai.maiapp.utils.safeSubList
 import kotlin.concurrent.thread
 
@@ -59,6 +61,7 @@ abstract class SearchActivity<T> : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             MAI30Theme {
                 MainView()
             }

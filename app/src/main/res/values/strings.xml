@@ -170,5 +170,5 @@
     <string name="student">Student</string>
     <string name="teacher">Teacher</string>
     <string name="applicant">Applicant</string>
-    <string name="api_url">API URL</string>
+    <string name="api_url" translatable="false">API URL</string>
 </resources>

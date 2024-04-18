@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -44,6 +45,7 @@ import ru.lavafrai.maiapp.systems.permissions.PermissionsSystem
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationBar
 import ru.lavafrai.maiapp.ui.fragments.MainNavigationVariants
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
+import ru.lavafrai.maiapp.utils.LockScreenOrientation
 import ru.lavafrai.maiapp.utils.encodeToFile
 import ru.lavafrai.maiapp.widget.ScheduleWidget
 import java.io.File
@@ -55,6 +57,7 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         enableEdgeToEdge()
 
         super.onCreate(savedInstanceState)
@@ -84,6 +87,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             val isDarkTheme = remember { mutableStateOf<Boolean?>(Settings.getIsDarkTheme()) }
             val isDynamicColors = rememberSaveable { mutableStateOf(Settings.isDynamicColors()) }
             val currentGroup = remember { mutableStateOf(Settings.getCurrentGroup()) }

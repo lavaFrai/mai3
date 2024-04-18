@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,7 @@ import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.schedule.ScheduleView
 import ru.lavafrai.maiapp.ui.theme.MAI30Theme
 import ru.lavafrai.maiapp.ui.utils.LoadableContent
+import ru.lavafrai.maiapp.utils.LockScreenOrientation
 
 class TeacherScheduleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +31,7 @@ class TeacherScheduleActivity : ComponentActivity() {
         val teacherName = intent.extras!!.getString(ExtraKeys.Teacher, "Сыч Сычов Сычович")
 
         setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             val scope = rememberCoroutineScope()
 
             MAI30Theme {
@@ -37,6 +40,7 @@ class TeacherScheduleActivity : ComponentActivity() {
                     .background(MaterialTheme.colorScheme.background)
                 ) {
                     PageTitle(
+                        backButton = true,
                         title = stringResource(id = R.string.schedule),
                         secondText = teacherName
                     ) {
