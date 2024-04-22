@@ -46,7 +46,7 @@ class InfoListViewActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val title = extras?.getString("title") ?: "Unknown category"
-        val resourceId = extras?.getInt("resource") ?: R.raw.sport_sections
+        val resourceId = extras?.getInt("resource") ?: R.raw.students_organizations
 
         setContent {
             MAI30Theme {
@@ -57,7 +57,7 @@ class InfoListViewActivity: ComponentActivity() {
 
     @Preview
     @Composable
-    fun MainView(title: String = "Category name", resourceId: Int = R.raw.sport_sections) {
+    fun MainView(title: String = "Category name", resourceId: Int = R.raw.students_organizations) {
         val context = LocalContext.current
         val infoItems = Json{ ignoreUnknownKeys = true }.decodeFromStream<List<InfoListItemData>>(context.resources.openRawResource(resourceId))
 
