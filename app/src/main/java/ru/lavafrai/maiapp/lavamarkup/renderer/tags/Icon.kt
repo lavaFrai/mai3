@@ -654,7 +654,7 @@ object Icon : Base() {
             "keyboardarrowright" -> Icons.Filled.KeyboardArrowRight
             "keyboardarrowup" -> Icons.Filled.KeyboardArrowUp
             "list" -> Icons.Filled.List
-            "locationon" -> Icons.Filled.LocationOn
+            "location" -> Icons.Filled.LocationOn
             "lock" -> Icons.Filled.Lock
             "mailoutline" -> Icons.Outlined.MailOutline
             "menu" -> Icons.Filled.Menu

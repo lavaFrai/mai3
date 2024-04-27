@@ -62,14 +62,14 @@ fun InfoPage() {
         Quadtuple(
             stringResource(id = R.string.canteens_and_buffets),
             LineAwesomeIcons.CoffeeSolid,
-            R.raw.cafeteries,
-            InfoListViewActivity::class.java
+            "cafeteries",
+            LavamarkupRendererActivity::class.java
         ),
         Quadtuple(
             stringResource(id = R.string.libraries),
             LineAwesomeIcons.BookOpenSolid,
-            R.raw.libraries,
-            InfoListViewActivity::class.java
+            "libraries",
+            LavamarkupRendererActivity::class.java
         ),
         Quadtuple(stringResource(id = R.string.live), null, null, null),
         Quadtuple(
@@ -93,14 +93,14 @@ fun InfoPage() {
         Quadtuple(
             stringResource(id = R.string.creative_teams),
             LineAwesomeIcons.PaletteSolid,
-            R.raw.creative_teams,
-            InfoListViewActivity::class.java
+            "creative_teams",
+            LavamarkupRendererActivity::class.java
         ),
         Quadtuple(
             stringResource(id = R.string.students_organizations),
             LineAwesomeIcons.UserFriendsSolid,
-            R.raw.students_organizations,
-            InfoListViewActivity::class.java
+            "students_organizations" ,
+            LavamarkupRendererActivity::class.java
         ),
     )
 

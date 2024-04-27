@@ -28,10 +28,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import ru.lavafrai.mai.api.models.InfoListItemData
-import ru.lavafrai.maiapp.R
 import ru.lavafrai.maiapp.ui.fragments.InfoCard
 import ru.lavafrai.maiapp.ui.fragments.InfoHeader
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
@@ -46,7 +46,7 @@ class InfoListViewActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val title = extras?.getString("title") ?: "Unknown category"
-        val resourceId = extras?.getInt("resource") ?: R.raw.students_organizations
+        val resourceId = extras?.getInt("resource") ?: 0
 
         setContent {
             MAI30Theme {
@@ -55,9 +55,10 @@ class InfoListViewActivity: ComponentActivity() {
         }
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Preview
     @Composable
-    fun MainView(title: String = "Category name", resourceId: Int = R.raw.students_organizations) {
+    fun MainView(title: String = "Category name", resourceId: Int = 0) {
         val context = LocalContext.current
         val infoItems = Json{ ignoreUnknownKeys = true }.decodeFromStream<List<InfoListItemData>>(context.resources.openRawResource(resourceId))
 
