@@ -27,6 +27,7 @@ class GroupSelectActivity : SearchActivity<Group>() {
             ReturnType.AddNewGroupAndOpenMainActivity -> {
                 Settings.setCurrentGroup(selected)
                 Settings.setTeacherMode(false)
+                Settings.setApplicantMode(false)
 
                 startActivity(
                     Intent(

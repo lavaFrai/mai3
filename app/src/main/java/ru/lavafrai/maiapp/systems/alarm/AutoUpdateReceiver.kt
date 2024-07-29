@@ -22,7 +22,6 @@ class AutoUpdateReceiver: BroadcastReceiver() {
             try {
                 val request = Jsoup
                     .connect(ACTUAL_VERSION_INFO_URL)
-                    .validateTLSCertificates(false)
                     .ignoreContentType(true)
                     .execute()
                 Log.i(javaClass.name, request.body())

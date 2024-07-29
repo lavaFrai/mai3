@@ -555,6 +555,7 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
                     MainActivity.manualRecompose()
                 }, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Default.Refresh, null)
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(stringResource(id = R.string.redownload_schedule))
                 }
 
@@ -565,6 +566,7 @@ fun SettingsGroupCard(group: Group = Group("М14О-102БВ-23"), scheduleManager
                     context.startActivity(intent, null)
                 }, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Default.Add, null)
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(stringResource(id = R.string.add_group))
                 }
             }

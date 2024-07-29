@@ -117,13 +117,13 @@ class StartActivity : ComponentActivity() {
                                 text = stringResource(id = R.string.teacher)
                             )
 
-                            LocalButton(
+                            /*LocalButton(
                                 onClick = {
                                     Settings.setApplicantMode(true)
                                     openApplicantMode()
                                 },
                                 text = stringResource(id = R.string.applicant)
-                            )
+                            )*/
                         }
 
                         Text(
@@ -156,6 +156,11 @@ class StartActivity : ComponentActivity() {
     }
 
     private fun openApplicantMode() {
-        /* TODO: open applicant mode */
+        val intent = Intent(
+            this@StartActivity,
+            ApplicantActivity::class.java
+        )
+        startActivity(intent)
+        finish()
     }
 }

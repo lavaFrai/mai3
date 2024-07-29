@@ -11,8 +11,6 @@ import io.appmetrica.analytics.AppMetricaConfig
 import ru.lavafrai.maiapp.data.Settings
 import ru.lavafrai.maiapp.systems.AppSystemName
 import ru.lavafrai.maiapp.systems.MaiAppSystem
-import ru.lavafrai.maiapp.systems.alarm.AutoUpdateSystem
-import ru.lavafrai.maiapp.systems.notification.NotificationSystem
 import ru.lavafrai.maiapp.systems.permissions.PermissionsSystem
 import java.io.File
 
@@ -21,15 +19,13 @@ class Mai3 : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        if (BuildConfig.APP_METRIKA_API_KEY != null) {
-            val config = AppMetricaConfig
-                .newConfigBuilder(BuildConfig.APP_METRIKA_API_KEY)
-                .withAppVersion(BuildConfig.VERSION_NAME)
-                .withCrashReporting(true)
-                .withLocationTracking(true)
-                .build()
-            AppMetrica.activate(this, config)
-        }
+        val config = AppMetricaConfig
+            .newConfigBuilder(BuildConfig.APP_METRIKA_API_KEY)
+            .withAppVersion(BuildConfig.VERSION_NAME)
+            .withCrashReporting(true)
+            .withLocationTracking(true)
+            .build()
+        AppMetrica.activate(this, config)
 
         Settings.init(this)
         filesPath = getExternalFilesDir(null)!!
@@ -40,8 +36,8 @@ class Mai3 : Application() {
         }
 
         systems = mapOf<AppSystemName, MaiAppSystem>(
-            AppSystemName.AUTO_UPDATE to AutoUpdateSystem(),
-            AppSystemName.NOTIFICATIONS to NotificationSystem(),
+            // AppSystemName.AUTO_UPDATE to AutoUpdateSystem(),
+            // AppSystemName.NOTIFICATIONS to NotificationSystem(),
             AppSystemName.PERMISSIONS to PermissionsSystem(),
         )
 

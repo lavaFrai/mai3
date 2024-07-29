@@ -1,6 +1,12 @@
 package ru.lavafrai.maiapp.widget.fragments
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -16,13 +22,17 @@ import androidx.glance.unit.ColorProvider
 import ru.lavafrai.maiapp.widget.WidgetColors
 
 @Composable
-fun Separator() {
+fun GlanceSeparator() {
     Box(modifier = GlanceModifier.fillMaxWidth().background(WidgetColors.ON_BACKGROUND).height(0.5f.dp).padding(8.dp)) {}
 }
 
+@Composable
+fun Separator() {
+    androidx.compose.foundation.layout.Box(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)).height(0.5f.dp).padding(8.dp)) {}
+}
 
 @Composable
-fun SecondarySeparator() {
+fun GlanceSecondarySeparator() {
     Box(modifier = GlanceModifier.fillMaxWidth().background(WidgetColors.SECONDARY).height(1f.dp).padding(8.dp)) {}
 }
 

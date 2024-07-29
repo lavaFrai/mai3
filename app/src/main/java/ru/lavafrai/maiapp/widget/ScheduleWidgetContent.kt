@@ -44,13 +44,18 @@ fun ScheduleWidgetContent(context: Context) {
         .padding(8.dp)
         .clickable( actionStartActivity<MainActivity>() )
     ) {
-        if (scheduleManager.hasActualScheduleDownloaded()) {
-            val schedule = scheduleManager.getActualSchedule()!!
-            val annotations = LocalApi.getLessonAnnotations(context, Settings.getCurrentGroup()!!)
+        if (Settings.getCurrentGroup() != null) {
+            if (scheduleManager.hasActualScheduleDownloaded()) {
+                val schedule = scheduleManager.getActualSchedule()!!
+                val annotations =
+                    LocalApi.getLessonAnnotations(context, Settings.getCurrentGroup()!!)
 
-            WidgetScheduleView(context, schedule, annotations)
+                WidgetScheduleView(context, schedule, annotations)
+            } else {
+                WidgetScheduleNotDownloaded(context)
+            }
         } else {
-            WidgetScheduleNotDownloaded(context)
+            WidgetRequiresStudentMode(context)
         }
     }
 }
@@ -74,6 +79,20 @@ fun WidgetScheduleNotDownloaded(context: Context) {
     ) {
         WidgetText(text = context.resources.getString(R.string.widget_schedule_not_exist_1))
         WidgetText(text = context.resources.getString(R.string.widget_schedule_not_exist_2))
+        Spacer(modifier = GlanceModifier.height(16.dp))
+        Button(text = context.resources.getString(R.string.refresh), onClick = actionRunCallback<RefreshUnloadedScheduleAction>())
+    }
+}
+
+@Composable
+fun WidgetRequiresStudentMode(context: Context) {
+    Column(modifier = GlanceModifier
+        .fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        WidgetText(text = context.resources.getString(R.string.widget_requires_student_mode_1))
+        WidgetText(text = context.resources.getString(R.string.widget_requires_student_mode_2))
         Spacer(modifier = GlanceModifier.height(16.dp))
         Button(text = context.resources.getString(R.string.refresh), onClick = actionRunCallback<RefreshUnloadedScheduleAction>())
     }

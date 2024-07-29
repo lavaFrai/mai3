@@ -21,6 +21,7 @@ data class Settings (
     var lastNotifiedUpgrade: String? = null,
     var isTeacherMode: Boolean = false,
     var isApplicantMode: Boolean = false,
+    var applicantId: String? = null,
     var apiUrl: String? = null,
 ) {
     fun save() {
@@ -103,6 +104,16 @@ data class Settings (
         fun setApplicantMode(value: Boolean) {
             val settings = Settings.getInstance()
             settings.isApplicantMode = value
+            settings.save()
+        }
+
+        fun getApplicantId(): String? {
+            return Settings.getInstance().applicantId
+        }
+
+        fun setApplicantId(value: String) {
+            val settings = Settings.getInstance()
+            settings.applicantId = value
             settings.save()
         }
 

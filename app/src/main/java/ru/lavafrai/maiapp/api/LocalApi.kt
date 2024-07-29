@@ -83,7 +83,6 @@ object LocalApi {
                 .connect("$apiUrl/$endpoint")
                 .timeout(600 * 1000)
                 .header("Cookie", COOKIES_CONSTANT)
-                .validateTLSCertificates(false)
                 .execute()
                 .body()
 

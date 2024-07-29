@@ -50,8 +50,9 @@
             android:theme="@style/Theme.MAI30">
         </activity>
 
+
         <activity
-            android:name=".activities.UpgradeActivity"
+            android:name=".activities.ApplicantActivity"
             android:exported="true"
             android:theme="@style/Theme.MAI30">
         </activity>

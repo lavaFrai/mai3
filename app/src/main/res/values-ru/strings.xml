@@ -170,4 +170,25 @@
     <string name="student">Студент</string>
     <string name="teacher">Преподаватель</string>
     <string name="applicant">Абитуриент</string>
+
+    <string name="im_student">Я теперь студент!</string>
+    <string name="select_group">Выбрать группу</string>
+    <string name="student_mode_title">Поздравляем!</string>
+    <string name="student_mode_text">Добро пожаловать в МАИ! Это приложение поможет вам в будущей учебной жизни! Сейчас нужно будет выбрать вашу учебную группу, чтобы начать пользоваться всем функционалом.\nВозможно, расписание еще не доступно. Если это так, перейдите в режим студента немного позже. Обычно оно появляется в последние недели августа.</string>
+    <string name="widget_requires_student_mode_1">Виджет доступен студентам</string>
+    <string name="widget_requires_student_mode_2">Введите группу в приложении</string>
+
+    <string name="account">Профиль</string>
+    <string name="login">логин</string>
+    <string name="password">пароль</string>
+    <string name="signIn">Войти</string>
+    <string name="officialAccountLoginInfo">Пожалуйста, введите данные для авторизации на сайте my.mai.ru\nВсе учетные данные будут храниться локально на вашем устройстве, будут доступны только вам и не будут отправлены на сервера приложений.</string>
+    <string name="group">Группа</string>
+    <string name="speciality">Специальность</string>
+    <string name="signOut">Выйти</string>
+    <string name="doYouWantToSignOut">Вы уверены что хотите выйти из аккаунта?</string>
+    <string name="semester">Семестр</string>
+    <string name="error">ошибка</string>
+    <string name="accountNetworkError">При получении информации произошла ошибка с кодом %e.\nВероятно, ошибка вызвана плохим соединением с сетью или проблемами с оффициальными серверами МАИ. Попробуйте перезагрузить приложение или выйти из аккаунта и войти повторно. Если ошибка воспроизводится на протяжении долгого времени, обратитесь к разработчику за помощью.</string>
+    <string name="copyTraceback">Копировать stacktrace</string>
 </resources>

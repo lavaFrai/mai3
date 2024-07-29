@@ -61,6 +61,6 @@ fun ScheduleWidgetHeader(context: Context) {
             }
         }
         Spacer(GlanceModifier.height(4.dp))
-        Separator()
+        GlanceSeparator()
     }
 }

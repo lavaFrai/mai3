@@ -171,4 +171,25 @@
     <string name="teacher">Teacher</string>
     <string name="applicant">Applicant</string>
     <string name="api_url" translatable="false">API URL</string>
+
+    <string name="im_student">I\'m student now!</string>
+    <string name="select_group">Select group</string>
+    <string name="student_mode_title">Congratulations!</string>
+    <string name="student_mode_text">Welcome to MAI! This application will help you in your future academic life!</string>
+    <string name="widget_requires_student_mode_1">Widget requires student mode</string>
+    <string name="widget_requires_student_mode_2">Enter your group number in app to use the widget</string>
+
+    <string name="account">Account</string>
+    <string name="login">login</string>
+    <string name="password">password</string>
+    <string name="signIn">Sign in</string>
+    <string name="officialAccountLoginInfo">Please enter the authorization data from your account on the website my.mai.ru\nAll credentials will be stored locally on your device and will not be sent to the applications servers.</string>
+    <string name="group">Group</string>
+    <string name="speciality">Speciality</string>
+    <string name="signOut">Sign out</string>
+    <string name="doYouWantToSignOut">Do you really want to sign out?</string>
+    <string name="semester">Semester</string>
+    <string name="error">error</string>
+    <string name="accountNetworkError">An error occurred with the code %e when receiving the information. \nThe error is probably caused by a poor network connection or problems with the official MAI servers. Try restarting the app or logging out of your account and logging in again. If the error persists for a long time, contact the developer for help.</string>
+    <string name="copyTraceback">Copy stacktrace</string>
 </resources>

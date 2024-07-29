@@ -1,5 +1,6 @@
 package ru.lavafrai.maiapp.activities
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Looper
@@ -37,6 +38,7 @@ import ru.lavafrai.maiapp.activities.pages.ExamsPage
 import ru.lavafrai.maiapp.activities.pages.InfoPage
 import ru.lavafrai.maiapp.activities.pages.SchedulePage
 import ru.lavafrai.maiapp.activities.pages.SettingsPage
+import ru.lavafrai.maiapp.activities.pages.account.OfficialAccountPage
 import ru.lavafrai.maiapp.api.LocalApi
 import ru.lavafrai.maiapp.data.ScheduleManager
 import ru.lavafrai.maiapp.data.Settings
@@ -57,7 +59,6 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         enableEdgeToEdge()
 
         super.onCreate(savedInstanceState)
@@ -69,6 +70,11 @@ class MainActivity : ComponentActivity() {
             }
         }
         updateWidget()
+
+        if (Settings.isApplicantMode()) {
+            openApplicantMode()
+            return
+        }
 
         var schedule: MutableState<Schedule?> = mutableStateOf(null as Schedule?)
         val scheduleLoaded = mutableStateOf<Boolean?>(null)
@@ -134,6 +140,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private fun openApplicantMode() {
+        val intent = Intent(this, ApplicantActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun updateScheduleAsync(schedule: MutableState<Schedule?>, after: (Schedule) -> Unit = {}) {
         // Toast.makeText(this, "updating schedule", Toast.LENGTH_SHORT).show()
         val group = Settings.getCurrentGroup() ?: return
@@ -192,6 +204,7 @@ class MainActivity : ComponentActivity() {
                         MainNavigationVariants.EXAMS -> ExamsPage(currentGroup.value, schedule, scheduleLoaded, weekSchedule, exler, )
                         MainNavigationVariants.SETTINGS -> SettingsPage(currentGroup.value!!)
                         MainNavigationVariants.INFO -> InfoPage()
+                        MainNavigationVariants.ACCOUNT -> OfficialAccountPage()
                         else -> {}
                     }
                 }

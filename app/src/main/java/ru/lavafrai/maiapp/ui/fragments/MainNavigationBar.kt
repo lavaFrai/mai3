@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import compose.icons.SimpleIcons
 import compose.icons.simpleicons.Mediafire
 import ru.lavafrai.maiapp.R
+import ru.lavafrai.maiapp.data.Settings
 
 
 enum class MainNavigationVariants {
@@ -30,6 +32,7 @@ enum class MainNavigationVariants {
     SETTINGS,
     EXAMS,
     INFO,
+    ACCOUNT,
 }
 
 
@@ -60,7 +63,7 @@ fun NavigationItemsHorizontal(
         Row {
             NavigationBarItem(
                 selected = selected.intValue == 2,
-                label = { Text(stringResource(id = R.string.info)) },
+                // label = { Text(stringResource(id = R.string.info)) },
                 onClick = {
                     selected.intValue = 2
                     onSelectionChanged(MainNavigationVariants.INFO)
@@ -71,7 +74,7 @@ fun NavigationItemsHorizontal(
 
             NavigationBarItem(
                 selected = selected.intValue == 4,
-                label = { Text(stringResource(id = R.string.important)) },
+                // label = { Text(stringResource(id = R.string.important)) },
                 onClick = {
                     selected.intValue = 4
                     onSelectionChanged(MainNavigationVariants.EXAMS)
@@ -82,7 +85,7 @@ fun NavigationItemsHorizontal(
 
             NavigationBarItem(
                 selected = selected.intValue == 0,
-                label = { Text(stringResource(id = R.string.schedule)) },
+                // label = { Text(stringResource(id = R.string.schedule)) },
                 onClick = {
                     selected.intValue = 0
                     onSelectionChanged(MainNavigationVariants.SCHEDULE)
@@ -91,9 +94,20 @@ fun NavigationItemsHorizontal(
                 alwaysShowLabel = false
             )
 
+            if (!Settings.isTeacherMode()) NavigationBarItem(
+                selected = selected.intValue == 5,
+                // label = { Text(stringResource(id = R.string.account)) },
+                onClick = {
+                    selected.intValue = 5
+                    onSelectionChanged(MainNavigationVariants.ACCOUNT)
+                },
+                icon = { Icon(Icons.Default.Person, null) },
+                alwaysShowLabel = false
+            )
+
             NavigationBarItem(
                 selected = selected.intValue == 1,
-                label = { Text(stringResource(id = R.string.settings)) },
+                // label = { Text(stringResource(id = R.string.settings)) },
                 onClick = {
                     selected.intValue = 1
                     onSelectionChanged(MainNavigationVariants.SETTINGS)
