@@ -14,6 +14,12 @@ val MaiColor = Color(0xff148fe6)
 val MaiColorDark = Color(0xFF21325b)
 val MaiColorLight = Color(0xFF7DCCFA)
 
+val MarkGreenColor = Color(0xFF7fce51)
+val MarkYellowColor = Color(0xFFc0d242)
+val MarkOrangeColor = Color(0xFFf89f3c)
+val MarkRedColor = Color(0xFFe4726a)
+val MarkTextColor = Color(0xFFffffff)
+
 val md_theme_light_primary = Color(0xFF006398)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFCDE5FF)
@@ -75,6 +81,5 @@ val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFF93CCFF)
 val md_theme_dark_outlineVariant = Color(0xFF42474E)
 val md_theme_dark_scrim = Color(0xFF000000)
-
 
 val seed = Color(0xFF008BD2)

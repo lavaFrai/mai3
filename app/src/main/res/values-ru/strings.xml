@@ -191,4 +191,11 @@
     <string name="error">ошибка</string>
     <string name="accountNetworkError">При получении информации произошла ошибка с кодом %e.\nВероятно, ошибка вызвана плохим соединением с сетью или проблемами с оффициальными серверами МАИ. Попробуйте перезагрузить приложение или выйти из аккаунта и войти повторно. Если ошибка воспроизводится на протяжении долгого времени, обратитесь к разработчику за помощью.</string>
     <string name="copyTraceback">Копировать stacktrace</string>
+
+    <string name="test">Зачет</string>
+    <string name="testWithAssessment">Зачет с оценкой</string>
+    <string name="rating">Рейтинг</string>
+    <string name="fromNAttempt">Со %n попытки</string>
+    <string name="academicDebt">Долг</string>
+    <string name="hours">часов</string>
 </resources>

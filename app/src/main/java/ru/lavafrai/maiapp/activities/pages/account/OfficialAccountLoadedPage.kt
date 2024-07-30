@@ -3,8 +3,12 @@ package ru.lavafrai.maiapp.activities.pages.account
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.expandVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -14,10 +18,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,6 +45,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.LogOut
+import ru.lavafrai.mai.api.capitalizeWords
 import ru.lavafrai.mai.api.models.Mark
 import ru.lavafrai.mai.api.models.Person
 import ru.lavafrai.mai.api.models.Student
@@ -50,6 +57,11 @@ import ru.lavafrai.maiapp.ui.fragments.ClickableCard
 import ru.lavafrai.maiapp.ui.fragments.button.DangerButton
 import ru.lavafrai.maiapp.ui.fragments.layout.PageTitle
 import ru.lavafrai.maiapp.ui.fragments.text.TextH3
+import ru.lavafrai.maiapp.ui.theme.MarkGreenColor
+import ru.lavafrai.maiapp.ui.theme.MarkOrangeColor
+import ru.lavafrai.maiapp.ui.theme.MarkRedColor
+import ru.lavafrai.maiapp.ui.theme.MarkTextColor
+import ru.lavafrai.maiapp.ui.theme.MarkYellowColor
 import ru.lavafrai.maiapp.widget.fragments.Separator
 
 @Composable
@@ -192,7 +204,7 @@ fun ColumnScope.SemesterMarksView(semester: Int, marks: List<Mark>, currentSemes
             marks.sortedBy {
                 it.value.isNotBlank()
             }.forEach {
-                MarkView(mark = it)
+                MarkView(mark = it, currentSemester)
             }
         }
     }
@@ -203,19 +215,89 @@ fun ColumnScope.SemesterMarksView(semester: Int, marks: List<Mark>, currentSemes
 }
 
 @Composable
-fun MarkView(mark: Mark) {
+fun MarkView(mark: Mark, currentSemester: Int) {
+    val isCurrentSemester = (mark.semester == currentSemester)
+    val isAcademicDebt = (mark.semester < currentSemester) && (mark.value in listOf("Ня", "Нзч", "2"))
+
     ClickableCard(
         innerPadding = 8.dp,
         modifier = Modifier
             .padding(bottom = 8.dp)
             .fillMaxWidth()
     ) {
-        Text(text = mark.name)
-        Text(text = mark.value)
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = mark.name)
+                Text(text = mark.lecturer.replace(".", ". ").replace("  ", " ").capitalizeWords(), color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f))
+                Text(text = mark.hours.toString() + " " + stringResource(R.string.hours), color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f))
+            }
+            MarkValueView(mark.value)
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            AssistChip(onClick = {  }, label = { Text(mark.typeControlName.localizeTypeControlName().capitalizeWords()) })
+            if (mark.attempts > 1) AssistChip(onClick = {  }, label = { Text(stringResource(R.string.fromNAttempt).replace("%n", mark.attempts.toString())) })
+            if (isAcademicDebt) AssistChip(onClick = {  }, label = { Text(stringResource(R.string.academicDebt)) })
+        }
+    }
+}
+
+@Composable
+private fun MarkValueView(value: String, modifier: Modifier = Modifier) {
+    val color = when (value) {
+        "Зч" -> MarkGreenColor
+        "5" -> MarkGreenColor
+        "4" -> MarkYellowColor
+        "3" -> MarkOrangeColor
+        "2" -> MarkRedColor
+        "Нзч" -> MarkRedColor
+        "Ня" -> MarkRedColor
+
+        else -> MarkRedColor
+    }
+
+    if (value.isNotBlank()) Box(
+        modifier = modifier
+            .clip(MaterialTheme.shapes.extraSmall)
+            .background(color)
+            .padding(vertical = 4.dp, horizontal = 6.dp)
+    ) {
+        Text(value, color = MarkTextColor)
+    }
+    else Box(
+        modifier = modifier
+            .border(
+                1.dp,
+                MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f),
+                MaterialTheme.shapes.extraSmall
+            )
+            .padding(vertical = 4.dp, horizontal = 6.dp)
+    ) {
+        Text(text = "  ")
     }
 }
 
 fun getCurrentSemester(studentMarks: StudentMarks): Int {
     val maxSemester = studentMarks.marks.maxOfOrNull { it.semester }
     return maxSemester ?: 0
+}
+
+@Composable
+fun String.localizeTypeControlName(): String {
+    return when(this) {
+        "Зч" -> stringResource(R.string.test)
+        "Зо" -> stringResource(R.string.testWithAssessment)
+        "Э" -> stringResource(R.string.exam)
+        "Р" -> stringResource(R.string.rating)
+
+        else -> stringResource(R.string.unknown)
+    }
 }

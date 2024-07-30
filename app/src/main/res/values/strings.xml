@@ -192,4 +192,11 @@
     <string name="error">error</string>
     <string name="accountNetworkError">An error occurred with the code %e when receiving the information. \nThe error is probably caused by a poor network connection or problems with the official MAI servers. Try restarting the app or logging out of your account and logging in again. If the error persists for a long time, contact the developer for help.</string>
     <string name="copyTraceback">Copy stacktrace</string>
+
+    <string name="test">Test</string>
+    <string name="testWithAssessment">Test with assessment</string>
+    <string name="rating">Rating</string>
+    <string name="fromNAttempt">With %n attempts</string>
+    <string name="academicDebt">Academic debt</string>
+    <string name="hours">hours</string>
 </resources>
