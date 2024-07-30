@@ -12,6 +12,7 @@
     <string name="schedule">Расписание</string>
     <string name="schedule_loading_title">Загружаем расписание</string>
     <string name="schedule_loading">Не удалось найти расписание на устройстве или вы попросили его обновить, поэтому сейчас мы скачиваем его с сайта. Это может занять до нескольких минут, зато потом расписание будет открываться быстро.\n\nПожалуйста, не закрывайте эту страницу и немного подождите.</string>
+
     <string name="monday">понедельник</string>
     <string name="tuesday">вторник</string>
     <string name="wednesday">среда</string>
@@ -44,6 +45,7 @@
     <string name="department">Кафедра</string>
     <string name="course_num">Курс</string>
     <string name="tour_group">ваша группа</string>
+
     <string name="redownload_schedule">Обновить расписание</string>
     <string name="redownload_schedule_set">Расписание будет обновлено автоматически при следующем открытии</string>
     <string name="are_you_sure">Вы уверенны?</string>
@@ -80,6 +82,7 @@
     <string name="october">Октября</string>
     <string name="november">Ноября</string>
     <string name="december">Декабря</string>
+
     <string name="no_lessons_in_this_day">В этот день нет занятий</string>
     <string name="widget_schedule_not_exist_1">Расписание еще не загружено</string>
     <string name="widget_schedule_not_exist_2">Сначала скачайте его в приложении</string>
@@ -137,10 +140,13 @@
     <string name="campus_map">План студгородка</string>
     <string name="campus">Студгородок</string>
     <string name="live">Жизнь</string>
+
     <string name="schedule_updated">Расписание обновлено</string>
     <string name="schedule_update_failed">Ошибка при обновлении расписания</string>
     <string name="use_server_cache">Использовать кэширование</string>
     <string name="faculty_and_course">Институт %faculty%, курс %course%</string>
+    <string name="mai_dictionary">Маёвский словарик</string>
+
     <string name="author">Автор</string>
     <string name="source">Источник</string>
     <string name="publishTime">Опубликовано</string>
@@ -148,7 +154,7 @@
     <string name="never">никогда</string>
     <string name="schedule_from">Расписание от</string>
     <string name="by">От</string>
-    <string name="mai_dictionary">Маёвский словарик</string>
+
     <string name="selected">Выбрано</string>
     <string name="restart">Перезапустить</string>
     <string name="restart_and_wipe_data">Очистить данные и перезапустить</string>
@@ -156,6 +162,8 @@
     <string name="work_type">Типы работ</string>
     <string name="start_typing">Начните печатать…</string>
     <string name="teacher_reviews">Обзоры преподавателей</string>
+    <string name="about_teachers">О преподавателях</string>
+
     <string name="save">Сохранить</string>
     <string name="control_work">Контрольная</string>
     <string name="important">Важное</string>
@@ -164,7 +172,6 @@
     <string name="сolloquium">Коллоквиум</string>
     <string name="comment">Комментарий</string>
     <string name="final_test">Зачёт</string>
-    <string name="about_teachers">О преподавателях</string>
 
     <string name="enter_as">Войти как…</string>
     <string name="student">Студент</string>
@@ -183,10 +190,11 @@
     <string name="password">пароль</string>
     <string name="signIn">Войти</string>
     <string name="officialAccountLoginInfo">Пожалуйста, введите данные для авторизации на сайте my.mai.ru\nВсе учетные данные будут храниться локально на вашем устройстве, будут доступны только вам и не будут отправлены на сервера приложений.</string>
-    <string name="group">Группа</string>
-    <string name="speciality">Специальность</string>
     <string name="signOut">Выйти</string>
     <string name="doYouWantToSignOut">Вы уверены что хотите выйти из аккаунта?</string>
+
+    <string name="group">Группа</string>
+    <string name="speciality">Специальность</string>
     <string name="semester">Семестр</string>
     <string name="error">ошибка</string>
     <string name="accountNetworkError">При получении информации произошла ошибка с кодом %e.\nВероятно, ошибка вызвана плохим соединением с сетью или проблемами с оффициальными серверами МАИ. Попробуйте перезагрузить приложение или выйти из аккаунта и войти повторно. Если ошибка воспроизводится на протяжении долгого времени, обратитесь к разработчику за помощью.</string>

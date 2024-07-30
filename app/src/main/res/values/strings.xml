@@ -61,6 +61,7 @@
     <string name="day_theme">Day</string>
     <string name="default_theme">Default</string>
     <string name="night_theme">Night</string>
+
     <string name="uid">Unique id</string>
     <string name="uid_description">With this ID, you can ask for support, it is needed so that the developer can identify the problem above.</string>
     <string name="click_to_copy">(click to copy)</string>
@@ -82,6 +83,7 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>
+
     <string name="no_lessons_in_this_day">No lessons in this day</string>
     <string name="widget_schedule_not_exist_1">Schedule not downloaded yet</string>
     <string name="widget_schedule_not_exist_2">Download it in app first time</string>
@@ -96,9 +98,11 @@
     <string name="donation">Donation</string>
     <string name="donation_description">If you use this app and you like it, you might want to support its development. You can do this by making a small donation through the CloudTips service.</string>
     <string name="open_donation">Make donation</string>
+
     <string name="network_error">Network error</string>
     <string name="network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later. The application must be restarted.\nIf you have just updated the app, try wipe the data.</string>
     <string name="soft_network_error_description">A network connection error occurred during operation. Try to reconnect, use a more stable wifi connection or try again later</string>
+
     <string name="properties">Properties</string>
     <string name="property_dynamic_colors">Dynamic colors</string>
 
@@ -137,10 +141,13 @@
     <string name="campus_map">Campus map</string>
     <string name="campus">Campus</string>
     <string name="live">Live</string>
+
     <string name="schedule_updated">Schedule updated</string>
     <string name="schedule_update_failed">Failed to update schedule</string>
     <string name="use_server_cache">Use cache</string>
     <string name="faculty_and_course">Faculty %faculty%, course %course%</string>
+    <string name="mai_dictionary">MAI\'s dictionary</string>
+
     <string name="author">Author</string>
     <string name="source">Source</string>
     <string name="publishTime">Published at</string>
@@ -148,7 +155,7 @@
     <string name="never">never</string>
     <string name="schedule_from">Schedule from</string>
     <string name="by">By</string>
-    <string name="mai_dictionary">MAI\'s dictionary</string>
+
     <string name="selected">Selected</string>
     <string name="restart">Restart</string>
     <string name="restart_and_wipe_data">Restart and wipe data</string>
@@ -156,6 +163,8 @@
     <string name="work_type">Work type</string>
     <string name="start_typing">Start typing…</string>
     <string name="teacher_reviews">Teacher reviews</string>
+    <string name="about_teachers">About teachers</string>
+
     <string name="save">Save</string>
     <string name="control_work">Control work</string>
     <string name="important">Important</string>
@@ -164,7 +173,6 @@
     <string name="сolloquium">Colloquium</string>
     <string name="comment">Comment</string>
     <string name="final_test">Final test</string>
-    <string name="about_teachers">About teachers</string>
 
     <string name="enter_as">Enter as…</string>
     <string name="student">Student</string>
@@ -184,10 +192,11 @@
     <string name="password">password</string>
     <string name="signIn">Sign in</string>
     <string name="officialAccountLoginInfo">Please enter the authorization data from your account on the website my.mai.ru\nAll credentials will be stored locally on your device and will not be sent to the applications servers.</string>
-    <string name="group">Group</string>
-    <string name="speciality">Speciality</string>
     <string name="signOut">Sign out</string>
     <string name="doYouWantToSignOut">Do you really want to sign out?</string>
+
+    <string name="group">Group</string>
+    <string name="speciality">Speciality</string>
     <string name="semester">Semester</string>
     <string name="error">error</string>
     <string name="accountNetworkError">An error occurred with the code %e when receiving the information. \nThe error is probably caused by a poor network connection or problems with the official MAI servers. Try restarting the app or logging out of your account and logging in again. If the error persists for a long time, contact the developer for help.</string>
