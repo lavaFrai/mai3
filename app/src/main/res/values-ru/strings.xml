@@ -189,7 +189,7 @@
     <string name="login">логин</string>
     <string name="password">пароль</string>
     <string name="signIn">Войти</string>
-    <string name="officialAccountLoginInfo">Пожалуйста, введите данные для авторизации на сайте my.mai.ru\nВсе учетные данные будут храниться локально на вашем устройстве, будут доступны только вам и не будут отправлены на сервера приложений.</string>
+    <string name="officialAccountLoginInfo">Пожалуйста, введите данные для авторизации на сайте my.mai.ru\nВсе учетные данные будут храниться локально на вашем устройстве, будут доступны только вам и не будут отправлены на сервера приложения.</string>
     <string name="signOut">Выйти</string>
     <string name="doYouWantToSignOut">Вы уверены что хотите выйти из аккаунта?</string>
 
@@ -206,4 +206,5 @@
     <string name="fromNAttempt">Со %n попытки</string>
     <string name="academicDebt">Долг</string>
     <string name="hours">часов</string>
+    <string name="coursework">Курсовая работа</string>
 </resources>

@@ -41,11 +41,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.valentinilk.shimmer.shimmer
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.LogOut
 import ru.lavafrai.mai.api.capitalizeWords
+import ru.lavafrai.mai.api.models.Certificate
+import ru.lavafrai.mai.api.models.Certificates
 import ru.lavafrai.mai.api.models.Mark
 import ru.lavafrai.mai.api.models.Person
 import ru.lavafrai.mai.api.models.Student
@@ -62,6 +66,7 @@ import ru.lavafrai.maiapp.ui.theme.MarkOrangeColor
 import ru.lavafrai.maiapp.ui.theme.MarkRedColor
 import ru.lavafrai.maiapp.ui.theme.MarkTextColor
 import ru.lavafrai.maiapp.ui.theme.MarkYellowColor
+import ru.lavafrai.maiapp.utils.capitalizeFirstWord
 import ru.lavafrai.maiapp.widget.fragments.Separator
 
 @Composable
@@ -83,14 +88,17 @@ fun OfficialAccountLoadedPage(viewModel: OfficialAccountViewModel, viewState: Ac
                 .fillMaxSize()
                 .padding(horizontal = 16.dp)
         ) {
-            PersonView(viewModel, student, person)
+            PersonView(viewModel, student, person, viewState.certificates)
             MarksView(viewModel, student, person, marks)
         }
     }
 }
 
 @Composable
-fun PersonView(viewModel: OfficialAccountViewModel, student: Student, person: Person) {
+fun PersonView(viewModel: OfficialAccountViewModel, student: Student, person: Person, certificates: List<Certificate>?) {
+    val certificatesCount = certificates?.size
+    val doneCertificates = certificates?.filter { it.status != "В обработке" }?.size
+
     ClickableCard(
         Modifier
             .padding(top = 32.dp)
@@ -124,6 +132,8 @@ fun PersonView(viewModel: OfficialAccountViewModel, student: Student, person: Pe
             "${stringResource(R.string.speciality)} ${student.specialityCipher}",
             modifier = Modifier.padding(bottom = textPadding)
         )
+        if (certificates != null) Text("Заказано справок: $certificatesCount ($doneCertificates готово)", modifier = Modifier.padding(bottom = textPadding))
+        else Box(Modifier.padding(bottom = textPadding)) { Box(Modifier.fillMaxWidth(0.8f).shimmer().clip(MaterialTheme.shapes.extraSmall).background(Color.LightGray)) { Text("Aboba") } }
 
         Button(onClick = { viewModel.refresh() }, modifier = Modifier.fillMaxWidth()) {
             Icon(Icons.Default.Refresh, null)
@@ -243,7 +253,7 @@ fun MarkView(mark: Mark, currentSemester: Int) {
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            AssistChip(onClick = {  }, label = { Text(mark.typeControlName.localizeTypeControlName().capitalizeWords()) })
+            AssistChip(onClick = {  }, label = { Text(mark.typeControlName.localizeTypeControlName().capitalizeFirstWord()) })
             if (mark.attempts > 1) AssistChip(onClick = {  }, label = { Text(stringResource(R.string.fromNAttempt).replace("%n", mark.attempts.toString())) })
             if (isAcademicDebt) AssistChip(onClick = {  }, label = { Text(stringResource(R.string.academicDebt)) })
         }
@@ -297,6 +307,7 @@ fun String.localizeTypeControlName(): String {
         "Зо" -> stringResource(R.string.testWithAssessment)
         "Э" -> stringResource(R.string.exam)
         "Р" -> stringResource(R.string.rating)
+        "КР" -> stringResource(R.string.coursework)
 
         else -> stringResource(R.string.unknown)
     }

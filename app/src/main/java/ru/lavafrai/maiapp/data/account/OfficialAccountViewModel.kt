@@ -50,12 +50,14 @@ class OfficialAccountViewModel(val accountRepository: AccountRepository): ViewMo
         }
     }
 
-    fun login(login: String, password: String, errorCallback: LoginCallback) {
+    fun login(_login: String, password: String, errorCallback: LoginCallback) {
         viewModelScope.launch {
+            var login = _login
             // delay(2000)
             if (!login.endsWith("@mai.education")) {
-                errorCallback("Логин должен заканчиваться на @mai.education")
-                return@launch
+                login += "@mai.education"
+                // errorCallback("Логин должен заканчиваться на @mai.education")
+                // return@launch
             }
 
             if (password.isBlank()) {
@@ -70,6 +72,14 @@ class OfficialAccountViewModel(val accountRepository: AccountRepository): ViewMo
                 return@launch
             } catch (e: UnresolvedAddressException) {
                 errorCallback("Нет подключения к интернету")
+                return@launch
+            } catch (e: IOException) {
+                errorCallback(
+                    when (e.message) {
+                        "Connection reset by peer" -> "Соединение сброшено (Попробуйте отключить VPN)"
+                        else -> e.toString()
+                    }
+                )
                 return@launch
             } catch (e: Exception) {
                 errorCallback("Неизвестная ошибка: $e")
@@ -134,8 +144,25 @@ class OfficialAccountViewModel(val accountRepository: AccountRepository): ViewMo
             _state.value = AccountState(state = AccountState.State.Error, errorType = AccountState.Error.Unknown, error = e)
             return
         }
-
         _state.value = _state.value.copy(marks=marks)
+
+        val certificates = try {
+            session.certificates().certificates
+        } catch (e: InvalidLoginOrPasswordException) {
+            _state.value = AccountState(state = AccountState.State.Error, errorType = AccountState.Error.FailedToAuthorize, error = e)
+            return
+        } catch (e: IOException) {
+            _state.value = AccountState(state = AccountState.State.Error, errorType = AccountState.Error.NetworkError, error = e)
+            return
+        } catch (e: UnresolvedAddressException) {
+            _state.value = AccountState(state = AccountState.State.Error, errorType = AccountState.Error.NetworkError, error = e)
+            return
+        } catch (e: Exception) {
+            _state.value = AccountState(state = AccountState.State.Error, errorType = AccountState.Error.Unknown, error = e)
+            return
+        }
+        _state.value = _state.value.copy(certificates=certificates)
+
     }
 
     class Factory(val context: Context): ViewModelProvider.Factory {

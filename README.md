@@ -5,6 +5,8 @@
 
 Актуальные версии и информация: https://t.me/maiapp3
 
+Сайт проекта: https://mai3.lavafrai.ru/
+
 Разработчик: https://lavafrai.ru/
 
 Поддрежать разработку: https://pay.cloudtips.ru/p/e930707c

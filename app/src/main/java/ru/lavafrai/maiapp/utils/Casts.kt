@@ -226,3 +226,8 @@ fun Modifier.clearFocusOnKeyboardDismiss(): Modifier = composed {
         }
     }
 }
+
+fun String.capitalizeFirstWord(): String {
+    val first = this[0]
+    return first.uppercase() + this.substring(1)
+}

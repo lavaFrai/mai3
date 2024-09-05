@@ -122,5 +122,5 @@ dependencies {
     implementation("com.github.lavaFrai:maiapi:v2.0.9")
     implementation("com.github.lavaFrai:exler-maiapi:v1.0.6")
     implementation("com.github.lavaFrai:maiApplicantsParser2024:bd259f971d")
-    implementation("com.github.lavaFrai:maiaccount:440f24e923")
+    implementation("com.github.lavaFrai:maiaccount:6ea88e94db")
 }
