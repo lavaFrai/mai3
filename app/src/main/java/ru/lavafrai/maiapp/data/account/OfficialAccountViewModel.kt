@@ -147,7 +147,7 @@ class OfficialAccountViewModel(val accountRepository: AccountRepository): ViewMo
         _state.value = _state.value.copy(marks=marks)
 
         val certificates = try {
-            session.certificates().certificates
+            session.certificates().certificates ?: listOf()
         } catch (e: InvalidLoginOrPasswordException) {
             _state.value = AccountState(state = AccountState.State.Error, errorType = AccountState.Error.FailedToAuthorize, error = e)
             return

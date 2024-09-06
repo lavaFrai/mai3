@@ -133,7 +133,7 @@ fun PersonView(viewModel: OfficialAccountViewModel, student: Student, person: Pe
             modifier = Modifier.padding(bottom = textPadding)
         )
         if (certificates != null) Text("Заказано справок: $certificatesCount ($doneCertificates готово)", modifier = Modifier.padding(bottom = textPadding))
-        else Box(Modifier.padding(bottom = textPadding)) { Box(Modifier.fillMaxWidth(0.8f).shimmer().clip(MaterialTheme.shapes.extraSmall).background(Color.LightGray)) { Text("Aboba") } }
+        else Box(Modifier.padding(bottom = textPadding)) { Box(Modifier.fillMaxWidth(0.8f).shimmer().clip(MaterialTheme.shapes.extraSmall).background(Color.LightGray)) { Text(" ") } }
 
         Button(onClick = { viewModel.refresh() }, modifier = Modifier.fillMaxWidth()) {
             Icon(Icons.Default.Refresh, null)
