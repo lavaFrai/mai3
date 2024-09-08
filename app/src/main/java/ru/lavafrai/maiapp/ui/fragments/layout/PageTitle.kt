@@ -90,7 +90,7 @@ fun PageTitle(
 
                 if (buttonText != null) {
                     TextButton(onClick = { onButtonClicked() }, modifier = Modifier.width(128.dp)) {
-                        Text(buttonText)
+                        Text(buttonText, maxLines = 1)
                     }
                 }
             }

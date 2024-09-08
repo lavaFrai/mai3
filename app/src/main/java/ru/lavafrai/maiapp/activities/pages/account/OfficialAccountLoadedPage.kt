@@ -88,16 +88,17 @@ fun OfficialAccountLoadedPage(viewModel: OfficialAccountViewModel, viewState: Ac
                 .fillMaxSize()
                 .padding(horizontal = 16.dp)
         ) {
-            PersonView(viewModel, student, person, viewState.certificates)
+            PersonView(viewModel, student, person, viewState.certificates, viewState.marks?.marks)
             MarksView(viewModel, student, person, marks)
         }
     }
 }
 
 @Composable
-fun PersonView(viewModel: OfficialAccountViewModel, student: Student, person: Person, certificates: List<Certificate>?) {
+fun PersonView(viewModel: OfficialAccountViewModel, student: Student, person: Person, certificates: List<Certificate>?, marks: List<Mark>?) {
     val certificatesCount = certificates?.size
     val doneCertificates = certificates?.filter { it.status != "В обработке" }?.size
+    val debtsCount = if (marks == null) 0 else getDebtsCount(marks)
 
     ClickableCard(
         Modifier
@@ -134,6 +135,10 @@ fun PersonView(viewModel: OfficialAccountViewModel, student: Student, person: Pe
         )
         if (certificates != null) Text("Заказано справок: $certificatesCount ($doneCertificates готово)", modifier = Modifier.padding(bottom = textPadding))
         else Box(Modifier.padding(bottom = textPadding)) { Box(Modifier.fillMaxWidth(0.8f).shimmer().clip(MaterialTheme.shapes.extraSmall).background(Color.LightGray)) { Text(" ") } }
+
+        if (certificates != null) Text("Долгов: $debtsCount", modifier = Modifier.padding(bottom = textPadding))
+        else Box(Modifier.padding(bottom = textPadding)) { Box(Modifier.fillMaxWidth(0.4f).shimmer().clip(MaterialTheme.shapes.extraSmall).background(Color.LightGray)) { Text(" ") } }
+
 
         Button(onClick = { viewModel.refresh() }, modifier = Modifier.fillMaxWidth()) {
             Icon(Icons.Default.Refresh, null)
@@ -295,8 +300,10 @@ private fun MarkValueView(value: String, modifier: Modifier = Modifier) {
     }
 }
 
-fun getCurrentSemester(studentMarks: StudentMarks): Int {
-    val maxSemester = studentMarks.marks.maxOfOrNull { it.semester }
+fun getCurrentSemester(studentMarks: StudentMarks): Int = getCurrentSemester(studentMarks.marks)
+
+fun getCurrentSemester(studentMarks: List<Mark>): Int {
+    val maxSemester = studentMarks.maxOfOrNull { it.semester }
     return maxSemester ?: 0
 }
 
@@ -311,4 +318,9 @@ fun String.localizeTypeControlName(): String {
 
         else -> stringResource(R.string.unknown)
     }
+}
+
+fun getDebtsCount(marks: List<Mark>): Int {
+    val currentSemester = getCurrentSemester(marks)
+    return marks.count { it.value in listOf("Ня", "Нзч", "2") }
 }
