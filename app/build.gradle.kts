@@ -3,11 +3,10 @@ import java.io.FileNotFoundException
 import java.util.Properties
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-
-    kotlin("plugin.serialization") version "1.9.22"
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.compose)
 }
 
 var secretPropertiesFile: File = rootProject.file("app/secrets.properties")
@@ -32,7 +31,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 10_000
-        
+
         versionName = "0.10.0b"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -73,54 +72,50 @@ android {
 }
 
 dependencies {
-    val ktor_version = "2.3.12"
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.compose.material3.android)
+    implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.browser)
+    testImplementation(libs.junit)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
-    implementation("androidx.activity:activity-compose:1.9.1")
-    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    // implementation("androidx.compose.material3:material3")
-    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
-    implementation("androidx.compose.material3:material3-android:1.2.1")
-    implementation("androidx.glance:glance-appwidget:1.1.0")
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
-    implementation("androidx.browser:browser:1.8.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.06.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation(libs.jsoup)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.analytics)
+    implementation(libs.okhttp)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.zoomable.image.coil)
+    implementation(libs.compose.material3.pullrefresh)
 
-    implementation("org.jsoup:jsoup:1.18.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
-    implementation("io.appmetrica.analytics:analytics:6.1.0")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
-    implementation("me.saket.telephoto:zoomable-image-coil:0.8.0")
-    implementation("eu.bambooapps:compose-material3-pullrefresh:1.1.0")
+    implementation(libs.simple.icons)
+    implementation(libs.feather)
+    implementation(libs.line.awesome)
 
-    implementation("br.com.devsrsouza.compose.icons:simple-icons:1.1.0")
-    implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
-    implementation("br.com.devsrsouza.compose.icons:line-awesome:1.1.0")
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.ksoup.html)
+    implementation(libs.commons.text)
+    implementation(libs.coil.compose)
+    implementation(libs.compose.shimmer)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
 
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("com.mohamedrejeb.ksoup:ksoup-html:0.3.1")
-    implementation("org.apache.commons:commons-text:1.11.0")
-    implementation("io.coil-kt:coil-compose:2.5.0")
-    implementation("com.valentinilk.shimmer:compose-shimmer:1.3.0")
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
-    implementation("com.github.lavaFrai:maiapi:v2.0.9")
-    implementation("com.github.lavaFrai:exler-maiapi:v1.0.6")
-    implementation("com.github.lavaFrai:maiApplicantsParser2024:bd259f971d")
-    implementation("com.github.lavaFrai:maiaccount:99a5abdce4")
+    implementation(libs.maiapi)
+    implementation(libs.exler.maiapi)
+    implementation(libs.maiapplicantsparser2024)
+    implementation(libs.maiaccount)
 }
